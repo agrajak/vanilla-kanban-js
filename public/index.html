@@ -1,0 +1,94 @@
+<html>
+
+<head>
+  <title>Express</title>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <header class="header">
+    <div class="title">
+      TODO 서비스
+    </div>
+    <div class="menu-btn">
+      menu
+    </div>
+  </header>
+  <!-- 컨테이너 -->
+  <div class="container">
+    <!-- 칼럼 -->
+    <div class="col">
+      <!-- 칼럼헤드 -->
+      <div class="col-header">
+        <div class="note-counter">3</div>
+        <div class="col-title">
+          해야할 일
+        </div>
+        <div class="col-btns">
+          <button class="col-plus">+</button>
+          <button class="col-edit">...</button>
+        </div>
+      </div>
+      <div class="col-body">
+        <!-- 노트 생성폼 -->
+        <div class="note-form">
+          <div class="note-form-body">
+            <textarea class="note-text"></textarea>
+          </div>
+          <div class="note-form-footer">
+            <button class="add-btn">Add</button>
+            <button class="cancel-btn">Cancel</button>
+          </div>
+        </div>
+        <!-- 노트 -->
+        <div class="note">
+          <div class="note-header">
+            <div class="note-icon"><img/></div>
+            <div class="note-title">제목</div>
+            <button class="note-delete-btn">X</button>
+          </div>
+          <div class="note-body">
+            <div class="note-content">내용</div>
+            <div class="note-footer">Added by ...</div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- drawer -->
+  <div class="menu">
+    <div class="menu-header">
+      <div class="menu-title">제목</div>
+      <button class="menu-closer">X</button>
+    </div>
+    <div class="activity">Activiy</div>
+    <ul class="log-list">
+      <li class="log">
+        <div class="avatar">
+          <img/>
+        </div>
+        <div class="log-body">
+          <div class="log-content"></div>
+          <div class="log-footer"></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <!-- 모달창 -->
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">제목</div>
+      <button class="modal-closer">X</button>
+    </div>
+    <div class="modal-content">
+      <textarea>내용</textarea>
+      <input type="text"/>
+    </div>
+    <div class="modal-footer">
+      <button>Submit</button>
+    </div>
+  </div>
+</body>
+
+</html>
