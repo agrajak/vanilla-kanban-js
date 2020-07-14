@@ -1,28 +1,22 @@
 import Note from "../Note";
+import Component from "..";
 
-export default class Column {
+export default class Column extends Component {
     constructor(props) {
-        this.$ = document.createElement("div");
-        this.$.setAttribute('class', 'col')
-        this.$.innerHTML = this.render();
-        
+        super(props, 'col')
+
         this.$colTitle = this.$.querySelector('.col-title')
         this.$noteForm = this.$.querySelector('.note-form')
         this.$noteFormBtn = this.$.querySelector('.note-plus')
         this.$noteAddBtn = this.$.querySelector('.add-btn')
 
         this.notes = []
-        this.props = props
 
         this.$noteFormBtn.addEventListener('click', this.showNoteForm);
         this.$noteAddBtn.addEventListener('click', this.appendNote);
-
     }
     mount(element){
-        element.append(this.$)
-        for(const elem in this.props){
-            this[elem] = this.props[elem];
-        }
+        super.mount(element)
     }
     get title(){
         return this.$colTitle.innerText;

@@ -1,39 +1,33 @@
-export default class Note  {
+import Component from "..";
+
+export default class Note extends Component{
     constructor(props) {
+        super(props, 'note')
         
-        this.$ = document.createElement("div");
-        this.$.setAttribute('class', 'note')
-        
-        this.$.innerHTML = this.render();
         this.$noteTitle = this.$.querySelector('.note-title')
         this.$noteContent = this.$.querySelector('.note-content')
-        this.$noteFooter = this.$.querySelector('.note-footer')
-        this.props = props
+        this.$noteWriter = this.$.querySelector('.note-writer')
     }
     mount(element){
-        element.append(this.$)
-        const {title, writer, content=""} = this.props;
-        this.noteTitle = title
-        this.noteContent = content
-        this.noteFooter = `Added by ${writer}...`
+        super.mount(element)
     }
-    get noteTitle(){
+    get title(){
         return this.$noteTitle.innerText;
     }
-    set noteTitle(value){
+    set title(value){
         this.$noteTitle.innerText = value;
     }
-    get noteContent(){
+    get content(){
         return this.$noteContent.innerText;
     }
-    set noteContent(value){
+    set content(value){
         this.$noteContent.innerText = value;
     }
-    get noteFooter(){
-        return this.$noteFooter.innerText;
+    get writer(){
+        return this.$noteWriter.innerText;
     }
-    set noteFooter(value){
-        this.$noteFooter.innerText = value;
+    set writer(value){
+        this.$noteWriter.innerText = value;
     }
     render(){
         return `
@@ -44,7 +38,7 @@ export default class Note  {
                 </div>
                 <div class="note-body">
                     <div class="note-content">내용</div>
-                <div class="note-footer">Added by ...</div>  
+                <div class="note-footer">Added by <span class="note-writer"></span></div>  
             </div>
         `
     }

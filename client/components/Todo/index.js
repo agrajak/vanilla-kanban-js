@@ -1,20 +1,18 @@
-export default class Todo {
-    constructor() {
-        this.$ = document.createElement("div");
-        this.$.setAttribute('class', 'main-container')
-        this.$.innerHTML = this.render();
+import Component from "..";
+
+export default class Todo extends Component{
+    constructor(props) {
+        super(props, 'main-container')
         this.columns = []
     }
     mount(element){
-        element.append(this.$)
+        super.mount(element)
     }
     render(){
-        return `
-        `
+        return ``
     }
     addColumn(column){
         this.columns.push(column)
         column.mount(this.$)
     }
 }
-
