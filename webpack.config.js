@@ -1,3 +1,4 @@
+/* eslint-disable */
 const path = require('path');
 
 module.exports = {
@@ -9,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, "client/public"),
     filename: "bundle.js",
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
