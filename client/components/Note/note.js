@@ -16,7 +16,7 @@ export default class Note extends Component {
     this.$noteDeleteBtn.addEventListener('click', () => {
       this.parent.removeNote(this);
     });
-    
+
     const { title, content, writer } = this.props;
     this.title = title;
     this.content = content;
