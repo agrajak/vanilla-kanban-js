@@ -1,5 +1,6 @@
 import Note from '../Note';
 import Component from '..';
+import './column.css';
 
 export default class Column extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ export default class Column extends Component {
     this.$noteForm = this.$.querySelector('.note-form');
     this.$noteFormBtn = this.$.querySelector('.note-plus');
     this.$noteAddBtn = this.$.querySelector('.add-btn');
+    this.$colBody = this.$.querySelector('.col-body');
 
     this.notes = [];
 
@@ -42,7 +44,7 @@ export default class Column extends Component {
 
   addNote(note) {
     this.notes.push(note);
-    note.mount(this.$);
+    note.mount(this.$colBody);
   }
 
   mount(element) {
