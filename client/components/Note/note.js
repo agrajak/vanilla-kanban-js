@@ -8,6 +8,11 @@ export default class Note extends Component {
     this.$noteTitle = this.$.querySelector('.note-title');
     this.$noteContent = this.$.querySelector('.note-content');
     this.$noteWriter = this.$.querySelector('.note-writer');
+
+    const { title, content, writer } = this.props;
+    this.title = title;
+    this.content = content;
+    this.writer = writer;
   }
 
   get title() {
