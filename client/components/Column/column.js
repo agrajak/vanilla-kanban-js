@@ -35,6 +35,12 @@ export default class Column extends Component {
     note.mount(this.$colBody);
   }
 
+  removeNote(note) {
+    const { $ } = note;
+    this.notes = this.notes.filter((x) => x !== $);
+    this.$colBody.removeChild($);
+  }
+
   mount(element) {
     this.noteForm.mount(this.$colBody);
     super.mount(element);

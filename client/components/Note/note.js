@@ -8,31 +8,23 @@ export default class Note extends Component {
     this.$noteTitle = this.$.querySelector('.note-title');
     this.$noteContent = this.$.querySelector('.note-content');
     this.$noteWriter = this.$.querySelector('.note-writer');
+    this.$noteDeleteBtn = this.$.querySelector('.note-delete-btn');
 
+    this.$noteDeleteBtn.addEventListener('click', () => {
+      this.parent.removeNote(this);
+    });
     const { title, content, writer } = this.props;
     this.title = title;
     this.content = content;
     this.writer = writer;
   }
 
-  get title() {
-    return this.$noteTitle.innerText;
-  }
-
   set title(value) {
     this.$noteTitle.innerText = value;
   }
 
-  get content() {
-    return this.$noteContent.innerText;
-  }
-
   set content(value) {
     this.$noteContent.innerText = value;
-  }
-
-  get writer() {
-    return this.$noteWriter.innerText;
   }
 
   set writer(value) {
