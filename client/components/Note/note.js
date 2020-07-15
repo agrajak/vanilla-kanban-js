@@ -10,9 +10,13 @@ export default class Note extends Component {
     this.$noteWriter = this.$.querySelector('.note-writer');
     this.$noteDeleteBtn = this.$.querySelector('.note-delete-btn');
 
+    this.noteModal = this.parent.parent.noteModal;
+
+    this.$.addEventListener('click', this.noteModal.show);
     this.$noteDeleteBtn.addEventListener('click', () => {
       this.parent.removeNote(this);
     });
+    
     const { title, content, writer } = this.props;
     this.title = title;
     this.content = content;
