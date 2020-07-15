@@ -1,7 +1,7 @@
-import Component from '../component';
-import './modal.css';
+import Component from '../../component';
+import '../modal.css';
 
-export default class Modal extends Component {
+export default class ColModal extends Component {
   constructor(parent, props) {
     super(parent, props, 'modal');
 
@@ -25,11 +25,11 @@ export default class Modal extends Component {
     return `
     <div class="modal-container">
         <div class="modal-header">
-            <div class="modal-title">제목</div>
+            <div class="modal-title">Edit 제목</div>
             <button class="modal-closer">X</button>
         </div>
         <div class="modal-content">
-        <label for="name" class="label-col-name">
+        <label for="title" class="label-col-name">
             Column name
         </label>
         <input name="title" type="text"/>
