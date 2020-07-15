@@ -10,6 +10,7 @@ export default class Column extends Component {
     this.$noteForm = this.$.querySelector('.note-form');
     this.$noteFormBtn = this.$.querySelector('.note-plus');
     this.$noteAddBtn = this.$.querySelector('.add-btn');
+    this.$colBody = this.$.querySelector('.col-body');
     this.$colEditBtn = this.$.querySelector('.col-edit');
     this.$modalCloseBtn = this.$.querySelector('.modal-closer');
     this.$noteForm = this.$.querySelector('.note-form');
@@ -49,7 +50,7 @@ export default class Column extends Component {
 
   addNote(note) {
     this.notes.push(note);
-    note.mount(this.$);
+    note.mount(this.$colBody);
   }
 
   showModal = () => {

@@ -1,6 +1,6 @@
-import './index.css';
 import Todo from './components/Todo';
 import Column from './components/Column';
+import './global.css';
 
 const body = document.querySelector('body');
 const todo = new Todo();

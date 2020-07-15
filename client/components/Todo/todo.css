@@ -1,0 +1,7 @@
+.main-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    position: relative;
+    height: 80vh;
+}

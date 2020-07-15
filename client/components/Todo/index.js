@@ -1,4 +1,5 @@
 import Component from '..';
+import './todo.css';
 
 export default class Todo extends Component {
   constructor(props) {

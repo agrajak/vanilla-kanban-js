@@ -1,0 +1,31 @@
+.note {
+    border: 1px solid black;
+    margin: 4px;
+    padding: 20px;
+}
+
+.note-header {
+    display: flex;
+}
+.note-footer {
+    margin: 2px 0px;
+    font-size: 0.9em;
+}
+.note-delete-btn {
+    background-color: white;
+    border: none;
+    font-size: 0.8em;
+    margin-left: auto;
+    outline: none;
+}
+.selected {
+    border: 1px solid red;
+}
+.floated {
+    position: absolute;
+    pointer-events: none;
+}
+.moved {
+    opacity: 0.5;
+    border: 1px solid black;
+}

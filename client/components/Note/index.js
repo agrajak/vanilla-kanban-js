@@ -1,4 +1,5 @@
 import Component from '..';
+import './note.css';
 
 export default class Note extends Component {
   constructor(props) {

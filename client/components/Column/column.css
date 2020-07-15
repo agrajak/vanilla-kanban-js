@@ -1,3 +1,24 @@
+.col {
+    flex: none;
+    min-width: 400px;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    overflow: scroll;
+}
+
+.col-header, .col-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.col-body { 
+    display: flex;
+    flex-direction: column;
+}
+
 .modal {
     display: none;
     position:relative;
@@ -29,6 +50,41 @@
     flex-direction: column;
 }
 
+.col-btns {
+    margin-left: auto;
+}
+.col-btns > button {
+    background-color: white;
+    border: none;
+    font-size: 1.3em;
+    outline: none;
+}
+
+.note-counter {
+    margin: 0px 5px;
+}
+/* note form */
+.note-form-body, .note-form-footer {
+    display: flex;
+}
+
+.note-form-footer > button{
+    flex-grow: 2;
+    width: 50%;
+    font-size: 1em;
+    padding: 5px;
+    margin: 4px;
+}
+
+.note-form-body > textarea {
+    width: 100%;
+    resize: vertical;
+    height: auto;
+    min-height: 3em;
+    font-size: 1em;
+    margin-top: 2em;
+    margin: 4px;
+}
 .label-col-name, .input-col-name {
     display: block;
 }
@@ -46,4 +102,3 @@
   background:rgba(0, 0, 0, 0.5);
   z-index:-1;
 }
-  
