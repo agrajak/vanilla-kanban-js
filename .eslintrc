@@ -2,7 +2,8 @@
     "parser": "babel-eslint",
     "extends": ["airbnb"],
     "rules": {
-        "react/sort-comp":0
+        "react/sort-comp": 0,
+        "react/prop-types": 0
     },
     "parserOptions": {
         "sourceType": "module"
