@@ -8,6 +8,9 @@ export default class Note extends Component {
     this.$noteTitle = this.$.querySelector('.note-title');
     this.$noteContent = this.$.querySelector('.note-content');
     this.$noteWriter = this.$.querySelector('.note-writer');
+
+    this.noteModal = this.parent.parent.noteModal;
+    this.$.addEventListener('click', this.noteModal.show);
   }
 
   get title() {
