@@ -2,8 +2,8 @@ import Component from '..';
 import './note.css';
 
 export default class Note extends Component {
-  constructor(props) {
-    super(props, 'note');
+  constructor(parent, props) {
+    super(parent, props, 'note');
 
     this.$noteTitle = this.$.querySelector('.note-title');
     this.$noteContent = this.$.querySelector('.note-content');
