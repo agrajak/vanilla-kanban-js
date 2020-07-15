@@ -1,6 +1,6 @@
-import Component from '..';
+import Component from '../component';
 import './todo.css';
-import Modal from '../Modal';
+import Modal from '../Modal/modal';
 
 export default class Todo extends Component {
   constructor(parent, props) {

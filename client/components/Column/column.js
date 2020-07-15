@@ -1,5 +1,5 @@
-import Note from '../Note';
-import Component from '..';
+import Note from '../Note/note';
+import Component from '../component';
 import './column.css';
 
 export default class Column extends Component {

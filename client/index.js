@@ -1,5 +1,5 @@
-import Todo from './components/Todo';
-import Column from './components/Column';
+import Todo from './components/Todo/todo';
+import Column from './components/Column/column';
 import './global.css';
 
 const body = document.querySelector('body');
