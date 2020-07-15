@@ -11,11 +11,17 @@ export default class Column extends Component {
     this.$noteFormBtn = this.$.querySelector('.note-plus');
     this.$noteAddBtn = this.$.querySelector('.add-btn');
     this.$colBody = this.$.querySelector('.col-body');
+    this.$colEditBtn = this.$.querySelector('.col-edit');
+    this.$modalCloseBtn = this.$.querySelector('.modal-closer');
+    this.$noteForm = this.$.querySelector('.note-form');
+    this.$colModal = this.$.querySelector('.modal');
 
     this.notes = [];
 
     this.$noteFormBtn.addEventListener('click', this.showNoteForm);
     this.$noteAddBtn.addEventListener('click', this.appendNote);
+    this.$colEditBtn.addEventListener('click', this.showModal);
+    this.$modalCloseBtn.addEventListener('click', this.closeModal);
   }
 
   get title() {
@@ -47,6 +53,14 @@ export default class Column extends Component {
     note.mount(this.$colBody);
   }
 
+  showModal = () => {
+    this.$colModal.style.display = 'block';
+  }
+
+  closeModal = () => {
+    this.$colModal.style.display = 'none';
+  }
+
   mount(element) {
     super.mount(element);
   }
@@ -74,6 +88,24 @@ export default class Column extends Component {
             <button class="cancel-btn">Cancel</button>
           </div>
         </div>
+      </div>
+      <div class="modal">
+        <div class="modal-container">
+          <div class="modal-header">
+              <div class="modal-title">제목</div>
+              <button class="modal-closer">X</button>
+          </div>
+          <div class="modal-content">
+            <label for="name" class="label-col-name">
+              Column name
+            </label>
+            <input name="title" type="text"/>
+          </div>
+          <div class="modal-footer">
+              <button>Submit</button>
+          </div>
+        </div>
+        <div class="modal-bg"></div>
       </div>
     `;
   }
