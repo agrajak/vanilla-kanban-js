@@ -9,9 +9,6 @@ export default class Component {
 
   mount(element) {
     element.append(this.$);
-    Object.keys(this.props).forEach((prop) => {
-      this[prop] = this.props[prop];
-    });
   }
 
   render() {
