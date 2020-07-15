@@ -19,3 +19,18 @@ a {
 .hidden {
   display: none
 }
+
+header {
+  background-color: black;
+  padding: 14px;
+  font-size: 1.3em;
+}
+
+header > div {
+  color: white;
+  display: inline;
+}
+
+header > div.menu-btn {
+  float:right;
+}

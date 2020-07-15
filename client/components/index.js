@@ -1,5 +1,3 @@
-import './global.css';
-
 export default class Component {
   constructor(props, className) {
     this.parent = null;
