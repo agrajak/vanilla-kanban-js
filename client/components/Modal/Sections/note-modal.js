@@ -12,8 +12,8 @@ export default class NoteModal extends Modal {
       <textarea name="note"></textarea>
     `;
 
-    super.setTitle('Edit note');
-    super.setContent(this.content);
-    super.setBtnName('Save note');
+    this.setTitle('Edit note');
+    this.setContent(this.content);
+    this.setBtnName('Save note');
   }
 }
