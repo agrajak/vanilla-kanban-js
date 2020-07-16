@@ -37,7 +37,9 @@ export default class Note extends Component {
   }
 
   onDblClick() {
-    this.noteModal.open();
+    this.noteModal
+      .attach(this)
+      .open();
   }
 
   onMouseOver() {

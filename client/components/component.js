@@ -13,10 +13,12 @@ export default class Component {
 
   open() {
     this.$.classList.remove('hidden');
+    return this;
   }
 
   close() {
     this.$.classList.add('hidden');
+    return this;
   }
 
   /**

@@ -22,18 +22,26 @@ export default class Column extends Component {
     this.noteForm = new NoteForm(this);
 
     this.$noteFormBtn.addEventListener('click', this.noteForm.open.bind(this.noteForm));
-    this.$colEditBtn.addEventListener('click', this.parent.columnModal.open(this.parent.columnModal));
+    this.$colEditBtn.addEventListener('click', this.onColEditBtnClick.bind(this));
   }
 
   setTitle(value) {
     this.title = value;
     this.$colTitle.innerText = value;
+    return this;
   }
 
   addNote({ title, content = '' }) {
     const note = new Note(this, { title, content, writer: 'agrajak' });
     this.notes.push(note);
     note.mount(this.$colBody);
+    return this;
+  }
+
+  onColEditBtnClick() {
+    this.parent.columnModal
+      .attach(this)
+      .open();
   }
 
   removeNote(note) {

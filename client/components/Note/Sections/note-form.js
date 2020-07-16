@@ -1,5 +1,6 @@
 import Component from '../../component';
 import './note-form.css';
+import { parseNoteText } from '../../../utils';
 
 export default class NoteForm extends Component {
   constructor(parent) {
@@ -7,7 +8,7 @@ export default class NoteForm extends Component {
     this.$noteAddBtn = this.$.querySelector('.add-btn');
     this.$noteText = this.$.querySelector('.note-text');
     this.$noteAddBtn.addEventListener('click', () => {
-      this.parent.addNote(this.getFormContents());
+      this.parent.addNote(parseNoteText(this.$noteText.value));
       this.resetFormContents();
       this.close();
     });
@@ -15,16 +16,6 @@ export default class NoteForm extends Component {
 
   resetFormContents() {
     this.$noteText.value = '';
-  }
-
-  getFormContents() {
-    const text = this.$noteText.value.split('\n');
-    const title = text[0];
-    text.shift(0);
-    const content = text.join('\n');
-    return {
-      title, content,
-    };
   }
 
   mount(element) {

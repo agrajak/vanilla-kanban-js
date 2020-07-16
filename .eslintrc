@@ -3,7 +3,8 @@
     "extends": ["airbnb"],
     "rules": {
         "react/sort-comp": 0,
-        "react/prop-types": 0
+        "react/prop-types": 0,
+        "import/named": 0
     },
     "parserOptions": {
         "sourceType": "module"

@@ -19,21 +19,26 @@ export default class ColModal extends Modal {
     this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
     this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
     this.$newTitle = this.$.querySelector('.new-title');
-
-    this.$column = null;
   }
 
-  open(column) {
-    return () => {
-      super.open();
-      this.setTitle(`Edit ${column.title}`);
-      this.$column = column;
-    };
+  open() {
+    super.open();
+    this
+      .setNewTitle(this.$attach.title)
+      .setTitle(`Edit ${this.$attach.title}`);
+    return this;
+  }
+
+  setNewTitle(value) {
+    this.$newTitle.value = value;
+    return this;
   }
 
   submit() {
-    this.$column.setTitle(this.$newTitle.value);
-    this.$newTitle.value = '';
-    this.close();
+    this
+      .$attach.setTitle(this.$newTitle.value);
+    this
+      .close()
+      .setNewTitle('');
   }
 }

@@ -12,6 +12,8 @@ export default class Modal extends Component {
     this.$modalCloseBtn = this.$.querySelector('.modal-closer');
     this.$modalCloseBtn.addEventListener('click', this.close.bind(this));
     this.close();
+
+    this.$attach = null;
   }
 
   mount(element) {
@@ -30,6 +32,11 @@ export default class Modal extends Component {
 
   setBtnName(value) {
     this.$modalSubmitBtn.innerText = value;
+    return this;
+  }
+
+  attach(value) {
+    this.$attach = value;
     return this;
   }
 

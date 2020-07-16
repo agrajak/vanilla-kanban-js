@@ -1,5 +1,6 @@
 import Modal from '../modal';
 import '../modal.css';
+import { parseNoteText } from '../../../utils';
 
 export default class NoteModal extends Modal {
   constructor() {
@@ -18,22 +19,31 @@ export default class NoteModal extends Modal {
       .setBtnName('Save note');
 
     this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
-    this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
     this.$newNote = this.$.querySelector('.new-note');
 
-    this.$note = null;
+    this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
   }
 
-  open(note) {
-    return () => {
-      super.open();
-      this.$note = note;
-    };
+  setNewNote(value) {
+    this.$newNote.value = value;
+    return this;
+  }
+
+  open() {
+    super.open();
+    const { title, content } = this.$attach;
+    this.setNewNote(`${title}\n${content}`);
+    return this;
   }
 
   submit() {
-    this.$note.setContent(this.$newNote.value);
-    this.$newNote.value = '';
-    this.close();
+    const { title, content } = parseNoteText(this.$newNote.value);
+    this.$attach
+      .setTitle(title)
+      .setContent(content);
+    this
+      .setNewNote('')
+      .close();
+    return this;
   }
 }
