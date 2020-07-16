@@ -1,5 +1,5 @@
 import Component from '../component';
-import NoteForm from '../Sections/note-form';
+import NoteForm from '../Note/Sections/note-form';
 import './column.css';
 import Note from '../Note/note';
 

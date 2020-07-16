@@ -1,4 +1,4 @@
-import Component from '../component';
+import Component from '../../component';
 import './note-form.css';
 
 export default class NoteForm extends Component {
