@@ -1,7 +1,7 @@
-import Todo from './components/Todo/todo';
-import Column from './components/Column/column';
-import './global.css';
-import Note from './components/Note/note';
+import Todo from 'Components/Todo/todo';
+import Column from 'Components/Column/column';
+import '@/global.css';
+import Note from 'Components/Note/note';
 
 const body = document.querySelector('body');
 const todo = new Todo();

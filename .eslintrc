@@ -4,7 +4,8 @@
     "rules": {
         "react/sort-comp": 0,
         "react/prop-types": 0,
-        "import/named": 0
+        "import/named": 0,
+        "import/no-unresolved": 0,
     },
     "parserOptions": {
         "sourceType": "module"

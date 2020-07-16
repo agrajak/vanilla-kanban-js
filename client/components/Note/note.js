@@ -1,4 +1,4 @@
-import Component from '../component';
+import Component from 'Components/component';
 import './note.css';
 
 export default class Note extends Component {

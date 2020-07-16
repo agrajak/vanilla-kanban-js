@@ -1,6 +1,6 @@
-import Modal from '../modal';
-import '../modal.css';
-import { parseNoteText } from '../../../utils';
+import Modal from 'Components/Modal/modal';
+import 'Components/Modal/modal.css';
+import { parseNoteText } from '@/utils';
 
 export default class NoteModal extends Modal {
   constructor() {

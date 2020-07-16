@@ -10,6 +10,12 @@ module.exports = {
     path: path.resolve(__dirname, "client/public"),
     filename: "bundle.js",
   },
+  resolve: {
+    alias: {
+      "Components": path.resolve(__dirname, 'client/components'),
+      "@": path.resolve(__dirname, 'client'),
+    },
+  },
   devtool: 'inline-source-map',
   module: {
     rules: [

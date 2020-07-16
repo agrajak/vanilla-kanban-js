@@ -1,7 +1,7 @@
-import Component from '../component';
-import NoteForm from '../Note/Sections/note-form';
+import Component from 'Components/component';
+import NoteForm from 'Components/Note/Sections/note-form';
 import './column.css';
-import Note from '../Note/note';
+import Note from 'Components/Note/note';
 
 export default class Column extends Component {
   /**

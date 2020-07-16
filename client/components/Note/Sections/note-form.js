@@ -1,6 +1,6 @@
-import Component from '../../component';
+import Component from 'Components/component';
+import { parseNoteText } from '@/utils';
 import './note-form.css';
-import { parseNoteText } from '../../../utils';
 
 export default class NoteForm extends Component {
   constructor(parent) {

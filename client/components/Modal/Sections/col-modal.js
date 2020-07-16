@@ -1,5 +1,5 @@
-import Modal from '../modal';
-import '../modal.css';
+import Modal from 'Components/Modal/modal';
+import 'Components/Modal/modal.css';
 
 export default class ColModal extends Modal {
   constructor() {
