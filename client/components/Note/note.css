@@ -19,23 +19,23 @@
     margin-left: auto;
     outline: none;
 }
-.selected {
+.selected:not(:hover){
     border: 1px solid darkgray;
-    opacity: 0.8;
+    opacity: 0.6;
 }
 .ghost {
     position: absolute;
     pointer-events: none;
     z-index: 2;
-    opacity: 0.8;
+    opacity: 0.5;
     width: 330px;
     border: 2px solid lightblue;
 }
 .moved {
-    opacity: 0.5;
+    opacity: 0.4;
     border: 1px solid black;
 }
 .fake {
     pointer-events: none;
-    opacity: 0.8;
+    opacity: 0.4;
 }

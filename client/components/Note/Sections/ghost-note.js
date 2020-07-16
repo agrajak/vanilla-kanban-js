@@ -11,6 +11,10 @@ export default class GhostNote extends Note {
     super.mount(element);
   }
 
+  move(x, y) {
+    this.$.setAttribute('style', `left: ${x}; top: ${y};`);
+  }
+
   render() {
     return super.render();
   }

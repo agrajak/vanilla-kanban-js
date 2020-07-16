@@ -40,16 +40,20 @@ export default class Component {
   getComponentIndex() {
     const { parentElement } = this.$;
     let idx = 0;
-    parentElement.children.some((node) => {
-      if (node === this) {
+    [...parentElement.children].some((node) => {
+      if (node === this.$) {
         return true;
       }
-      if (!node.classList.contains('hidden') && !node.classList.contains('fake')) {
+      if (!node.classList.contains('hidden')) {
         idx += 1;
       }
       return false;
     });
     return idx;
+  }
+
+  isHigherThan(component) {
+    return this.getComponentIndex() > component.getComponentIndex();
   }
 
   render() {

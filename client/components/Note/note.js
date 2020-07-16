@@ -41,9 +41,15 @@ export default class Note extends Component {
   onMouseOver() {
     if (this.getRootComponent().isNoteDragging) {
       const { fakeNote, selectedNote } = this.getRootComponent();
-      fakeNote.unmount();
+
       selectedNote.close();
-      this.parent.$colBody.insertBefore(fakeNote.$, this.$);
+      if (fakeNote.isVisible() && this.isHigherThan(fakeNote) && this.$.nextSibling) {
+        fakeNote.unmount();
+        this.parent.$colBody.insertBefore(fakeNote.$, this.$.nextSibling);
+      } else {
+        fakeNote.unmount();
+        this.parent.$colBody.insertBefore(fakeNote.$, this.$);
+      }
       fakeNote.open();
     } else {
       this.getRootComponent().selectedNote = this;
@@ -83,8 +89,8 @@ export default class Note extends Component {
     this.$.innerHTML = note.$.innerHTML;
   }
 
-  move(x, y) {
-    this.$.setAttribute('style', `left: ${x}; top: ${y};`);
+  isVisible() {
+    return !this.$.classList.contains('hidden');
   }
 
   mount(element) {
