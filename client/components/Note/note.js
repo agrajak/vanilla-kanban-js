@@ -12,7 +12,7 @@ export default class Note extends Component {
 
     this.noteModal = this.parent.parent.noteModal;
 
-    this.$.addEventListener('click', this.noteModal.show);
+    this.$.addEventListener('dblclick', this.noteModal.show(this));
     this.$noteDeleteBtn.addEventListener('click', () => {
       this.parent.removeNote(this);
     });

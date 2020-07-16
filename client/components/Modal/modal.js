@@ -10,18 +10,18 @@ export default class Modal extends Component {
     this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
 
     this.$modalCloseBtn = this.$.querySelector('.modal-closer');
-    this.$modalCloseBtn.addEventListener('click', this.close);
+    this.$modalCloseBtn.addEventListener('click', this.close.bind(this));
   }
 
   mount(element) {
     super.mount(element);
   }
 
-  show = () => {
+  show() {
     this.$.style.display = 'block';
   }
 
-  close = () => {
+  close() {
     this.$.style.display = 'none';
   }
 
