@@ -2,6 +2,11 @@ import Component from '../component';
 import './note.css';
 
 export default class Note extends Component {
+  /**
+   * 노트 객체를 생성합니다.
+   * @param {*} parent
+   * @param {{title: string, content: string, writer: string, isGhost: boolean}} props
+   */
   constructor(parent, props) {
     super(parent, props, 'note');
 
@@ -10,17 +15,41 @@ export default class Note extends Component {
     this.$noteWriter = this.$.querySelector('.note-writer');
     this.$noteDeleteBtn = this.$.querySelector('.note-delete-btn');
 
-    this.noteModal = this.parent.parent.noteModal;
+    this.noteModal = this.getRootComponent().noteModal;
 
-    this.$.addEventListener('dblclick', this.noteModal.show(this));
+    this.$.addEventListener('dblclick', this.noteModal.show);
     this.$noteDeleteBtn.addEventListener('click', () => {
       this.parent.removeNote(this);
     });
+    this.$.addEventListener('mouseover', () => {
+      this.getRootComponent().selectedNote = this;
+      this.$.classList.add('selected');
+    });
+    this.$.addEventListener('mouseout', () => {
+      if (this.getRootComponent().isNoteDragging) return;
+      this.getRootComponent().selectedNote = null;
+      this.$.classList.remove('selected');
+    });
 
-    const { title, content, writer } = this.props;
+    const {
+      title, content, writer, isGhost = false,
+    } = this.props;
+
+    if (isGhost) {
+      this.$.classList.add('ghost');
+      this.hide();
+    }
     this.title = title;
     this.content = content;
     this.writer = writer;
+  }
+
+  show() {
+    this.$.classList.remove('hidden');
+  }
+
+  hide() {
+    this.$.classList.add('hidden');
   }
 
   set title(value) {
@@ -33,6 +62,10 @@ export default class Note extends Component {
 
   set writer(value) {
     this.$noteWriter.innerText = value;
+  }
+
+  move(x, y) {
+    this.$.setAttribute('style', `left: ${x}; top: ${y};`);
   }
 
   mount(element) {

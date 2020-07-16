@@ -4,6 +4,10 @@ import './column.css';
 import Note from '../Note/note';
 
 export default class Column extends Component {
+  /**
+   * @param {Component} parent
+   * @param {{title: string}} props
+   */
   constructor(parent, props) {
     super(parent, props, 'col');
 
