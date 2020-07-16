@@ -2,8 +2,8 @@ import Component from '../../component';
 import './note-form.css';
 
 export default class NoteForm extends Component {
-  constructor(parent, props) {
-    super(parent, props, 'note-form');
+  constructor(parent) {
+    super(parent, null, 'note-form');
     this.$noteAddBtn = this.$.querySelector('.add-btn');
     this.$noteText = this.$.querySelector('.note-text');
     this.$noteAddBtn.addEventListener('click', () => {

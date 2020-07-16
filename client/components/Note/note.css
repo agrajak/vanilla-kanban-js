@@ -19,9 +19,9 @@
     outline: none;
 }
 .selected {
-    border: 1px solid red;
+    border: 1px solid darkgray;
 }
-.floated {
+.ghost {
     position: absolute;
     pointer-events: none;
 }
