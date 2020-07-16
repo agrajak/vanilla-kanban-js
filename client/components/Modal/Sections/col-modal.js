@@ -23,8 +23,8 @@ export default class ColModal extends Modal {
   }
 
   show = (column) => () => {
-    this.$.style.display = 'block';
-    super.setTitle(`Edit ${column.title}`);
+    super.show();
+    this.setTitle(`Edit ${column.title}`);
     this.$column = column;
   }
 

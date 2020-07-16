@@ -18,10 +18,12 @@ export default class NoteForm extends Component {
   }
 
   getFormContents() {
-    const text = this.$noteText.value;
-    const title = text;
+    const text = this.$noteText.value.split('\n');
+    const title = text[0];
+    text.shift(0);
+    const content = text.join('\n');
     return {
-      title,
+      title, content,
     };
   }
 
