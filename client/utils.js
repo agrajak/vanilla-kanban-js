@@ -1,4 +1,4 @@
-function parseNoteText(value) {
+export function parseNoteText(value) {
   const text = value.split('\n');
   const title = text[0];
   text.shift(0);
@@ -7,7 +7,3 @@ function parseNoteText(value) {
     title, content,
   };
 }
-
-export default {
-  parseNoteText,
-};
