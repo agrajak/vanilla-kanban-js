@@ -11,13 +11,14 @@ export default class Column extends Component {
   constructor(parent, props) {
     super(parent, props, 'col');
 
+    const { title } = this.props;
+
     this.$colTitle = this.$.querySelector('.col-title');
     this.$colBody = this.$.querySelector('.col-body');
     this.$colEditBtn = this.$.querySelector('.col-edit');
     this.$noteFormBtn = this.$.querySelector('.note-plus');
     this.notes = [];
 
-    const { title } = this.props;
     this.setTitle(title);
     this.noteForm = new NoteForm(this);
 

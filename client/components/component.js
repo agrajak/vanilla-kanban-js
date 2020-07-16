@@ -34,7 +34,7 @@ export default class Component {
   }
 
   /**
-   * 현재 컴포넌트가 몇 번째 자식 노드인지 반환합니다.
+   * 현재 컴포넌트가 몇 번째 자식 노드인지 반환합니다. 숨겨진 노드는 세지 않습니다.
    * @returns {Number}
    */
   getComponentIndex() {
@@ -44,7 +44,9 @@ export default class Component {
       if (node === this) {
         return true;
       }
-      idx += 1;
+      if (!node.classList.contains('hidden') && !node.classList.contains('fake')) {
+        idx += 1;
+      }
       return false;
     });
     return idx;

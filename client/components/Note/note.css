@@ -2,6 +2,8 @@
     border: 1px solid black;
     margin: 4px;
     padding: 20px;
+    -webkit-user-select: none;
+    background-color: white;
 }
 
 .note-header {
@@ -12,7 +14,6 @@
     font-size: 0.9em;
 }
 .note-delete-btn {
-    background-color: white;
     border: none;
     font-size: 0.8em;
     margin-left: auto;
@@ -20,12 +21,21 @@
 }
 .selected {
     border: 1px solid darkgray;
+    opacity: 0.8;
 }
 .ghost {
     position: absolute;
     pointer-events: none;
+    z-index: 2;
+    opacity: 0.8;
+    width: 330px;
+    border: 2px solid lightblue;
 }
 .moved {
     opacity: 0.5;
     border: 1px solid black;
+}
+.fake {
+    pointer-events: none;
+    opacity: 0.8;
 }

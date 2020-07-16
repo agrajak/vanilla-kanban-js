@@ -5,9 +5,9 @@ export default class Note extends Component {
   /**
    * 노트 객체를 생성합니다.
    * @param {*} parent
-   * @param {{title: string, content: string, writer: string, isGhost: boolean}} props
+   * @param {{title: string, content: string, writer: string} props
    */
-  constructor(parent, props) {
+  constructor(parent, props = {}) {
     super(parent, props, 'note');
 
     this.$noteTitle = this.$.querySelector('.note-title');
@@ -23,13 +23,9 @@ export default class Note extends Component {
     this.$noteDeleteBtn.addEventListener('click', this.onNoteDeleteBtnClick.bind(this));
 
     const {
-      title, content, writer, isGhost = false,
+      title, content, writer,
     } = this.props;
 
-    if (isGhost) {
-      this.$.classList.add('ghost');
-      this.close();
-    }
     this
       .setTitle(title)
       .setContent(content)
@@ -43,14 +39,22 @@ export default class Note extends Component {
   }
 
   onMouseOver() {
-    this.getRootComponent().selectedNote = this;
-    this.$.classList.add('selected');
+    if (this.getRootComponent().isNoteDragging) {
+      const { fakeNote, selectedNote } = this.getRootComponent();
+      fakeNote.unmount();
+      selectedNote.close();
+      this.parent.$colBody.insertBefore(fakeNote.$, this.$);
+      fakeNote.open();
+    } else {
+      this.getRootComponent().selectedNote = this;
+      this.$.classList.add('selected');
+    }
   }
 
   onMouseOut() {
+    this.$.classList.remove('selected');
     if (this.getRootComponent().isNoteDragging) return;
     this.getRootComponent().selectedNote = null;
-    this.$.classList.remove('selected');
   }
 
   onNoteDeleteBtnClick() {
@@ -73,6 +77,10 @@ export default class Note extends Component {
     this.writer = value;
     this.$noteWriter.innerText = value;
     return this;
+  }
+
+  disguise(note) {
+    this.$.innerHTML = note.$.innerHTML;
   }
 
   move(x, y) {
