@@ -14,15 +14,15 @@ export default class Column extends Component {
     this.notes = [];
 
     this.title = props.title;
-    this.setTitle();
+    this.setTitle(this.title);
     this.noteForm = new NoteForm(this);
 
     this.$noteFormBtn.addEventListener('click', this.noteForm.show);
-    this.$colEditBtn.addEventListener('click', this.parent.columnModal.show);
+    this.$colEditBtn.addEventListener('click', this.parent.columnModal.show(this));
   }
 
-  setTitle() {
-    this.$colTitle.innerText = this.title;
+  setTitle(title) {
+    this.$colTitle.innerText = title;
   }
 
   showNoteForm = () => {
