@@ -11,6 +11,14 @@ export default class Component {
     element.append(this.$);
   }
 
+  open() {
+    this.$.classList.remove('hidden');
+  }
+
+  close() {
+    this.$.classList.add('hidden');
+  }
+
   /**
    * Root Component(ToDo)를 반환합니다. 바로 할아버지 컴포넌트에 접근할 수 있습니다.
    * @returns {Component}

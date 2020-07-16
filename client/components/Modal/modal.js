@@ -11,30 +11,26 @@ export default class Modal extends Component {
 
     this.$modalCloseBtn = this.$.querySelector('.modal-closer');
     this.$modalCloseBtn.addEventListener('click', this.close.bind(this));
+    this.close();
   }
 
   mount(element) {
     super.mount(element);
   }
 
-  show() {
-    this.$.style.display = 'block';
-  }
-
-  close() {
-    this.$.style.display = 'none';
-  }
-
   setTitle(value) {
     this.$modalTitle.innerText = value;
+    return this;
   }
 
   setContent(value) {
     this.$modalContent.innerHTML = value;
+    return this;
   }
 
   setBtnName(value) {
     this.$modalSubmitBtn.innerText = value;
+    return this;
   }
 
   render() {

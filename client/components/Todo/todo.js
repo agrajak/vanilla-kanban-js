@@ -16,23 +16,29 @@ export default class Todo extends Component {
     this.selectedNote = null;
     this.isNoteDragging = false; // 위의 선택된 노트가 드래그 중인지 나타내는 Boolean
 
-    this.$.addEventListener('mousedown', () => {
-      if (!this.selectedNote) return;
-      this.isNoteDragging = true;
-    });
-    this.$.addEventListener('mouseup', () => {
-      if (!this.selectedNote) return;
-      this.ghostNote.hide();
-      this.isNoteDragging = false;
-      this.selectedNote = null;
-    });
-    this.$.addEventListener('mousemove', (event) => {
-      if (!this.selectedNote) return;
-      if (!this.isNoteDragging) return;
-      this.ghostNote.show();
-      const { pageX: offsetX, pageY: offsetY } = event;
-      this.ghostNote.move(offsetX, offsetY);
-    });
+    this.$.addEventListener('mousedown', this.onMouseDown.bind(this));
+    this.$.addEventListener('mouseup', this.onMouseUp.bind(this));
+    this.$.addEventListener('mousemove', this.onMouseMove.bind(this));
+  }
+
+  onMouseDown() {
+    if (!this.selectedNote) return;
+    this.isNoteDragging = true;
+  }
+
+  onMouseUp() {
+    if (!this.selectedNote) return;
+    this.ghostNote.close();
+    this.isNoteDragging = false;
+    this.selectedNote = null;
+  }
+
+  onMouseMove(event) {
+    if (!this.selectedNote) return;
+    if (!this.isNoteDragging) return;
+    const { pageX: offsetX, pageY: offsetY } = event;
+    this.ghostNote.open();
+    this.ghostNote.move(offsetX, offsetY);
   }
 
   mount(element) {

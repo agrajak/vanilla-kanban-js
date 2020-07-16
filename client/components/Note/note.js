@@ -17,19 +17,10 @@ export default class Note extends Component {
 
     this.noteModal = this.getRootComponent().noteModal;
 
-    this.$.addEventListener('dblclick', this.noteModal.show);
-    this.$noteDeleteBtn.addEventListener('click', () => {
-      this.parent.removeNote(this);
-    });
-    this.$.addEventListener('mouseover', () => {
-      this.getRootComponent().selectedNote = this;
-      this.$.classList.add('selected');
-    });
-    this.$.addEventListener('mouseout', () => {
-      if (this.getRootComponent().isNoteDragging) return;
-      this.getRootComponent().selectedNote = null;
-      this.$.classList.remove('selected');
-    });
+    this.$.addEventListener('dblclick', this.onDblClick.bind(this));
+    this.$.addEventListener('mouseover', this.onMouseOver.bind(this));
+    this.$.addEventListener('mouseout', this.onMouseOut.bind(this));
+    this.$noteDeleteBtn.addEventListener('click', this.onNoteDeleteBtnClick.bind(this));
 
     const {
       title, content, writer, isGhost = false,
@@ -37,31 +28,49 @@ export default class Note extends Component {
 
     if (isGhost) {
       this.$.classList.add('ghost');
-      this.hide();
+      this.close();
     }
-    this.title = title;
-    this.content = content;
-    this.writer = writer;
+    this
+      .setTitle(title)
+      .setContent(content)
+      .setWriter(writer);
   }
 
-  show() {
-    this.$.classList.remove('hidden');
+  onDblClick() {
+    this.noteModal.open();
   }
 
-  hide() {
-    this.$.classList.add('hidden');
+  onMouseOver() {
+    this.getRootComponent().selectedNote = this;
+    this.$.classList.add('selected');
   }
 
-  set title(value) {
+  onMouseOut() {
+    if (this.getRootComponent().isNoteDragging) return;
+    this.getRootComponent().selectedNote = null;
+    this.$.classList.remove('selected');
+  }
+
+  onNoteDeleteBtnClick() {
+    this.parent.removeNote(this);
+  }
+
+  setTitle(value) {
+    this.title = value;
     this.$noteTitle.innerText = value;
+    return this;
   }
 
-  set content(value) {
+  setContent(value) {
+    this.content = value;
     this.$noteContent.innerText = value;
+    return this;
   }
 
-  set writer(value) {
+  setWriter(value) {
+    this.writer = value;
     this.$noteWriter.innerText = value;
+    return this;
   }
 
   move(x, y) {

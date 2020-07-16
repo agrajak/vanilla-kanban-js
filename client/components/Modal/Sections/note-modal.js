@@ -12,24 +12,27 @@ export default class NoteModal extends Modal {
       <textarea name="note" class="new-note"></textarea>
     `;
 
-    this.setTitle('Edit note');
-    this.setContent(this.content);
-    this.setBtnName('Save note');
+    this
+      .setTitle('Edit note')
+      .setContent(this.content)
+      .setBtnName('Save note');
 
     this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
-    this.$modalSubmitBtn.addEventListener('click', this.submit);
+    this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
     this.$newNote = this.$.querySelector('.new-note');
 
     this.$note = null;
   }
 
-  show = (note) => () => {
-    super.show();
-    this.$note = note;
+  open(note) {
+    return () => {
+      super.open();
+      this.$note = note;
+    };
   }
 
-  submit = () => {
-    this.$note.content = this.$newNote.value;
+  submit() {
+    this.$note.setContent(this.$newNote.value);
     this.$newNote.value = '';
     this.close();
   }

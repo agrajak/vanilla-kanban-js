@@ -17,20 +17,17 @@ export default class Column extends Component {
     this.$noteFormBtn = this.$.querySelector('.note-plus');
     this.notes = [];
 
-    this.title = props.title;
-    this.setTitle(this.title);
+    const { title } = this.props;
+    this.setTitle(title);
     this.noteForm = new NoteForm(this);
 
-    this.$noteFormBtn.addEventListener('click', this.noteForm.show);
-    this.$colEditBtn.addEventListener('click', this.parent.columnModal.show(this));
+    this.$noteFormBtn.addEventListener('click', this.noteForm.open.bind(this.noteForm));
+    this.$colEditBtn.addEventListener('click', this.parent.columnModal.open(this.parent.columnModal));
   }
 
-  setTitle(title) {
-    this.$colTitle.innerText = title;
-  }
-
-  showNoteForm = () => {
-    this.$noteForm.classList.remove('hidden');
+  setTitle(value) {
+    this.title = value;
+    this.$colTitle.innerText = value;
   }
 
   addNote({ title, content = '' }) {

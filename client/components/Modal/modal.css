@@ -1,6 +1,6 @@
 
 .modal {
-    display: none;
+    display: block;
     z-index:1;
   }
   

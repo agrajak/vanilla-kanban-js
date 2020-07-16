@@ -9,7 +9,7 @@ export default class NoteForm extends Component {
     this.$noteAddBtn.addEventListener('click', () => {
       this.parent.addNote(this.getFormContents());
       this.resetFormContents();
-      this.hide();
+      this.close();
     });
   }
 
@@ -28,16 +28,8 @@ export default class NoteForm extends Component {
   }
 
   mount(element) {
-    super.mount(element);
-    this.hide();
-  }
-
-  show = () => {
-    this.$.classList.remove('hidden');
-  }
-
-  hide = () => {
-    this.$.classList.add('hidden');
+    element.prepend(this.$);
+    this.close();
   }
 
   render() {
