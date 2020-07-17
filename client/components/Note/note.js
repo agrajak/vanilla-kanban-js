@@ -43,11 +43,9 @@ export default class Note extends Component {
       const { fakeNote, selectedNote } = this.getRootComponent();
 
       selectedNote.close();
-      if (fakeNote.isVisible() && this.isHigherThan(fakeNote) && this.$.nextSibling) {
-        fakeNote.unmount();
+      if (fakeNote.isVisible() && this.isHigherThan(fakeNote)) {
         this.parent.$colBody.insertBefore(fakeNote.$, this.$.nextSibling);
       } else {
-        fakeNote.unmount();
         this.parent.$colBody.insertBefore(fakeNote.$, this.$);
       }
       fakeNote.open();

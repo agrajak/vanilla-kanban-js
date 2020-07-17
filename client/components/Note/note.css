@@ -29,7 +29,7 @@
     z-index: 2;
     opacity: 0.5;
     width: 330px;
-    border: 2px solid lightblue;
+    border: 3px solid lightblue;
 }
 .moved {
     opacity: 0.4;

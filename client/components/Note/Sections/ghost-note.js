@@ -12,7 +12,7 @@ export default class GhostNote extends Note {
   }
 
   move(x, y) {
-    this.$.setAttribute('style', `left: ${x}; top: ${y};`);
+    this.$.setAttribute('style', `left: ${x - 20}; top: ${y - 20};`);
   }
 
   render() {
