@@ -29,10 +29,19 @@ export default class Todo extends Component {
   onMouseDown(event) {
     if (!this.selectedNote) return;
     this.isNoteDragging = true;
-    const { offsetX: x, offsetY: y } = event;
-    const { offsetLeft: _x, offsetTop: _y } = event.target;
-    this.ghostNote.offsetX = x + _x;
-    this.ghostNote.offsetY = y + _y;
+    const {
+      clientX: x, clientY: y, offsetX: ox, offsetY: oy,
+    } = event;
+    const rect = event.target.getBoundingClientRect();
+    const { x: _x, y: _y } = rect;
+    const { offsetLeft: left, offsetTop: top } = event.target;
+    if (event.target.offsetParent.classList.contains('note')) {
+      this.ghostNote.offsetX = ox + left;
+      this.ghostNote.offsetY = oy + top;
+    } else {
+      this.ghostNote.offsetX = x - _x;
+      this.ghostNote.offsetY = y - _y;
+    }
     this.ghostNote.disguise(this.selectedNote);
     this.fakeNote.disguise(this.selectedNote);
   }
