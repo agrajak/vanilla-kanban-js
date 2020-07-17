@@ -11,13 +11,14 @@
 }
 .note-footer {
     margin: 2px 0px;
-    font-size: 0.9em;
+    font-size: 1rem;
 }
 .note-delete-btn {
     border: none;
-    font-size: 0.8em;
+    font-size: 1rem;
     margin-left: auto;
     outline: none;
+    background-color: white;
 }
 .selected:not(:hover){
     border: 1px solid darkgray;
