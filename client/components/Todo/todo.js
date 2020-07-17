@@ -2,7 +2,8 @@ import Component from '../component';
 import './todo.css';
 import ColModal from '../Modal/Sections/col-modal';
 import NoteModal from '../Modal/Sections/note-modal';
-import Note from '../Note/note';
+import GhostNote from '../Note/Sections/ghost-note';
+import FakeNote from '../Note/Sections/fake-note';
 
 export default class Todo extends Component {
   constructor(parent) {
@@ -11,7 +12,9 @@ export default class Todo extends Component {
 
     this.columnModal = new ColModal(this);
     this.noteModal = new NoteModal(this);
-    this.ghostNote = new Note(this, { isGhost: true });
+
+    this.ghostNote = new GhostNote(this); // 떠다니는 노트
+    this.fakeNote = new FakeNote(this); // 예상 배치 공간에 자리하는 노트
 
     this.selectedNote = null;
     this.isNoteDragging = false; // 위의 선택된 노트가 드래그 중인지 나타내는 Boolean
@@ -24,11 +27,16 @@ export default class Todo extends Component {
   onMouseDown() {
     if (!this.selectedNote) return;
     this.isNoteDragging = true;
+    this.ghostNote.disguise(this.selectedNote);
+    this.fakeNote.disguise(this.selectedNote);
   }
 
   onMouseUp() {
     if (!this.selectedNote) return;
     this.ghostNote.close();
+    this.fakeNote.unmount();
+    this.fakeNote.close();
+    this.selectedNote.open();
     this.isNoteDragging = false;
     this.selectedNote = null;
   }
@@ -45,6 +53,7 @@ export default class Todo extends Component {
     this.columnModal.mount(this.$);
     this.noteModal.mount(this.$);
     this.ghostNote.mount(element);
+    this.fakeNote.mount(element);
     super.mount(element);
   }
 

@@ -34,20 +34,26 @@ export default class Component {
   }
 
   /**
-   * 현재 컴포넌트가 몇 번째 자식 노드인지 반환합니다.
+   * 현재 컴포넌트가 몇 번째 자식 노드인지 반환합니다. 숨겨진 노드는 세지 않습니다.
    * @returns {Number}
    */
   getComponentIndex() {
     const { parentElement } = this.$;
     let idx = 0;
-    parentElement.children.some((node) => {
-      if (node === this) {
+    [...parentElement.children].some((node) => {
+      if (node === this.$) {
         return true;
       }
-      idx += 1;
+      if (!node.classList.contains('hidden')) {
+        idx += 1;
+      }
       return false;
     });
     return idx;
+  }
+
+  isHigherThan(component) {
+    return this.getComponentIndex() > component.getComponentIndex();
   }
 
   render() {

@@ -11,13 +11,14 @@ export default class Column extends Component {
   constructor(parent, props) {
     super(parent, props, 'col');
 
+    const { title } = this.props;
+
     this.$colTitle = this.$.querySelector('.col-title');
     this.$colBody = this.$.querySelector('.col-body');
-    this.$colEditBtn = this.$.querySelector('.col-edit');
-    this.$noteFormBtn = this.$.querySelector('.note-plus');
+    this.$colEditBtn = this.$.querySelector('.col-edit-btn');
+    this.$noteFormBtn = this.$.querySelector('.note-plus-btn');
     this.notes = [];
 
-    const { title } = this.props;
     this.setTitle(title);
     this.noteForm = new NoteForm(this);
 
@@ -63,8 +64,9 @@ export default class Column extends Component {
             해야할 일
         </div>
         <div class="col-btns">
-            <button class="note-plus">+</button>
-            <button class="col-edit">...</button>
+            <button class="note-plus-btn">+</button>
+            <button class="col-edit-btn">...</button>
+            <button class="col-delete-btn">x</button>
         </div>
       </div>
       <div class="col-body">
