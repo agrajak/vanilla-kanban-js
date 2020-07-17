@@ -1,0 +1,37 @@
+.col {
+    flex: none;
+    min-width: 400px;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    overflow: scroll;
+}
+
+.col-header, .col-body {
+    display: flex;
+    flex-direction: row;
+}
+
+.col-body { 
+    display: flex;
+    flex-direction: column;
+}
+
+.col-title {
+    margin-right: auto;
+}
+.col-btns > button {
+    background-color: white;
+    border: none;
+    font-size: 1.2rem;
+    outline: none;
+}
+
+.note-counter {
+    margin: 0px 5px;
+}
+.label-col-name, .input-col-name {
+    display: block;
+}

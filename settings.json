@@ -1,0 +1,7 @@
+{
+    "window.zoomLevel": 1,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "[javascript]": {
+      "editor.tabSize": 2
+    }
+  }

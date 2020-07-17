@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+}
+
+html {
+  height: 100%;
+}
+body {
+  font: 19px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.hidden {
+  display: none
+}
+
+header {
+  background-color: black;
+  padding: 14px;
+  font-size: 1.3rem;
+}
+
+header > div {
+  color: white;
+  display: inline;
+}
+
+header > div.menu-btn {
+  float:right;
+}

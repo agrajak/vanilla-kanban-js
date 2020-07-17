@@ -1,0 +1,43 @@
+.note {
+    border: 1px solid black;
+    margin: 4px;
+    padding: 20px;
+    -webkit-user-select: none;
+    background-color: white;
+    position: relative;
+}
+
+.note-header {
+    display: flex;
+}
+.note-footer {
+    margin: 2px 0px;
+    font-size: 1rem;
+}
+.note-delete-btn {
+    border: none;
+    font-size: 1rem;
+    margin-left: auto;
+    outline: none;
+    background-color: white;
+}
+.selected:not(:hover){
+    border: 1px solid darkgray;
+    opacity: 0.6;
+}
+.ghost {
+    position: absolute;
+    pointer-events: none;
+    z-index: 2;
+    opacity: 0.5;
+    width: 330px;
+    border: 3px solid lightblue;
+}
+.moved {
+    opacity: 0.4;
+    border: 1px solid black;
+}
+.fake {
+    pointer-events: none;
+    opacity: 0.4;
+}

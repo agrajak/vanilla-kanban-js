@@ -1,0 +1,23 @@
+/* note form */
+.note-form-body, .note-form-footer {
+    display: flex;
+}
+
+.note-form-footer > button{
+    flex-grow: 2;
+    width: 50%;
+    font-size: 1em;
+    padding: 5px;
+    margin: 4px;
+}
+
+.note-form-body > textarea {
+    width: 100%;
+    resize: vertical;
+    height: auto;
+    min-height: 3em;
+    font-size: 1em;
+    margin-top: 2em;
+    margin: 4px;
+    padding: 10px;
+}
