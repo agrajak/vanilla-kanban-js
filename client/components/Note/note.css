@@ -4,6 +4,7 @@
     padding: 20px;
     -webkit-user-select: none;
     background-color: white;
+    position: relative;
 }
 
 .note-header {

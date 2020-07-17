@@ -11,13 +11,6 @@ export default class FakeNote extends Note {
     super.mount(element);
   }
 
-  unmount() {
-    const { parentElement } = this.$;
-    if (parentElement) {
-      parentElement.removeChild(this.$);
-    }
-  }
-
   render() {
     return super.render();
   }

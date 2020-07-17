@@ -15,7 +15,6 @@ export default class Column extends Component {
 
     this.$colTitle = this.$.querySelector('.col-title');
     this.$colBody = this.$.querySelector('.col-body');
-    this.$colEditBtn = this.$.querySelector('.col-edit-btn');
     this.$noteFormBtn = this.$.querySelector('.note-plus-btn');
     this.notes = [];
 
@@ -23,7 +22,7 @@ export default class Column extends Component {
     this.noteForm = new NoteForm(this);
 
     this.$noteFormBtn.addEventListener('click', this.noteForm.open.bind(this.noteForm));
-    this.$colEditBtn.addEventListener('click', this.onColEditBtnClick.bind(this));
+    this.$colTitle.addEventListener('dblclick', this.onColEditBtnClick.bind(this));
   }
 
   setTitle(value) {
@@ -65,7 +64,6 @@ export default class Column extends Component {
         </div>
         <div class="col-btns">
             <button class="note-plus-btn">+</button>
-            <button class="col-edit-btn">...</button>
             <button class="col-delete-btn">x</button>
         </div>
       </div>

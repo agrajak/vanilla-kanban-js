@@ -19,8 +19,8 @@
     flex-direction: column;
 }
 
-.col-btns {
-    margin-left: auto;
+.col-title {
+    margin-right: auto;
 }
 .col-btns > button {
     background-color: white;

@@ -19,14 +19,20 @@ export default class Todo extends Component {
     this.selectedNote = null;
     this.isNoteDragging = false; // 위의 선택된 노트가 드래그 중인지 나타내는 Boolean
 
-    this.$.addEventListener('mousedown', this.onMouseDown.bind(this));
+    this.$.addEventListener('mousedown', this.onMouseDown.bind(this), {
+      capture: false,
+    });
     this.$.addEventListener('mouseup', this.onMouseUp.bind(this));
     this.$.addEventListener('mousemove', this.onMouseMove.bind(this));
   }
 
-  onMouseDown() {
+  onMouseDown(event) {
     if (!this.selectedNote) return;
     this.isNoteDragging = true;
+    const { offsetX: x, offsetY: y } = event;
+    const { offsetLeft: _x, offsetTop: _y } = event.target;
+    this.ghostNote.offsetX = x + _x;
+    this.ghostNote.offsetY = y + _y;
     this.ghostNote.disguise(this.selectedNote);
     this.fakeNote.disguise(this.selectedNote);
   }
@@ -34,7 +40,6 @@ export default class Todo extends Component {
   onMouseUp() {
     if (!this.selectedNote) return;
     this.ghostNote.close();
-    this.fakeNote.unmount();
     this.fakeNote.close();
     this.selectedNote.open();
     this.isNoteDragging = false;
