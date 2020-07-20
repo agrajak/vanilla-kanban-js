@@ -1,18 +1,9 @@
 const express = require('express');
-const pool = require('../pool');
 
 const router = express.Router();
+const UserController = require('../controllers/users');
 
 /* GET users listing. */
-router.get('/', async (req, res) => {
-  try {
-    const [rows] = await pool.query('SELECT * from Users');
-    console.log(rows);
-  } catch (e) {
-    console.log(e.stack);
-  }
-
-  res.send('respond with a resource');
-});
+router.get('/', UserController.findUser);
 
 module.exports = router;
