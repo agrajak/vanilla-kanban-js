@@ -33,7 +33,7 @@ exports.findColumn = async (req, res) => {
 exports.updateColumnTitle = async (req, res) => {
   const { id, title } = req.body;
   try {
-    await ColumnService.updateColumn(new Column({
+    await ColumnService.updateColumnTitle(new Column({
       id, title,
     }));
     return res.send(success());

@@ -47,10 +47,11 @@ async function updateColumnTitle(column) {
   await pool.query(queries.UPDATE_COLUMN_TITLE, [title, id]);
 }
 
-async function updateColumnPosition(column) {
+async function moveColumn(column) {
   // 컬럼 A를 포지션 B로 옮길 때, 포지션 B에 있던 컬럼과 A의 포지션을 각자 교환(swap)한다.
-  const { id, position, ownerId } = column;
-  const { position: oldPosition } = await findColumnById(id);
+  // TODO -> 커넥션 하나에서 다 처리하기
+  const { id, position } = column;
+  const { position: oldPosition, ownerId } = await findColumnById(id);
   const oldColumn = await findColumnByPosition(ownerId, position);
   await pool.query(queries.UPDATE_COLUMN_POSITION, [oldPosition, oldColumn.id]);
   await pool.query(queries.UPDATE_COLUMN_POSITION, [position, id]);
@@ -61,5 +62,5 @@ async function deleteColumnById(id) {
 }
 
 module.exports = {
-  findColumnsByUserId, findColumnById, findColumnInfo, createColumn, updateColumnTitle, updateColumnPosition, deleteColumnById, getTopPosition,
+  findColumnsByUserId, findColumnById, findColumnInfo, createColumn, updateColumnTitle, moveColumn, deleteColumnById, getTopPosition,
 };
