@@ -1,11 +1,12 @@
+/* eslint-disable camelcase */
 class Columns {
   constructor({
-    id, title, owner, writer,
+    id, title, ownerId, writerId, writer_id, owner_id,
   }) {
     this.id = id;
     this.title = title;
-    this.owner = owner;
-    this.writer = writer;
+    this.ownerId = ownerId || owner_id;
+    this.writer = writerId || writer_id;
   }
 }
 
