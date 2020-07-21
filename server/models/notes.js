@@ -1,12 +1,13 @@
 class Notes {
   constructor({
-    id, text, position, writer, columnId,
+    id, text, position, writerId, writer_id, ownerId, owner_id, columnId, column_id
   }) {
     this.id = id;
     this.text = text;
     this.position = position;
-    this.writer = writer;
-    this.columnId = columnId;
+    this.writerId = writerId || writer_id;
+    this.ownerId = ownerId || owner_id;
+    this.columnId = columnId || column_id;
   }
 }
 

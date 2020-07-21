@@ -1,4 +1,5 @@
 const Column = require('../models/columns');
+const Note = require('../models/notes');
 const pool = require('../pool');
 const queries = require('../queries');
 
@@ -25,7 +26,7 @@ async function findColumnByPosition(ownerId, position) {
 
 async function findColumnInfo(columnId) {
   const [row] = await pool.query(queries.FIND_NOTES_IN_COLUMN, [columnId]);
-  return row.map(({ id }) => id);
+  return row.map((note) => new Note(note));
 }
 async function getTopPosition(ownerId) {
   const [row] = await pool.query(queries.GET_COLUMN_TOP_POSITION, [ownerId]);
