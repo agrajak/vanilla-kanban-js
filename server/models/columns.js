@@ -6,7 +6,7 @@ class Columns {
     this.id = id;
     this.title = title;
     this.ownerId = ownerId || owner_id;
-    this.writer = writerId || writer_id;
+    this.writerId = writerId || writer_id;
     this.position = position;
   }
 }

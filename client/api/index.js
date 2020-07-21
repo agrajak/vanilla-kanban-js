@@ -40,3 +40,19 @@ export async function createNote(columnId, text) {
   }
   throw new Error(message);
 }
+
+export async function createColumn(title, ownerId, writerId) {
+  const response = await fetch('/api/columns', {
+    body: JSON.stringify({
+      title,
+      ownerId,
+      writerId,
+    }),
+  });
+  const { success, message, payload } = await response.json();
+  if (success) {
+    const { column } = payload;
+    return column;
+  }
+  throw new Error(message);
+}

@@ -3,12 +3,11 @@ const ColumnService = require('../services/columns');
 const { success, fail } = require('./helper');
 
 exports.createColumn = async (req, res) => {
-  const { ownerId } = req.body;
-  const writerId = 'agrajak';
+  const { title, ownerId, writerId } = req.body;
   try {
-    const position = await ColumnService.getTopPosition(ownerId);
+    const position = await ColumnService.getLastPosition(ownerId);
     const column = await ColumnService.createColumn(new Column({
-      title: 'test', ownerId, writerId, position,
+      title, ownerId, writerId, position: position + 1,
     }));
     return res.send(success({
       column,
