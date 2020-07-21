@@ -1,7 +1,6 @@
 const Note = require('../models/notes');
 const pool = require('../pool');
 const queries = require('../queries');
-const ColumnService = require('./columns');
 
 async function getTopPosition(columnId) {
   const [row] = await pool.query(queries.GET_NOTE_TOP_POSITION, [columnId]);
@@ -57,7 +56,7 @@ async function moveNote(note) {
 }
 
 async function deleteNoteById(id) {
-  const { id: columnId, position } = await ColumnService.findColumnById(id);
+  const { columnId, position } = await findNoteById(id);
   await pool.query(queries.DELETE_NOTE, [id]);
   await decraseNotePos(columnId, position);
 }

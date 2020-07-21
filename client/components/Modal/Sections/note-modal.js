@@ -1,6 +1,7 @@
 import Modal from 'Components/Modal/modal';
 import 'Components/Modal/modal.css';
 import { parseNoteText } from '@/utils';
+import { editNote } from '@/api';
 
 export default class NoteModal extends Modal {
   constructor() {
@@ -36,8 +37,10 @@ export default class NoteModal extends Modal {
     return this;
   }
 
-  submit() {
-    const { title, content } = parseNoteText(this.$newNote.value);
+  async submit() {
+    const text = this.$newNote.value;
+    await editNote(this.$attach.props.id, text);
+    const { title, content } = parseNoteText(text);
     this.$attach
       .setTitle(title)
       .setContent(content);

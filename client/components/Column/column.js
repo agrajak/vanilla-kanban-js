@@ -2,7 +2,7 @@ import Component from 'Components/Component/component';
 import NoteForm from 'Components/Note/Sections/note-form';
 import './column.css';
 import Note from 'Components/Note/note';
-import { deleteColumn } from '@/api';
+import { deleteColumn, deleteNote } from '@/api';
 
 export default class Column extends Component {
   /**
@@ -35,8 +35,7 @@ export default class Column extends Component {
     return this;
   }
 
-  addNote(noteObj) {
-    const note = new Note(this, noteObj);
+  addNote(note) {
     this.notes.push(note);
     note.mount(this.$colBody);
     return this;
@@ -48,8 +47,7 @@ export default class Column extends Component {
     this.parent.$.removeChild(this.$);
   }
 
-  prependNote(noteObj) {
-    const note = new Note(this, noteObj);
+  prependNote(note) {
     this.notes.unshift(note);
 
     const noteForm = this.noteForm.$;
@@ -62,7 +60,8 @@ export default class Column extends Component {
       .open();
   }
 
-  removeNote(note) {
+  async removeNote(note) {
+    await deleteNote(note.props.id);
     const { $ } = note;
     this.notes = this.notes.filter((x) => x !== $);
     this.$colBody.removeChild($);

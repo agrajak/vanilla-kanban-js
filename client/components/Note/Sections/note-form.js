@@ -16,8 +16,7 @@ export default class NoteForm extends Component {
     const { value: text } = this.$noteText;
     createNote(this.parent.props.id, text)
       .then((noteObj) => {
-        const note = new Note(this.parent, noteObj);
-        this.parent.prependNote(note);
+        this.parent.prependNote(new Note(this.parent, noteObj));
         this.resetFormContents();
         this.close();
       });
