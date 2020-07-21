@@ -1,8 +1,5 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
 export async function findColumnsByUserId(userId = 'agrajak') {
-  const response = await fetch(`${process.env.HOST}/api/todos?id=${userId}`, {
+  const response = await fetch(`/api/todos?id=${userId}`, {
     method: 'GET',
   });
   const { success, message, payload } = await response.json();

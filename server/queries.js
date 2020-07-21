@@ -1,6 +1,6 @@
 module.exports = {
   FIND_USER: 'SELECT * from Users where id = ?',
-  FIND_COLUMNS_BY_USER_ID: 'SELECT id from Columns where owner_id = ? order by position',
+  FIND_COLUMNS_BY_USER_ID: 'SELECT * from Columns where owner_id = ? order by position',
   FIND_COLUMN: 'SELECT * from Columns where id = ?',
   FIND_NOTES_IN_COLUMN: 'SELECT id from Notes where column_id = ? order by position',
   FIND_COLUMN_BY_POSITION: 'SELECT * from Columns where owner_id = ? and position = ?',

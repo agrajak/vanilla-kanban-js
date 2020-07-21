@@ -6,7 +6,11 @@ exports.findColumnsByUserId = async (req, res) => {
   try {
     const columns = await ColumnService.findColumnsByUserId(id);
     return res.json(success({
-      columns: columns.map((x) => x.id),
+      columns: columns.map((x) => ({
+        id: x.id,
+        title: x.title,
+        position: x.position,
+      })),
     }));
   } catch ({ message }) {
     return res.status(500).json(fail(message));
