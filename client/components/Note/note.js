@@ -1,4 +1,5 @@
 import Component from 'Components/Component/component';
+import { parseNoteText } from '@/utils';
 import './note.css';
 
 export default class Note extends Component {
@@ -22,14 +23,21 @@ export default class Note extends Component {
     this.$.addEventListener('mouseout', this.onMouseOut.bind(this));
     this.$noteDeleteBtn.addEventListener('click', this.onNoteDeleteBtnClick.bind(this));
 
+    const { text } = this.props;
+    if (text) {
+      const result = parseNoteText(text);
+      this.props.title = result.title;
+      this.props.content = result.content;
+    }
+    console.log(this.props);
     const {
-      title, content, writer,
+      title, content, writerId,
     } = this.props;
 
     this
       .setTitle(title)
       .setContent(content)
-      .setWriter(writer);
+      .setWriter(writerId);
   }
 
   onDblClick() {
@@ -78,7 +86,7 @@ export default class Note extends Component {
   }
 
   setWriter(value) {
-    this.writer = value;
+    this.writerId = value;
     this.$noteWriter.innerText = value;
     return this;
   }

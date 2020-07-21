@@ -22,27 +22,27 @@ export async function findNotesByColumnId(columnId) {
   throw new Error(message);
 }
 
-// export async function createNote(note, columnId) {
-//   const response = await fetch('/api/notes', {
-//     method: 'POST',
-//     body: {
-//       // TODO
-//     },
-//   });
-//   const { success, message, payload } = await response.json();
-//   if (success) {
-//     const { note: createdNote } = payload;
-//     return createdNote;
-//   }
-//   throw new Error(message);
-// }
-
-export async function createColumn(title, ownerId, writerId) {
-  const response = await fetch('/api/columns', {
+export async function createNote(columnId, text) {
+  const body = JSON.stringify({
+    columnId, text, writerId: 'agrajak',
+  });
+  const response = await fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
+    body,
+  });
+  const { success, message, payload } = await response.json();
+  if (success) {
+    const { note } = payload;
+    return note;
+  }
+  throw new Error(message);
+}
+
+export async function createColumn(title, ownerId, writerId) {
+  const response = await fetch('/api/columns', {
     body: JSON.stringify({
       title,
       ownerId,

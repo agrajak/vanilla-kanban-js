@@ -1,5 +1,7 @@
-import Component from 'Components/Component/component';
+import { Note } from 'Components';
 import { parseNoteText } from '@/utils';
+import { createNote } from '@/api';
+import Component from '../../Component/component';
 import './note-form.css';
 
 export default class NoteForm extends Component {
@@ -7,11 +9,18 @@ export default class NoteForm extends Component {
     super(parent, null, 'note-form');
     this.$noteAddBtn = this.$.querySelector('.add-btn');
     this.$noteText = this.$.querySelector('.note-text');
-    this.$noteAddBtn.addEventListener('click', () => {
-      this.parent.addNote(parseNoteText(this.$noteText.value));
-      this.resetFormContents();
-      this.close();
-    });
+    this.$noteAddBtn.addEventListener('click', this.onNoteAddBtnClick.bind(this));
+  }
+
+  onNoteAddBtnClick() {
+    const { value: text } = this.$noteText;
+    createNote(this.parent.props.id, text)
+      .then((noteObj) => {
+        const note = new Note(this.parent, noteObj);
+        this.parent.prependNote(note);
+        this.resetFormContents();
+        this.close();
+      });
   }
 
   resetFormContents() {

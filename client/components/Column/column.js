@@ -31,11 +31,19 @@ export default class Column extends Component {
     return this;
   }
 
-  addNote({ title, content = '' }) {
-    const note = new Note(this, { title, content, writer: 'agrajak' });
+  addNote(noteObj) {
+    const note = new Note(this, noteObj);
     this.notes.push(note);
     note.mount(this.$colBody);
     return this;
+  }
+
+  prependNote(noteObj) {
+    const note = new Note(this, noteObj);
+    this.notes.unshift(note);
+
+    const noteForm = this.noteForm.$;
+    noteForm.parentNode.insertBefore(note.$, noteForm.nextSibling);
   }
 
   onColEditBtnClick() {

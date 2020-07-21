@@ -1,7 +1,8 @@
-import { Header, Todo, Column } from 'Components';
+import {
+  Header, Todo, Column, Note,
+} from 'Components';
 import { findColumnsByUserId, findNotesByColumnId } from '@/api';
 import '@/global.css';
-
 
 const root = document.getElementById('root');
 const header = new Header();
