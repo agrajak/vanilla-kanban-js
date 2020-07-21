@@ -10,7 +10,7 @@ module.exports = {
   UPDATE_NOTE_POSITION: 'UPDATE Notes SET column_id = ?, position = ? WHERE id = ?',
   DELETE_NOTE: 'DELETE FROM Notes WHERE id = ?',
   FIND_COLUMN: 'SELECT * from Columns where id = ?',
-  FIND_NOTES_IN_COLUMN: 'SELECT id from Notes where column_id = ? order by position',
+  FIND_NOTES_IN_COLUMN: 'SELECT * from Notes where column_id = ? order by position',
   FIND_COLUMN_BY_POSITION: 'SELECT * from Columns where owner_id = ? and position = ?',
   UPDATE_COLUMN_TITLE: 'UPDATE Columns SET title = ? WHERE id = ?',
   UPDATE_COLUMN_POSITION: 'UPDATE Columns SET position = ? WHERE id = ?',

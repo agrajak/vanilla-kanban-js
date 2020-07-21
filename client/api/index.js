@@ -9,3 +9,30 @@ export async function findColumnsByUserId(userId = 'agrajak') {
   }
   throw new Error(message);
 }
+
+export async function findNotesByColumnId(columnId) {
+  const response = await fetch(`/api/columns?id=${columnId}`, {
+    method: 'GET',
+  });
+  const { success, message, payload } = await response.json();
+  if (success) {
+    const { notes } = payload;
+    return notes;
+  }
+  throw new Error(message);
+}
+
+export async function createNote(note, columnId) {
+  const response = await fetch('/api/notes', {
+    method: 'POST',
+    body: {
+      // TODO
+    },
+  });
+  const { success, message, payload } = await response.json();
+  if (success) {
+    const { note: createdNote } = payload;
+    return createdNote;
+  }
+  throw new Error(message);
+}
