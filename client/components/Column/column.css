@@ -1,12 +1,12 @@
-.col {
-    flex: none;
+.col, .add-column-btn {
     min-width: 400px;
-    padding: 20px;
-    margin: 10px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     border: 1px solid grey;
-    overflow: scroll;
+    overflow-y: scroll;
+    padding: 1.5rem;
+    margin: 1rem;
 }
 
 .col-header, .col-body {
