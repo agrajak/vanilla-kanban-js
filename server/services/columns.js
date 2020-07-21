@@ -28,9 +28,9 @@ async function findColumnInfo(columnId) {
   const [row] = await pool.query(queries.FIND_NOTES_IN_COLUMN, [columnId]);
   return row.map((note) => new Note(note));
 }
-async function getTopPosition(ownerId) {
-  const [row] = await pool.query(queries.GET_COLUMN_TOP_POSITION, [ownerId]);
-  return row[0] || 0;
+async function getLastPosition(ownerId) {
+  const [row] = await pool.query(queries.GET_COLUMN_LAST_POSITION, [ownerId]);
+  return row[0]['COUNT(*)'] || 0;
 }
 
 async function createColumn(column) {
@@ -63,5 +63,5 @@ async function deleteColumnById(id) {
 }
 
 module.exports = {
-  findColumnsByUserId, findColumnById, findColumnInfo, createColumn, updateColumnTitle, moveColumn, deleteColumnById, getTopPosition,
+  findColumnsByUserId, findColumnById, findColumnInfo, createColumn, updateColumnTitle, moveColumn, deleteColumnById, getLastPosition,
 };

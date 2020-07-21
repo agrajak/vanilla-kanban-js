@@ -1,5 +1,5 @@
 .col, .add-column-btn {
-    min-width: 400px;
+    width: 20%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -9,9 +9,13 @@
     margin: 1rem;
 }
 
-.col-header, .col-body {
+.add-column-btn {
+    background-color:  gray;
+    text-align: center;
+}
+
+.col-header {
     display: flex;
-    flex-direction: row;
 }
 
 .col-body { 
@@ -22,6 +26,7 @@
 .col-title {
     margin-right: auto;
 }
+
 .col-btns > button {
     background-color: white;
     border: none;
@@ -30,8 +35,9 @@
 }
 
 .note-counter {
-    margin: 0px 5px;
+    margin: 0px .5rem;
 }
+
 .label-col-name, .input-col-name {
     display: block;
 }

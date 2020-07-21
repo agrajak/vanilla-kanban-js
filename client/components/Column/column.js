@@ -52,7 +52,7 @@ export default class Column extends Component {
 
   mount(element) {
     this.noteForm.mount(this.$colBody);
-    super.mount(element);
+    element.insertBefore(this.$, element.lastChild);
   }
 
   render() {
