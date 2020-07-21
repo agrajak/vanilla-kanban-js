@@ -5,8 +5,8 @@ import { findColumnsByUserId } from './api';
 const body = document.querySelector('body');
 const header = new Header();
 const todo = new Todo();
-header.mount(body);
-todo.mount(body);
+header.mount(document.getElementById('root'));
+todo.mount(document.getElementById('root'));
 
 // async function loadTodos() {
 //   const columns = await findColumnsByUserId('agrajak');
