@@ -17,5 +17,5 @@ module.exports = {
   DELETE_COLUMN: 'DELETE FROM Columns WHERE id = ?',
   CREATE_COLUMN: 'INSERT INTO Columns (title, owner_id, writer_id, position) VALUES (?, ?, ?, ?)',
   GET_LAST_INSERTED_COLUMN: 'SELECT * FROM Columns WHERE id = (SELECT LAST_INSERT_ID())',
-  GET_COLUMN_TOP_POSITION: 'SELECT COUNT(*) FROM Columns WHERE owner_id = ?',
+  GET_COLUMN_LAST_POSITION: 'SELECT COUNT(*) FROM Columns WHERE owner_id = ?',
 };
