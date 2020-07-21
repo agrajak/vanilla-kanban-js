@@ -1,8 +1,8 @@
 module.exports = {
   FIND_USER: 'SELECT * from Users where id = ?',
-  FIND_COLUMNS_BY_USER_ID: 'SELECT id from Columns where owner_id = ?',
+  FIND_COLUMNS_BY_USER_ID: 'SELECT id from Columns where owner_id = ? order by position',
   FIND_COLUMN: 'SELECT * from Columns where id = ?',
-  FIND_NOTES_IN_COLUMN: 'SELECT id from Notes where column_id = ?',
+  FIND_NOTES_IN_COLUMN: 'SELECT id from Notes where column_id = ? order by position',
   FIND_COLUMN_BY_POSITION: 'SELECT * from Columns where owner_id = ? and position = ?',
   UPDATE_COLUMN_TITLE: 'UPDATE Columns SET title = ? WHERE id = ?',
   UPDATE_COLUMN_POSITION: 'UPDATE Columns SET position = ? WHERE id = ?',
