@@ -16,11 +16,14 @@ export default class Column extends Component {
     this.$colTitle = this.$.querySelector('.col-title');
     this.$colBody = this.$.querySelector('.col-body');
     this.$noteFormBtn = this.$.querySelector('.note-plus-btn');
+    this.$removeBtn = this.$.querySelector('.col-delete-btn');
+
     this.notes = [];
 
     this.setTitle(title);
     this.noteForm = new NoteForm(this);
 
+    this.$removeBtn.addEventListener('click', this.removeCol.bind(this));
     this.$noteFormBtn.addEventListener('click', this.noteForm.open.bind(this.noteForm));
     this.$colTitle.addEventListener('dblclick', this.onColEditBtnClick.bind(this));
   }
@@ -36,6 +39,10 @@ export default class Column extends Component {
     this.notes.push(note);
     note.mount(this.$colBody);
     return this;
+  }
+
+  removeCol() {
+    this.parent.$.removeChild(this.$);
   }
 
   prependNote(noteObj) {
