@@ -2,6 +2,7 @@ import Component from 'Components/Component/component';
 import NoteForm from 'Components/Note/Sections/note-form';
 import './column.css';
 import Note from 'Components/Note/note';
+import { deleteColumn } from '@/api';
 
 export default class Column extends Component {
   /**
@@ -41,7 +42,9 @@ export default class Column extends Component {
     return this;
   }
 
-  removeCol() {
+  async removeCol() {
+    const { id } = this.props;
+    await deleteColumn(id);
     this.parent.$.removeChild(this.$);
   }
 
