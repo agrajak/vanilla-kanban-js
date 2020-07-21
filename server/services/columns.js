@@ -27,8 +27,8 @@ async function findColumnInfo(columnId) {
   const [row] = await pool.query(queries.FIND_NOTES_IN_COLUMN, [columnId]);
   return row.map(({ id }) => id);
 }
-async function getTopPosition() {
-  const [row] = await pool.query(queries.GET_COLUMN_TOP_POSITION);
+async function getTopPosition(ownerId) {
+  const [row] = await pool.query(queries.GET_COLUMN_TOP_POSITION, [ownerId]);
   return row[0] || 0;
 }
 
