@@ -5,7 +5,7 @@ export default class ColumnAddBtn extends Component {
   constructor(parent) {
     super(parent, null, 'add-column-btn');
 
-    this.$.addEventListener('click', () => this.parent.addColumn(new Column(this, { title: '제목' })));
+    this.$.addEventListener('click', () => this.parent.addColumn(new Column(this, { title: '제목을 입력하세요.' })));
   }
 
   render() {
