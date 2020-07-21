@@ -1,4 +1,4 @@
-import Component from 'Components/component';
+import Component from 'Components/Component/component';
 import NoteForm from 'Components/Note/Sections/note-form';
 import './column.css';
 import Note from 'Components/Note/note';

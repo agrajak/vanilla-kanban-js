@@ -1,13 +1,13 @@
-/* eslint-disable no-restricted-syntax */
-import Note from 'Components/Note/note';
-import Todo from 'Components/Todo/todo';
-import Column from 'Components/Column/column';
+import { Header, Todo, Column } from 'Components';
+import { findColumnsByUserId, findNotesByColumnId } from '@/api';
 import '@/global.css';
-import { findColumnsByUserId, findNotesByColumnId } from './api';
 
-const body = document.querySelector('body');
+
+const root = document.getElementById('root');
+const header = new Header();
 const todo = new Todo();
-todo.mount(body);
+header.mount(root);
+todo.mount(root);
 
 (async function loadTodos() {
   const columns = await findColumnsByUserId('agrajak');
@@ -15,7 +15,7 @@ todo.mount(body);
     const column = new Column(todo, { id, title, position });
     const notes = await findNotesByColumnId(id);
     for (const note of notes) {
-      column.addNote(new Note(note));
+      column.addNote(new Note(column, note));
     }
     todo.addColumn(column);
   }
