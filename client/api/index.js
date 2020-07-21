@@ -43,6 +43,10 @@ export async function createNote(columnId, text) {
 
 export async function createColumn(title, ownerId, writerId) {
   const response = await fetch('/api/columns', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
     body: JSON.stringify({
       title,
       ownerId,
@@ -53,6 +57,17 @@ export async function createColumn(title, ownerId, writerId) {
   if (success) {
     const { column } = payload;
     return column;
+  }
+  throw new Error(message);
+}
+
+export async function deleteColumn(columnId) {
+  const response = await fetch(`/api/columns?id=${columnId}`, {
+    method: 'DELETE',
+  });
+  const { success, message } = await response.json();
+  if (success) {
+    return;
   }
   throw new Error(message);
 }
