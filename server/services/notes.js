@@ -1,17 +1,27 @@
 const Note = require('../models/notes');
+const ColumnService = require('../services/columns');
 const pool = require('../pool');
 const queries = require('../queries');
 
 async function getTopPosition(columnId) {
   const [row] = await pool.query(queries.GET_NOTE_TOP_POSITION, [columnId]);
-  return row[0] || 0;
+  const position = Object.values(row[0])[0];
+  return position || 0;
+}
+
+async function increaseNotePos(columnId, position) {
+  await pool.query(queries.INCREASE_NOTE_POSITION, [columnId, position]);
+}
+
+async function decraseNotePos(columnId, position) {
+  await pool.query(queries.INCREASE_NOTE_POSITION, [columnId, position]);
 }
 
 async function createNote(note) {
   const {
-    position, text, writer, columnId,
+    position, text, writerId, columnId,
   } = note;
-  await pool.query(queries.CREATE_NOTE, [position, text, writer, columnId]);
+  await pool.query(queries.CREATE_NOTE, [position, text, writerId, columnId]);
   const [row] = await pool.query(queries.GET_LAST_INSERTED_NOTE);
   return new Note(row[0]);
 }
@@ -60,4 +70,6 @@ module.exports = {
   findNoteByPosition,
   deleteNoteById,
   getTopPosition,
+  increaseNotePos,
+  decraseNotePos,
 };

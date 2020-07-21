@@ -2,15 +2,18 @@ const Note = require('../models/notes');
 const NoteService = require('../services/notes');
 
 exports.createNote = async (req, res) => {
-  const { writer, columnId, text } = req.body;
+  const { writer = 'agrajak', columnId, text } = req.body;
   try {
-    const position = await NoteService.getTopPosition(columnId);
+    await NoteService.increaseNotePos(columnId, 0);
     const note = await NoteService.createNote(new Note({
-      position, text, writer, columnId,
+      position: 0, text, writerId: writer, columnId,
     }));
+
     return res.send({
       success: true,
-      noteId: note.id,
+      payload: {
+        note,
+      },
     });
   } catch (err) {
     return res.status(500).json({

@@ -6,7 +6,6 @@ const notesRouter = require('./notes');
 const columnRouter = require('./columns');
 const todoRouter = require('./todos');
 
-
 const router = express.Router();
 
 router.use('/users', usersRouter);

@@ -1,6 +1,6 @@
 class Notes {
   constructor({
-    id, text, position, writerId, writer_id, ownerId, owner_id, columnId, column_id
+    id, text, position, writerId, writer_id, ownerId, owner_id, columnId, column_id,
   }) {
     this.id = id;
     this.text = text;
