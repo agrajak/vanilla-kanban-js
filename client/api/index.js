@@ -71,3 +71,21 @@ export async function deleteColumn(columnId) {
   }
   throw new Error(message);
 }
+
+export async function updateColumnTitle(columnId, title) {
+  const response = await fetch('/api/columns/title', {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      id: columnId,
+      title,
+    }),
+  });
+  const { success, message } = await response.json();
+  if (success) {
+    return;
+  }
+  throw new Error(message);
+}

@@ -1,5 +1,6 @@
 import Modal from 'Components/Modal/modal';
 import 'Components/Modal/modal.css';
+import { updateColumnTitle } from '@/api';
 
 export default class ColModal extends Modal {
   constructor() {
@@ -34,7 +35,8 @@ export default class ColModal extends Modal {
     return this;
   }
 
-  submit() {
+  async submit() {
+    await updateColumnTitle(this.$attach.props.id, this.$newTitle.value);
     this
       .$attach.setTitle(this.$newTitle.value);
     this
