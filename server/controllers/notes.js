@@ -76,7 +76,7 @@ exports.updateNotePosition = async (req, res) => {
 exports.deleteNote = async (req, res) => {
   const { id } = req.query;
   try {
-    await NoteService.deleteNote(id);
+    await NoteService.deleteNoteById(id);
     return res.send({
       success: true,
     });
