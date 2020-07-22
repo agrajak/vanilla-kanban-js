@@ -17,6 +17,10 @@ export default class Todo extends Component {
     this.mouseController = new EventController(this);
   }
 
+  findColumnById(id) {
+    return this.columns.find((x) => x.props.id === id);
+  }
+
   mount(element) {
     this.columnModal.mount(this.$);
     this.noteModal.mount(this.$);

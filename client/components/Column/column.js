@@ -48,9 +48,18 @@ export default class Column extends Component {
 
   prependNote(note) {
     this.notes.unshift(note);
-
     const noteForm = this.noteForm.$;
-    noteForm.parentNode.insertBefore(note.$, noteForm.nextSibling);
+    this.$colBody.insertBefore(note.$, noteForm.nextSibling);
+  }
+
+  insertNote(note, position) {
+    this.notes.splice(position, 0, note);
+    const noteForm = this.noteForm.$;
+    let node = noteForm.nextElementSibling;
+    for (let i = 0; i < position; i += 1) {
+      node = node.nextElementSibling;
+    }
+    this.$colBody.insertBefore(note.$, node);
   }
 
   onColEditBtnClick() {
@@ -59,8 +68,14 @@ export default class Column extends Component {
       .open();
   }
 
-  async removeNote(note) {
-    await deleteNote(note.props.id);
+  findNoteById(id) {
+    return this.notes.find((x) => x.props.id === id);
+  }
+
+  async removeNote(note, onlyDOM = false) {
+    if (!onlyDOM) {
+      await deleteNote(note.props.id);
+    }
     const { $ } = note;
     this.notes = this.notes.filter((x) => x !== $);
     this.$colBody.removeChild($);

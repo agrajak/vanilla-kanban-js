@@ -13,7 +13,7 @@ async function increaseNotePos(columnId, position) {
 }
 
 async function decraseNotePos(columnId, position) {
-  await pool.query(queries.INCREASE_NOTE_POSITION, [columnId, position]);
+  await pool.query(queries.DECREASE_NOTE_POSITION, [columnId, position]);
 }
 
 async function createNote(note) {

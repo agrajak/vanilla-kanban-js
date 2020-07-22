@@ -19,7 +19,7 @@ function hide(element) {
 }
 
 function getCID(element) {
-  return element.getAttribute('cid');
+  return parseInt(element.getAttribute('cid'), 10);
 }
 
 export default class EventController {
@@ -99,9 +99,9 @@ export default class EventController {
   onDrop() {
     this.$.removeEventListener('mousemove', this.onMouseMove);
     this.$.removeEventListener('mouseup', this.onMouseUp);
-    show(this.element);
 
     const noteId = getCID(this.element);
+    const oldColumnId = getCID(this.element.closest('.col'));
     const $newColumn = this.sticker.closest('.col');
     const columnId = getCID($newColumn);
     const position = Array.from($newColumn.querySelector('.col-body').children)
@@ -110,12 +110,18 @@ export default class EventController {
 
     moveNote(noteId, columnId, position)
       .then(() => {
+        show(this.element);
         this.element.classList.remove('selected');
         this.$.removeChild(this.ghost);
         if (this.sticker.parentElement) {
           this.sticker.parentElement.removeChild(this.sticker);
         }
         this.ghost = null;
+        const oldColumn = this.parent.findColumnById(oldColumnId);
+        const oldNote = oldColumn.findNoteById(noteId);
+        oldColumn.removeNote(oldNote, true);
+        const newColumn = this.parent.findColumnById(columnId);
+        newColumn.insertNote(oldNote, position);
       });
 
     return this;
