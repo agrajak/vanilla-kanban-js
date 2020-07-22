@@ -19,8 +19,6 @@ export default class Note extends Component {
     this.noteModal = this.getRootComponent().noteModal;
 
     this.$.addEventListener('dblclick', this.onDblClick.bind(this));
-    this.$.addEventListener('mouseover', this.onMouseOver.bind(this));
-    this.$.addEventListener('mouseout', this.onMouseOut.bind(this));
     this.$noteDeleteBtn.addEventListener('click', this.onNoteDeleteBtnClick.bind(this));
 
     const { text } = this.props;
@@ -29,7 +27,6 @@ export default class Note extends Component {
       this.props.title = result.title;
       this.props.content = result.content;
     }
-    console.log(this.props);
     const {
       title, content, writerId,
     } = this.props;
@@ -44,29 +41,6 @@ export default class Note extends Component {
     this.noteModal
       .attach(this)
       .open();
-  }
-
-  onMouseOver() {
-    if (this.getRootComponent().isNoteDragging) {
-      const { fakeNote, selectedNote } = this.getRootComponent();
-
-      selectedNote.close();
-      if (fakeNote.isVisible() && this.isHigherThan(fakeNote)) {
-        this.parent.$colBody.insertBefore(fakeNote.$, this.$.nextSibling);
-      } else {
-        this.parent.$colBody.insertBefore(fakeNote.$, this.$);
-      }
-      fakeNote.open();
-    } else {
-      this.getRootComponent().selectedNote = this;
-      this.$.classList.add('selected');
-    }
-  }
-
-  onMouseOut() {
-    this.$.classList.remove('selected');
-    if (this.getRootComponent().isNoteDragging) return;
-    this.getRootComponent().selectedNote = null;
   }
 
   onNoteDeleteBtnClick() {
