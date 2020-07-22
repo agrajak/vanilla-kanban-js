@@ -17,8 +17,6 @@ export default class Todo extends Component {
   mount(element) {
     this.columnModal.mount(this.$);
     this.noteModal.mount(this.$);
-    this.ghostNote.mount(element);
-    this.fakeNote.mount(element);
     this.addColumnBtn.mount(this.$);
     super.mount(element);
   }
