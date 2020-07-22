@@ -4,7 +4,7 @@ module.exports = {
   FIND_COLUMNS_BY_USER_ID: 'SELECT * from Columns where owner_id = ? order by position',
   GET_NOTE_TOP_POSITION: 'SELECT COUNT(*) FROM Notes WHERE column_id = ?',
   CREATE_NOTE: 'INSERT INTO Notes (position, text, writer_id, column_id) VALUES (?, ?, ?, ?)',
-  GET_LAST_INSERTED_NOTE: 'SELECT * FROM Notes WHERE id = (SELECT LAST_INSERT_ID())',
+  GET_LAST_INSERTED_NOTE: 'SELECT * FROM Notes WHERE created_at in (SELECT max(created_at) from Notes)',
   FIND_NOTE: 'SELECT * from Notes where id = ?',
   UPDATE_NOTE_TEXT: 'UPDATE Notes SET text = ? WHERE id = ?',
   FIND_NOTE_BY_POSITION: 'SELECT * from Notes where column_id = ? and position = ?',
@@ -20,6 +20,8 @@ module.exports = {
   UPDATE_COLUMN_POSITION: 'UPDATE Columns SET position = ? WHERE id = ?',
   DELETE_COLUMN: 'DELETE FROM Columns WHERE id = ?',
   CREATE_COLUMN: 'INSERT INTO Columns (title, owner_id, writer_id, position) VALUES (?, ?, ?, ?)',
-  GET_LAST_INSERTED_COLUMN: 'SELECT * FROM Columns WHERE id = (SELECT LAST_INSERT_ID())',
+  GET_LAST_INSERTED_COLUMN: 'SELECT * FROM Columns WHERE created_at in (SELECT max(created_at) from Columns)',
   GET_COLUMN_LAST_POSITION: 'SELECT COUNT(*) FROM Columns WHERE owner_id = ?',
+  INCREASE_COLUMN_POSITION: 'UPDATE Columns SET position = position + 1 WHERE owner_id = ? and position >= ?',
+  DECREASE_COLUMN_POSITION: 'UPDATE Columns SET position = position - 1 WHERE owner_id = ? and position >= ?',
 };
