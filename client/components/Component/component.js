@@ -5,6 +5,10 @@ export default class Component {
     this.$.innerHTML = this.render();
     this.$.classList.add(className);
     this.props = props;
+
+    if (this.props?.id) {
+      this.$.setAttribute('cid', this.props.id);
+    }
   }
 
   mount(element) {
