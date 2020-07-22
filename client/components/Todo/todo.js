@@ -2,6 +2,7 @@ import Component from 'Components/Component/component';
 import './todo.css';
 import ColModal from '../Modal/Sections/col-modal';
 import NoteModal from '../Modal/Sections/note-modal';
+import ConfirmModal from '../Modal/Sections/confirm-modal';
 import GhostNote from '../Note/Sections/ghost-note';
 import FakeNote from '../Note/Sections/fake-note';
 import ColumnAddBtn from '../Column/Sections/columnAddBtn';
@@ -12,6 +13,7 @@ export default class Todo extends Component {
     this.columns = [];
 
     this.columnModal = new ColModal(this);
+    this.confirmModal = new ConfirmModal(this);
     this.noteModal = new NoteModal(this);
 
     this.ghostNote = new GhostNote(this); // 떠다니는 노트
@@ -69,6 +71,7 @@ export default class Todo extends Component {
   mount(element) {
     this.columnModal.mount(this.$);
     this.noteModal.mount(this.$);
+    this.confirmModal.mount(this.$);
     this.ghostNote.mount(element);
     this.fakeNote.mount(element);
     this.addColumnBtn.mount(this.$);

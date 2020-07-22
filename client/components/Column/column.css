@@ -41,3 +41,10 @@
 .label-col-name, .input-col-name {
     display: block;
 }
+
+.modal-footer > button{
+    width: 45%;
+    font-size: 1em;
+    padding: 5px;
+    margin: 4px;
+}
