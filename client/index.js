@@ -1,14 +1,16 @@
 import {
-  Header, Todo, Column, Note,
+  Header, Todo, Column, Note, Log,
 } from 'Components';
 import { findColumnsByUserId, findNotesByColumnId } from '@/api';
 import '@/global.css';
 
 const root = document.getElementById('root');
-const header = new Header();
+const header = new Header(root);
 const todo = new Todo();
+const log = new Log();
 header.mount(root);
 todo.mount(root);
+log.mount(root);
 
 (async function loadTodos() {
   const columns = await findColumnsByUserId('agrajak');
