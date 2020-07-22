@@ -2,9 +2,9 @@ function selectDraggableNode(target) {
   if (target.closest('.note')) {
     return target.closest('.note');
   }
-  if (target.classList.contains('col') || target.closest('.col-header')) {
-    return target.closest('.col');
-  }
+  // if (target.classList.contains('col') || target.closest('.col-header')) {
+  //   return target.closest('.col');
+  // }
   return null;
 }
 function show(element) {
@@ -29,7 +29,6 @@ export default class EventController {
   }
 
   onDragStart(event) {
-    event.stopPropagation();
     const { target } = event;
     const element = selectDraggableNode(target);
     if (element == null) return this;
@@ -44,37 +43,46 @@ export default class EventController {
     this.$.addEventListener('mouseup', this.onMouseUp);
     this.element = element;
     this.$.appendChild(this.ghost);
-    hide(element);
     return this;
   }
 
   onDragOver(event) {
+    hide(this.element);
     const { target, clientX: x, clientY: y } = event;
     this.moveGhost(x, y);
     this.ghost.classList.add('dragging');
     show(this.ghost);
     const $column = target.closest('.col');
     if (!$column) return this;
+
     show(this.sticker);
     const $colBody = $column.querySelector('.col-body');
-    const hasNote = Array.from($colBody.children)
-      .reverse()
+    const $notes = Array.from($colBody.children)
       .filter((node) => node.classList.contains('note'))
-      .filter((node) => !node.classList.contains('hidden'))
-      .some((note) => {
-        const { top, height } = note.getBoundingClientRect();
-        if (top < y && top + height / 2 > y) {
-          $colBody.insertBefore(this.sticker, note);
-          return true;
-        }
-        if (top + height / 2 < y) {
-          $colBody.insertBefore(this.sticker, note.nextSibling);
-          return true;
-        }
-        return false;
-      });
+      .filter((node) => !node.classList.contains('hidden'));
+    const hasNote = $notes.slice().reverse().some(($note) => {
+      const { top, height } = $note.getBoundingClientRect();
+      if (top < y && top + height / 2 > y) {
+        $colBody.insertBefore(this.sticker, $note);
+        return true;
+      }
+      if (top + height / 2 < y) {
+        $colBody.insertBefore(this.sticker, $note.nextSibling);
+        return true;
+      }
+      return false;
+    });
+    if ($notes.length === 0) {
+      $colBody.insertBefore(this.sticker, null);
+      return this;
+    }
     if (!hasNote) {
-      $colBody.appendChild(this.sticker);
+      const $firstNote = $notes[0];
+      const { y: noteY } = $firstNote.getBoundingClientRect();
+      if (noteY > y) {
+        $colBody.insertBefore(this.sticker, $firstNote);
+        return this;
+      }
     }
     return this;
   }
