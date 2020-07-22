@@ -1,5 +1,4 @@
 const Note = require('../models/notes');
-const ColumnService = require('../services/columns');
 const pool = require('../pool');
 const queries = require('../queries');
 
@@ -49,8 +48,6 @@ async function findNoteByPosition(columnId, position) {
 
 // 체크
 async function moveNote(note) {
-  // note A를 포지션 B로 옮길 때, 포지션 B에 있던 노트와 A의 포지션을 각자 교환(swap)한다.
-  // TODO -> 커넥션 하나에서 다 처리하기
   const { id, columnId, position } = note;
   const { columnId: oldColumn, position: oldPosition, writer } = await findNoteById(id);
   const oldNote = await findNoteByPosition(columnId, position, writer);
@@ -59,7 +56,9 @@ async function moveNote(note) {
 }
 
 async function deleteNoteById(id) {
+  const { columnId, position } = await findNoteById(id);
   await pool.query(queries.DELETE_NOTE, [id]);
+  await decraseNotePos(columnId, position);
 }
 
 module.exports = {

@@ -41,23 +41,27 @@ export async function createNote(columnId, text) {
   throw new Error(message);
 }
 
-export async function createColumn(title, ownerId, writerId) {
-  const response = await fetch('/api/columns', {
-    method: 'POST',
+export async function editNote(id, text) {
+  const response = await fetch('/api/notes/text', {
+    method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      title,
-      ownerId,
-      writerId,
+      id, text,
     }),
   });
-  const { success, message, payload } = await response.json();
-  if (success) {
-    const { column } = payload;
-    return column;
-  }
+  const { success, message } = await response.json();
+  if (success) return;
+  throw new Error(message);
+}
+
+export async function deleteNote(id) {
+  const response = await fetch(`/api/notes?id=${id}`, {
+    method: 'DELETE',
+  });
+  const { success, message } = await response.json();
+  if (success) return;
   throw new Error(message);
 }
 
