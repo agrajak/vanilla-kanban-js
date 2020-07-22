@@ -1,8 +1,9 @@
 import Component from 'Components/Component/component';
-import './todo.css';
+import EventController from '@/event-controller';
 import ColModal from '../Modal/Sections/col-modal';
 import NoteModal from '../Modal/Sections/note-modal';
 import ColumnAddBtn from '../Column/Sections/columnAddBtn';
+import './todo.css';
 
 export default class Todo extends Component {
   constructor(parent) {
@@ -12,6 +13,8 @@ export default class Todo extends Component {
     this.columnModal = new ColModal(this);
     this.noteModal = new NoteModal(this);
     this.addColumnBtn = new ColumnAddBtn(this);
+
+    this.mouseController = new EventController(this.$);
   }
 
   mount(element) {

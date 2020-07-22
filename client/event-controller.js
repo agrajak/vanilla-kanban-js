@@ -1,42 +1,56 @@
+function selectDraggableNode(target) {
+  if (target.closest('.note')) {
+    return target.closest('.note');
+  }
+  if (target.classList.contains('col') || target.closest('.col-header')) {
+    return target.closest('.col');
+  }
+  return null;
+}
+
 export default class EventController {
   constructor(container) {
     this.$ = container;
     this.ghost = null;
-    this.x = null;
-    this.y = null;
+    this.element = null;
+    this.$.addEventListener('mousedown', (event) => this.onDragStart(event));
   }
 
   moveGhost(x, y) {
-    this.ghost.setAttribute('style', `left: ${x}; top: ${y};`);
+    const rect = this.$.getBoundingClientRect();
+    this.ghost.setAttribute('style', `left: ${x - rect.x}; top: ${y - rect.y};`);
   }
 
-  onDragStart(event, element) {
+  onDragStart(event) {
     event.stopPropagation();
-    const { target, offsetX: x, offsetY: y } = event;
-    if (target.classList.contains('col') || target.classList.contains('note')) {
-      element.classList.add('selected');
-      this.ghost = element.cloneNode(true);
-      this.ghost.classList.add('ghost');
-      this.onMouseMove = this.onDragStartOver.bind(this);
-      this.ghost.addEventListener('mousemove', this.onMouseMove);
-      this.x = x;
-      this.y = y;
-      this.moveGhost(x, y);
-      this.$.appendChild(this.ghost);
-    }
+    const { target } = event;
+    const element = selectDraggableNode(target);
+    if (element == null) return this;
+
+    element.classList.add('selected');
+    this.ghost = element.cloneNode(true);
+    this.ghost.classList.add('ghost', 'hidden');
+    this.onMouseUp = this.onDrop.bind(this);
+    this.onMouseMove = this.onDragOver.bind(this);
+    this.$.addEventListener('mousemove', this.onMouseMove);
+    this.$.addEventListener('mouseup', this.onMouseUp);
+    this.element = element;
+    this.$.appendChild(this.ghost);
     return this;
   }
 
   onDragOver(event) {
-    this.ghost.classList.add('dragging');
     const { clientX: x, clientY: y } = event;
     this.moveGhost(x, y);
+    this.ghost.classList.add('dragging');
+    this.ghost.classList.remove('hidden');
     return this;
   }
 
-  onDrop(element) {
+  onDrop() {
     this.$.removeEventListener('mousemove', this.onMouseMove);
-    element.classList.remove('selected');
+    this.$.removeEventListener('mouseup', this.onMouseUp);
+    this.element.classList.remove('selected');
     this.$.removeChild(this.ghost);
     this.ghost = null;
     return this;
