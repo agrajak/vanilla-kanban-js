@@ -1,3 +1,5 @@
+import { moveNote } from '@/api';
+
 function selectDraggableNode(target) {
   if (target.closest('.note')) {
     return target.closest('.note');
@@ -7,12 +9,19 @@ function selectDraggableNode(target) {
   // }
   return null;
 }
+
 function show(element) {
   element.classList.remove('hidden');
 }
+
 function hide(element) {
   element.classList.add('hidden');
 }
+
+function getCID(element) {
+  return element.getAttribute('cid');
+}
+
 export default class EventController {
   constructor(parent) {
     this.parent = parent;
@@ -91,13 +100,24 @@ export default class EventController {
     this.$.removeEventListener('mousemove', this.onMouseMove);
     this.$.removeEventListener('mouseup', this.onMouseUp);
     show(this.element);
-    hide(this.sticker);
-    this.element.classList.remove('selected');
-    this.$.removeChild(this.ghost);
-    if (this.sticker.parentElement) {
-      this.sticker.parentElement.removeChild(this.sticker);
-    }
-    this.ghost = null;
+
+    const noteId = getCID(this.element);
+    const $newColumn = this.sticker.closest('.col');
+    const columnId = getCID($newColumn);
+    const position = Array.from($newColumn.querySelector('.col-body').children)
+      .filter((node) => node.classList.contains('note'))
+      .filter((node) => !node.classList.contains('hidden')).indexOf(this.sticker);
+
+    moveNote(noteId, columnId, position)
+      .then(() => {
+        this.element.classList.remove('selected');
+        this.$.removeChild(this.ghost);
+        if (this.sticker.parentElement) {
+          this.sticker.parentElement.removeChild(this.sticker);
+        }
+        this.ghost = null;
+      });
+
     return this;
   }
 }

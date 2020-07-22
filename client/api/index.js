@@ -1,3 +1,7 @@
+const headers = {
+  'Content-Type': 'application/json',
+};
+
 export async function findColumnsByUserId(userId = 'agrajak') {
   const response = await fetch(`/api/todos?id=${userId}`, {
     method: 'GET',
@@ -28,9 +32,7 @@ export async function createNote(columnId, text) {
   });
   const response = await fetch('/api/notes', {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body,
   });
   const { success, message, payload } = await response.json();
@@ -44,9 +46,7 @@ export async function createNote(columnId, text) {
 export async function editNote(id, text) {
   const response = await fetch('/api/notes/text', {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({
       id, text,
     }),
@@ -59,6 +59,20 @@ export async function editNote(id, text) {
 export async function deleteNote(id) {
   const response = await fetch(`/api/notes?id=${id}`, {
     method: 'DELETE',
+  });
+  const { success, message } = await response.json();
+  if (success) return;
+  throw new Error(message);
+}
+
+export async function moveNote(id, columnId, position) {
+  const body = JSON.stringify({
+    id, columnId, position,
+  });
+  const response = await fetch('/api/notes/position', {
+    method: 'PUT',
+    body,
+    headers,
   });
   const { success, message } = await response.json();
   if (success) return;

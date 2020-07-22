@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 import {
   Header, Todo, Column, Note,
 } from 'Components';
