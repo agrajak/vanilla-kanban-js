@@ -14,7 +14,7 @@ export default class Todo extends Component {
     this.noteModal = new NoteModal(this);
     this.addColumnBtn = new ColumnAddBtn(this);
 
-    this.mouseController = new EventController(this.$);
+    this.mouseController = new EventController(this);
   }
 
   mount(element) {
