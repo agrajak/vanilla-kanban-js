@@ -107,7 +107,7 @@ export default class Column extends Component {
   render() {
     return `
       <div class="col-header">
-        <div class="note-counter">3</div>
+        <div class="note-counter">0</div>
         <div class="col-title">
             해야할 일
         </div>
