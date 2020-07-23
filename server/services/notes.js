@@ -5,8 +5,7 @@ const queries = require('../queries');
 
 async function getTopPosition(columnId) {
   const [row] = await pool.query(queries.GET_NOTE_TOP_POSITION, [columnId]);
-  const position = Object.values(row[0])[0];
-  return position || 0;
+  return row[0]['COUNT(*)'] || 0;
 }
 
 async function increaseNotePos(columnId, position) {
@@ -49,7 +48,9 @@ async function findNoteByPosition(columnId, position) {
 }
 
 async function moveNote(note) {
-  const { id, columnId, position } = note;
+  const { id, columnId, position: targetPosition } = note;
+  const maxPosition = await getTopPosition(columnId) - 1;
+  const position = Math.min(targetPosition, maxPosition);
   const { columnId: oldColumnId, position: oldPosition } = await findNoteById(id);
   await decraseNotePos(oldColumnId, oldPosition);
   await increaseNotePos(columnId, position);
