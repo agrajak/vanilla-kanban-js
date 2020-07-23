@@ -1,4 +1,4 @@
-.menu-header, .activity, .log-list {
+.menu-header, .activity, .log {
   padding: 1rem;
 }
 
@@ -45,7 +45,14 @@
 .activity {
   border-bottom: 1px solid black;
 }
-
 .log {
-  list-style:none;
+  border-bottom: 1px solid black;
+}
+
+.log-writer, .log-from, .log-to {
+  font-weight: 800;
+}
+
+.none {
+  font-weight: 400;
 }

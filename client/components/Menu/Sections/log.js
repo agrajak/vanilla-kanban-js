@@ -13,7 +13,7 @@ export default class Log extends Component {
 
     const {
       writerId, type, action, target, source, createdAt,
-    } = props;
+    } = this.props;
 
     this.setWriter(writerId)
       .setAction(action)
@@ -25,7 +25,7 @@ export default class Log extends Component {
 
   setWriter(value) {
     this.writer = value;
-    this.$writer.innerText = value;
+    this.$writer.innerText = `@${value}`;
     return this;
   }
 
@@ -43,13 +43,22 @@ export default class Log extends Component {
 
   setTarget(value) {
     this.target = value;
-    this.$target.innerText = value;
+    const { target } = this.props;
+    if (!target) {
+      return this;
+    }
+    this.$target.innerHTML = `<span class='none'>to</span> ${value}`;
     return this;
   }
 
   setSource(value) {
     this.source = value;
-    this.$source.innerText = value;
+    const { target } = this.props;
+    if (!target) {
+      this.$source.innerText = value;
+      return this;
+    }
+    this.$source.innerHTML = `<span class='none'>from</span> ${value}`;
     return this;
   }
 
