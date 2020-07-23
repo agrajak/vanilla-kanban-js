@@ -94,7 +94,7 @@ export default class Column extends Component {
       await deleteNote(note.props.id);
     }
     const { $ } = note;
-    this.notes = this.notes.filter((x) => x !== $);
+    this.notes = this.notes.filter((x) => x !== note);
     this.$colBody.removeChild($);
     this.updateCounter();
   }
