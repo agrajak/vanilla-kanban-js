@@ -16,7 +16,7 @@ export default class Column extends Component {
     this.$colBody = this.$.querySelector('.col-body');
     this.$noteFormBtn = this.$.querySelector('.note-plus-btn');
     this.$removeBtn = this.$.querySelector('.col-delete-btn');
-
+    this.$counter = this.$.querySelector('.note-counter');
     this.notes = [];
 
     this.setTitle(title);
@@ -25,6 +25,10 @@ export default class Column extends Component {
     this.$removeBtn.addEventListener('click', this.removeCol.bind(this));
     this.$noteFormBtn.addEventListener('click', this.onNoteFormAddBtnClick.bind(this));
     this.$colTitle.addEventListener('dblclick', this.onColEditBtnClick.bind(this));
+  }
+
+  updateCounter() {
+    this.$counter.innerText = this.notes.length;
   }
 
   onNoteFormAddBtnClick() {
@@ -47,6 +51,7 @@ export default class Column extends Component {
   addNote(note) {
     this.notes.push(note);
     note.mount(this.$colBody);
+    this.updateCounter();
     return this;
   }
 
@@ -60,6 +65,7 @@ export default class Column extends Component {
     this.notes.unshift(note);
     const noteForm = this.noteForm.$;
     this.$colBody.insertBefore(note.$, noteForm.nextSibling);
+    this.updateCounter();
   }
 
   insertNote(note, position) {
@@ -70,6 +76,7 @@ export default class Column extends Component {
       node = node.nextElementSibling;
     }
     this.$colBody.insertBefore(note.$, node);
+    this.updateCounter();
   }
 
   onColEditBtnClick() {
@@ -89,6 +96,7 @@ export default class Column extends Component {
     const { $ } = note;
     this.notes = this.notes.filter((x) => x !== $);
     this.$colBody.removeChild($);
+    this.updateCounter();
   }
 
   mount(element) {
