@@ -93,9 +93,7 @@ export async function deleteColumn(columnId) {
 export async function updateColumnTitle(columnId, title) {
   const response = await fetch('/api/columns/title', {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers,
     body: JSON.stringify({
       id: columnId,
       title,
