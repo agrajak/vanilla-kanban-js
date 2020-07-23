@@ -26,6 +26,7 @@
 
 .col-header {
     display: flex;
+    padding: 10px 0px;
 }
 
 .col-body { 
@@ -46,6 +47,14 @@
 
 .note-counter {
     margin: 0px .5rem;
+    border-radius: 50%;
+    width: 1.4rem;
+    height: 1.4rem;
+    text-align: center;
+    vertical-align: center;
+    border: 1px solid grey;
+    background-color: grey;
+    color: white;
 }
 
 .label-col-name, .input-col-name {

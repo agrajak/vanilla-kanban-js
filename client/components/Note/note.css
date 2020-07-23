@@ -1,10 +1,13 @@
 .note {
-    border: 1px solid black;
+    border: 1px solid darkgray;
+    border-radius: 0.6rem;
+    box-shadow: 0 0 1px 0 grey inset, 0 0 0 0 grey;
     margin: 4px;
     padding: 20px;
     -webkit-user-select: none;
     background-color: white;
     position: relative;
+    transform: rotate(0.1deg);
 }
 
 .note-header {
@@ -25,19 +28,15 @@
     border: 1px solid darkgray;
     opacity: 0.6;
 }
+  
+  
 .ghost {
     position: absolute;
-    pointer-events: none;
     z-index: 2;
-    opacity: 0.5;
+    opacity: 0.9;
+    background-color: white;
     width: 330px;
+    transform: rotate(-2deg);
     border: 3px solid lightblue;
-}
-.moved {
-    opacity: 0.4;
-    border: 1px solid black;
-}
-.fake {
-    pointer-events: none;
-    opacity: 0.4;
+    box-shadow: 0 0px 0px 0 grey inset, 0 7px 7px 0 grey;
 }
