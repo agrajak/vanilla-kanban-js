@@ -142,17 +142,13 @@ export default class EventController {
           this.sticker.dettach();
         });
     } else {
-      // swap column;
-      const oldPosition = getElementIndex(this.element, this.elementType);
-      const container = this.element.parentElement;
-      const targetNode = Array.from(container.children)
-        .find((node) => getElementIndex(node, this.elementType) === position);
+      const beforeSticker = this.sticker.$.previousSibling;
       const pastNode = this.element;
-      const targetCID = getCID(targetNode);
       this.unselectNode();
       this.ghost.dettach();
       this.sticker.dettach();
-      console.log(getCID(pastNode), targetCID);
+      // swap two columns;
+      pastNode.parentElement.insertBefore(pastNode, beforeSticker.nextSibling);
     }
 
     return this;
