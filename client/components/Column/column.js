@@ -1,7 +1,6 @@
-import Component from 'Components/Component/component';
-import NoteForm from 'Components/Note/Sections/note-form';
+import { Component, NoteForm } from 'Components';
 import './column.css';
-import { deleteColumn, deleteNote } from '@/api';
+import { deleteNote } from '@/api';
 
 export default class Column extends Component {
   /**

@@ -1,7 +1,7 @@
-import Component from 'Components/Component/component';
-import './log.css';
+import { Component } from 'Components';
+import './menu.css';
 
-export default class Log extends Component {
+export default class Menu extends Component {
   constructor(parent) {
     super(parent, null, 'menu');
 

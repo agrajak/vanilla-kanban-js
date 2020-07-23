@@ -1,5 +1,5 @@
-import Modal from 'Components/Modal/modal';
-import 'Components/Modal/modal.css';
+import { Modal } from 'Components';
+import '../modal.css';
 import { parseNoteText } from '@/utils';
 import { editNote } from '@/api';
 

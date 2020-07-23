@@ -1,6 +1,5 @@
-import Component from 'Components/Component/component';
+import { Component, Column } from 'Components';
 import { createColumn } from '@/api';
-import Column from '../column';
 
 export default class ColumnAddBtn extends Component {
   constructor(parent) {

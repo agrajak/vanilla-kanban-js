@@ -1,7 +1,5 @@
-import { Note } from 'Components';
-import { parseNoteText } from '@/utils';
+import { Component, Note } from 'Components';
 import { createNote } from '@/api';
-import Component from '../../Component/component';
 import './note-form.css';
 
 export default class NoteForm extends Component {

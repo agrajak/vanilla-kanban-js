@@ -1,4 +1,4 @@
-import Component from 'Components/Component/component';
+import { Component } from 'Components';
 import './modal.css';
 
 export default class Modal extends Component {

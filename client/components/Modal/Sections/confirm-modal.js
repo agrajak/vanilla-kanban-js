@@ -1,5 +1,5 @@
-import Component from 'Components/Component/component';
-import 'Components/Modal/modal.css';
+import { Component } from 'Components';
+import '../modal.css';
 import { deleteColumn } from '@/api';
 
 export default class ConfirmModal extends Component {
