@@ -1,5 +1,6 @@
 import { Component } from 'Components';
 import { parseNoteText } from '@/utils';
+import { editNote } from '@/api';
 import './note.css';
 
 export default class Note extends Component {
@@ -38,9 +39,15 @@ export default class Note extends Component {
   }
 
   onDblClick() {
-    this.noteModal
-      .attach(this)
-      .open();
+    const { id } = this.props;
+    this.noteModal.open({ title: this.title, content: this.content }, ({ text }) => {
+      editNote(id, text).then(() => {
+        const { title, content } = parseNoteText(text);
+        this
+          .setTitle(title)
+          .setContent(content);
+      });
+    });
   }
 
   onNoteDeleteBtnClick() {

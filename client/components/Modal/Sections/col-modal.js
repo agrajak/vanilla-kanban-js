@@ -22,11 +22,11 @@ export default class ColModal extends Modal {
     this.$newTitle = this.$.querySelector('.new-title');
   }
 
-  open() {
-    super.open();
+  open({ title }, callback) {
+    super.open(callback);
     this
-      .setNewTitle(this.$attach.title)
-      .setTitle(`Edit ${this.$attach.title}`);
+      .setNewTitle(title)
+      .setTitle(`Edit ${title}`);
     return this;
   }
 
@@ -36,9 +36,8 @@ export default class ColModal extends Modal {
   }
 
   async submit() {
-    await updateColumnTitle(this.$attach.props.id, this.$newTitle.value);
-    this
-      .$attach.setTitle(this.$newTitle.value);
+    const { value } = this.$newTitle;
+    this.resolve({ value });
     this
       .close()
       .setNewTitle('');

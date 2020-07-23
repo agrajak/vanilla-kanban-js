@@ -13,7 +13,7 @@ export default class Modal extends Component {
     this.$modalCloseBtn.addEventListener('click', this.close.bind(this));
     this.close();
 
-    this.$attach = null;
+    this.callback = null;
   }
 
   mount(element) {
@@ -25,6 +25,15 @@ export default class Modal extends Component {
     return this;
   }
 
+  open(callback) {
+    super.open();
+    this.callback = callback;
+  }
+
+  resolve(values) {
+    this.callback(values);
+  }
+
   setContent(value) {
     this.$modalContent.innerHTML = value;
     return this;
@@ -32,11 +41,6 @@ export default class Modal extends Component {
 
   setBtnName(value) {
     this.$modalSubmitBtn.innerText = value;
-    return this;
-  }
-
-  attach(value) {
-    this.$attach = value;
     return this;
   }
 

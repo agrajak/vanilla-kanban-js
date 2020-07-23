@@ -80,15 +80,20 @@ export default class EventController {
     this.$.removeEventListener('mouseup', this.onMouseUp);
     this.$.removeEventListener('mouseleave', this.onMouseUp);
 
+    const oldColumn = this.getNodeColumn();
+    const cid = getCID(this.element);
+    this.unselectNode();
+    this.ghost.dettach();
+    this.sticker.dettach();
+
+    if (cid === this.sticker.cid) {
+      return this;
+    }
     const noteId = getCID(this.element);
     const columnId = this.sticker.getSelectedColumnID();
     const position = this.sticker.position();
     moveNote(noteId, columnId, position)
       .then(() => {
-        const oldColumn = this.getNodeColumn();
-        this.unselectNode();
-        this.ghost.dettach();
-        this.sticker.dettach();
         const oldNote = oldColumn.findNoteById(noteId);
         oldColumn.removeNote(oldNote, true);
         const newColumn = this.parent.findColumnById(columnId);
