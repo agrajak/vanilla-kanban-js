@@ -74,11 +74,24 @@ exports.updateNoteText = async (req, res) => {
 exports.updateNotePosition = async (req, res) => {
   const { id, columnId, position } = req.body;
   try {
+    const { text, columnId: oldColumn } = await NoteService.findNoteById(id);
+    const { ownerId, title } = await ColumnService.findColumnById(columnId);
     const conn = await pool.getConnection();
     await NoteService.moveNote(new Note({
       id, columnId, position,
     }), conn);
     await conn.release();
+    if (columnId === oldColumn) {
+      await LogService.createLog(new Log({
+        ownerId, writerId: 'agrajak', type: 'Note', action: 'move', source: text,
+      }));
+      return res.send({
+        success: true,
+      });
+    }
+    await LogService.createLog(new Log({
+      ownerId, writerId: 'agrajak', type: 'Note', action: 'move', source: text, target: title,
+    }));
     return res.send({
       success: true,
     });
