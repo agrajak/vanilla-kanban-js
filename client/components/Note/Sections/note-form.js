@@ -1,5 +1,4 @@
-import { Component, Note } from 'Components';
-import { createNote } from '@/api';
+import { Component } from 'Components';
 import './note-form.css';
 
 export default class NoteForm extends Component {
@@ -8,20 +7,23 @@ export default class NoteForm extends Component {
     this.$noteAddBtn = this.$.querySelector('.add-btn');
     this.$noteCancelBtn = this.$.querySelector('.cancel-btn');
     this.$noteText = this.$.querySelector('.note-text');
-    this.$noteAddBtn.addEventListener('click', this.onNoteAddBtnClick.bind(this));
+    this.$noteAddBtn.addEventListener('click', this.onSubmit.bind(this));
     this.$noteCancelBtn.addEventListener('click', this.onNoteCancelBtnClick.bind(this));
-    this.$noteText.addEventListener('input', this.inputText.bind(this));
+    this.$noteText.addEventListener('input', this.onInput.bind(this));
     this.$noteAddBtn.disabled = true;
+    this.callback = null;
   }
 
-  onNoteAddBtnClick() {
+  onSubmit() {
     const { value: text } = this.$noteText;
-    createNote(this.parent.props.id, text)
-      .then((noteObj) => {
-        this.parent.prependNote(new Note(this.parent, noteObj));
-        this.resetFormContents();
-        this.close();
-      });
+    this.resetFormContents();
+    this.close();
+    this.callback({ text });
+  }
+
+  open(callback) {
+    super.open();
+    this.callback = callback;
   }
 
   onNoteCancelBtnClick() {
@@ -32,13 +34,13 @@ export default class NoteForm extends Component {
     this.$noteText.value = '';
   }
 
-  inputText(event) {
-    if (event.target.value !== '') {
+  onInput(event) {
+    const { value } = event.target;
+    if (value.length > 0 && value.length < 500) {
       this.$noteAddBtn.disabled = false;
+      return;
     }
-    if (event.target.value === '') {
-      this.$noteAddBtn.disabled = true;
-    }
+    this.$noteAddBtn.disabled = true;
   }
 
   mount(element) {

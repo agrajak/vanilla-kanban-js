@@ -2,12 +2,22 @@ export default class MockElement {
   constructor(parent, className) {
     this.parent = parent;
     this.$ = null;
+    this.cid = null;
     this.className = className;
+  }
+
+  isEmpty() {
+    return this.$ === null;
+  }
+
+  isEqual($) {
+    return this.$.innerHTML === $;
   }
 
   disguise($) {
     this.$ = $.cloneNode(true);
     this.$.classList.add(this.className);
+    this.cid = parseInt(this.$.getAttribute('cid'), 10);
     return this;
   }
 

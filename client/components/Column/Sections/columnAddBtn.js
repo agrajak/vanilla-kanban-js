@@ -15,6 +15,6 @@ export default class ColumnAddBtn extends Component {
   }
 
   render() {
-    return '+';
+    return '<p>+</p><p><label>컬럼을 추가할려면 클릭!</label></p>';
   }
 }
