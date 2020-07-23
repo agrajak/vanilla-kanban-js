@@ -4,3 +4,13 @@
     float: left;
     height: calc(100vh - 3rem);
 }
+
+.ghost {
+    position: absolute;
+    opacity: 0.5;
+    border: 2px solid lightskyblue;
+}
+
+.sticker {
+    opacity: 0.5;
+}

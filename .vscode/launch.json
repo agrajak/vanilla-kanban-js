@@ -5,6 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            // https://github.com/microsoft/vscode-chrome-debug/blob/master/README.md
+            "name": "Chrome Debug",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:9000/",
+            "webRoot": "${workspaceFolder}",
+            "sourceMaps": true,
+            "skipFiles": ["node_modules/*", "react-dom*.js"],
+            "sourceMapPathOverrides": {
+                "webpack:///./~/*": "${webRoot}/node_modules/*", // Example: "webpack:///./~/querystring/index.js" -> "/Users/me/project/node_modules/querystring/index.js"
+                "webpack:///./*": "${webRoot}/*", // Example: "webpack:///./src/app.js" -> "/Users/me/project/src/app.js",
+                "webpack:///*": "*", // Example: "webpack:///project/app.ts" -> "/project/app.ts"
+                "webpack:///src/*": "${webRoot}/*", // Example: "webpack:///src/app.js" -> "/Users/me/project/app.js"
+                "meteor://💻app/*": "${webRoot}/*" // Example: "meteor://💻app/main.ts" -> "/Users/me/project/main.ts"
+            },
+            "disableNetworkCache": true
+        },
+        {
             "name": "Attach by Process ID",
             "processId": "${command:PickProcess}",
             "request": "attach",
