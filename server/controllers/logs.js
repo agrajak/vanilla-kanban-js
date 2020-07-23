@@ -33,6 +33,7 @@ exports.findLogsByUserId = async (req, res) => {
         action: x.action,
         target: x.target,
         source: x.source,
+        createdAt: x.createdAt,
       })),
     }));
   } catch ({ message }) {

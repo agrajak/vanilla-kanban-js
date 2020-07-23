@@ -21,10 +21,10 @@ export default class Menu extends Component {
   async mount(element) {
     const logs = await findLogsByUserId('agrajak');
     for (const {
-      id, ownerId, writerId, type, action, target, source,
+      id, ownerId, writerId, type, action, target, source, createdAt,
     } of logs) {
       const log = new Log(this, {
-        id, ownerId, writerId, type, action, target, source,
+        id, ownerId, writerId, type, action, target, source, createdAt,
       });
       log.mount(this.$logList);
     }

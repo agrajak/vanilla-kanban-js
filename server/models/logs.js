@@ -1,6 +1,6 @@
 class Logs {
   constructor({
-    id, ownerId, owner_id, writerId, writer_id, type, action, target, source,
+    id, ownerId, owner_id, writerId, writer_id, type, action, target, source, createdAt, created_at,
   }) {
     this.id = id;
     this.ownerId = ownerId || owner_id;
@@ -9,6 +9,7 @@ class Logs {
     this.action = action;
     this.target = target;
     this.source = source;
+    this.createdAt = createdAt || created_at;
   }
 }
 
