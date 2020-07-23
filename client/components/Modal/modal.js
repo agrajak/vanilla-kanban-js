@@ -44,11 +44,6 @@ export default class Modal extends Component {
     return this;
   }
 
-  attach(value) {
-    this.$attach = value;
-    return this;
-  }
-
   render() {
     return `
     <div class="modal-container">
