@@ -1,6 +1,6 @@
-import { Component, NoteForm } from 'Components';
+import { Component, NoteForm, Note } from 'Components';
 import './column.css';
-import { deleteNote } from '@/api';
+import { deleteNote, createNote } from '@/api';
 
 export default class Column extends Component {
   /**
@@ -23,8 +23,19 @@ export default class Column extends Component {
     this.noteForm = new NoteForm(this);
 
     this.$removeBtn.addEventListener('click', this.removeCol.bind(this));
-    this.$noteFormBtn.addEventListener('click', this.noteForm.open.bind(this.noteForm));
+    this.$noteFormBtn.addEventListener('click', this.onNoteFormAddBtnClick.bind(this));
     this.$colTitle.addEventListener('dblclick', this.onColEditBtnClick.bind(this));
+  }
+
+  onNoteFormAddBtnClick() {
+    this.noteForm.open((values) => {
+      const { text } = values;
+      const { id } = this.props;
+      createNote(id, text)
+        .then((noteObj) => {
+          this.prependNote(new Note(this, noteObj));
+        });
+    });
   }
 
   setTitle(value) {
