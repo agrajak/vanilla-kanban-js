@@ -4,6 +4,13 @@ import './header.css';
 export default class Header extends Component {
   constructor(parent) {
     super(parent, null, 'header');
+
+    this.menuBtn = this.$.querySelector('.menu-btn');
+    this.menuBtn.addEventListener('click', this.openMenu.bind(this));
+  }
+
+  openMenu() {
+    this.parent.querySelector('.menu').classList.replace('close', 'open');
   }
 
   render() {
