@@ -1,3 +1,7 @@
+.menu-header, .activity, .log-list {
+  padding: 1rem;
+}
+
 .menu {
   float: right;
   position: fixed;
@@ -6,24 +10,25 @@
   z-index: 5;
   box-sizing: border-box;
   height: 100%;
-  background-color: yellow;
+  background-color: #ffffff;
   transition: 0.3s;
   display: flex;
   flex-direction: column;
+  border-left: 1px solid black;
 }
 
 .open {
-  width: 500px;
-  padding: 1rem;
+  width: 400px;
 }
 
 .close {
   width: 0;
-  padding: 0;
 }
 
 .menu-header {
   display: flex;
+  width: 100%;
+  border-bottom: 1px solid black;
 }
 
 .menu-title {
@@ -35,6 +40,10 @@
   border: none;
   font-size: 1.2rem;
   outline: none;
+}
+
+.activity {
+  border-bottom: 1px solid black;
 }
 
 .log {

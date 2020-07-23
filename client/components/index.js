@@ -9,6 +9,7 @@ import Note from './Note/note';
 import NoteForm from './Note/Sections/note-form';
 import ConfirmModal from './Modal/Sections/confirm-modal';
 import Menu from './Menu/menu';
+import Log from './Menu/Sections/log';
 
 export {
   Component,
@@ -22,4 +23,5 @@ export {
   NoteForm,
   Menu,
   ConfirmModal,
+  Log,
 };

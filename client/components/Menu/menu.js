@@ -17,21 +17,11 @@ export default class Menu extends Component {
   render() {
     return `
     <div class="menu-header">
-      <div class="menu-title">제목</div>
+      <div class="menu-title">&#9776; Menu</div>
       <button class="menu-close-btn">X</button>
     </div>
-    <div class="activity">Activiy</div>
-    <ul class="log-list">
-      <li class="log">
-        <div class="avatar">
-          <img/>
-        </div>
-        <div class="log-body">
-          <div class="log-content"></div>
-          <div class="log-footer"></div>
-        </div>
-      </li>
-    </ul>
+    <div class="activity">Activtiy</div>
+    <div class="log-list"></div>
         `;
   }
 }

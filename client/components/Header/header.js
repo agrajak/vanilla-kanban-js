@@ -19,7 +19,7 @@ export default class Header extends Component {
                 TODO 서비스
             </div>
             <div class="menu-btn">
-                menu
+              &#9776; Menu
             </div>
         `;
   }
