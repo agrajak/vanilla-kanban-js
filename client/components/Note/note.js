@@ -1,4 +1,4 @@
-import Component from 'Components/Component/component';
+import { Component } from 'Components';
 import { parseNoteText } from '@/utils';
 import './note.css';
 

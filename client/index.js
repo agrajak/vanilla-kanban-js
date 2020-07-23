@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-syntax */
 import {
-  Header, Todo, Column, Note, Log,
+  Header, Todo, Column, Note, Menu,
 } from 'Components';
 import { findColumnsByUserId, findNotesByColumnId } from '@/api';
 import '@/global.css';
@@ -8,10 +8,10 @@ import '@/global.css';
 const root = document.getElementById('root');
 const header = new Header(root);
 const todo = new Todo();
-const log = new Log();
+const menu = new Menu();
 header.mount(root);
 todo.mount(root);
-log.mount(root);
+menu.mount(root);
 
 (async function loadTodos() {
   const columns = await findColumnsByUserId('agrajak');
