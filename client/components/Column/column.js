@@ -40,10 +40,10 @@ export default class Column extends Component {
     return this;
   }
 
-  async removeCol() {
-    const { id } = this.props;
-    await deleteColumn(id);
-    this.parent.$.removeChild(this.$);
+  removeCol() {
+    this.parent.confirmModal
+      .attach(this)
+      .open();
   }
 
   prependNote(note) {
