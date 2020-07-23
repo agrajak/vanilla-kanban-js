@@ -24,4 +24,8 @@ module.exports = {
   GET_COLUMN_LAST_POSITION: 'SELECT COUNT(*) FROM Columns WHERE owner_id = ?',
   INCREASE_COLUMN_POSITION: 'UPDATE Columns SET position = position + 1 WHERE owner_id = ? and position >= ?',
   DECREASE_COLUMN_POSITION: 'UPDATE Columns SET position = position - 1 WHERE owner_id = ? and position >= ?',
+  // LOGS
+  CREATE_LOG: 'INSERT INTO Logs (owner_id, writer_id, type, action, target, source) VALUES (?, ?, ?, ?, ?, ?)',
+  FIND_LOGS_BY_USER_ID: 'SELECT * from Logs where owner_id = ? order by id DESC',
+  GET_LAST_INSERTED_LOG: 'SELECT * FROM Logs WHERE created_at in (SELECT max(created_at) from Logs)',
 };
