@@ -10,8 +10,18 @@
 }
 
 .add-column-btn {
-    background-color:  gray;
+    background-color:  white;
+    height: 200px;
+    font-size: 1.5rem;
+    border: 1px dashed grey;
     text-align: center;
+}
+.add-column-btn p {
+    margin: 0.3rem;
+}
+.add-column-btn:hover {
+    border: 1px solid black;
+    transition: 1s;
 }
 
 .col-header {
