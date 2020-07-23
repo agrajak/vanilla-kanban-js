@@ -84,3 +84,25 @@
   background:rgba(0, 0, 0, 0.5);
   z-index:-1;
 }
+
+.confirm-content {
+  padding: 2rem 2rem;
+}
+
+.confirm-footer {
+  display: flex;
+  margin: 0 1.5rem 1rem;
+}
+
+.confirm-footer button {
+  font-size: 1rem;
+  padding: .3rem 1rem;
+}
+
+.confirm-footer .cancel-btn {
+  margin-left: auto;
+}
+
+.confirm-footer .confirm-btn {
+  margin-left: 1rem;
+}
