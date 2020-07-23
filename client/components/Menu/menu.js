@@ -1,9 +1,13 @@
-import { Component } from 'Components';
+/* eslint-disable no-restricted-syntax */
+import { Component, Log } from 'Components';
 import './menu.css';
+import { findLogsByUserId } from '@/api';
 
 export default class Menu extends Component {
   constructor(parent) {
     super(parent, null, 'menu');
+
+    this.$logList = this.$.querySelector('.log-list');
 
     this.closeMenu();
     this.menuCloseBtn = this.$.querySelector('.menu-close-btn');
@@ -12,6 +16,19 @@ export default class Menu extends Component {
 
   closeMenu() {
     this.$.classList.add('close');
+  }
+
+  async mount(element) {
+    const logs = await findLogsByUserId('agrajak');
+    for (const {
+      id, ownerId, writerId, type, action, target, source,
+    } of logs) {
+      const log = new Log(this, {
+        id, ownerId, writerId, type, action, target, source,
+      });
+      log.mount(this.$logList);
+    }
+    super.mount(element);
   }
 
   render() {

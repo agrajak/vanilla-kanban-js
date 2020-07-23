@@ -20,10 +20,10 @@ exports.createLog = async (req, res) => {
 };
 
 exports.findLogsByUserId = async (req, res) => {
-  const { ownerId } = req.query;
+  const { id } = req.query;
 
   try {
-    const logs = await LogService.findLogsByUserId(ownerId);
+    const logs = await LogService.findLogsByUserId(id);
     return res.json(success({
       logs: logs.map((x) => ({
         id: x.id,

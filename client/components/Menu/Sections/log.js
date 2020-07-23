@@ -1,8 +1,8 @@
 import { Component } from 'Components';
 
 export default class Log extends Component {
-  constructor(parent) {
-    super(parent, null, 'log');
+  constructor(parent, props) {
+    super(parent, props, 'log');
   }
 
   render() {
