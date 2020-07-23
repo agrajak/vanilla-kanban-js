@@ -23,26 +23,6 @@ function getCID(element) {
   return parseInt(element.getAttribute('cid'), 10);
 }
 
-function getElementIndex(element, type) {
-  if (!element.classList.contains(type)) return -1;
-  let index = 0;
-  const elements = Array.from(element.parentElement.children)
-    .filter((node) => {
-      const { classList } = node;
-      if (classList.contains('ghost') || classList.contains('sticker')) return false;
-      if (classList.contains(type)) return true;
-      return false;
-    });
-  elements.some((node) => {
-    if (getCID(node) === getCID(element)) {
-      return true;
-    }
-    index += 1;
-    return false;
-  });
-  return index;
-}
-
 export default class EventController {
   constructor(parent) {
     this.parent = parent;
@@ -96,16 +76,7 @@ export default class EventController {
     this.hideNode();
     const { target, clientX: x, clientY: y } = event;
     this.ghost.move(x, y).show();
-    let nodeContainer = null;
-    let offset = null;
-    if (this.elementType === 'note') {
-      nodeContainer = target.closest('.col');
-      if (nodeContainer) nodeContainer = nodeContainer.querySelector('.col-body');
-      offset = y;
-    } else {
-      nodeContainer = target.closest('.main-container');
-      offset = x;
-    }
+    const { nodeContainer, offset } = this.getNodeContainerByType(target, x, y);
     if (!nodeContainer) return this;
     this.sticker.show();
     this.moveSticker(nodeContainer, offset);
@@ -123,6 +94,12 @@ export default class EventController {
       this.sticker.dettach();
       return this;
     }
+
+    this.moveNode();
+    return this;
+  }
+
+  moveNode() {
     const nodeId = getCID(this.element);
     const position = this.sticker.position();
 
@@ -140,20 +117,47 @@ export default class EventController {
           this.ghost.dettach();
           this.sticker.dettach();
         });
-    } else {
-      moveColumn(nodeId, position)
-        .then(() => {
-          const beforeSticker = this.sticker.$.previousSibling;
-          const pastNode = this.element;
-          this.unselectNode();
-          this.ghost.dettach();
-          this.sticker.dettach();
-          // swap two columns;
-          pastNode.parentElement.insertBefore(pastNode, beforeSticker.nextSibling);
-        });
+      return;
     }
+    moveColumn(nodeId, position)
+      .then(() => {
+        const beforeSticker = this.sticker.$.previousSibling;
+        const pastNode = this.element;
+        this.unselectNode();
+        this.ghost.dettach();
+        this.sticker.dettach();
+        // swap two columns;
+        pastNode.parentElement.insertBefore(pastNode, beforeSticker.nextSibling);
+      });
+  }
 
-    return this;
+  getNodeContainerByType(target, x, y) {
+    let nodeContainer = 0;
+    let offset = 0;
+    if (this.elementType === 'note') {
+      nodeContainer = target.closest('.col');
+      if (nodeContainer) nodeContainer = nodeContainer.querySelector('.col-body');
+      offset = y;
+    } else {
+      nodeContainer = target.closest('.main-container');
+      offset = x;
+    }
+    return {
+      nodeContainer, offset,
+    };
+  }
+
+  getOffsetFromRectByType({
+    left, top, height, width,
+  }) {
+    if (this.elementType === 'note') {
+      return {
+        offset: top, size: height,
+      };
+    }
+    return {
+      offset: left, size: width,
+    };
   }
 
   moveSticker(element, position) {
@@ -167,18 +171,7 @@ export default class EventController {
     }
     // 각 노트를 아래서부터 해당 노트에 스티커가 붙을 수 있나 확인
     const hasProperNode = $nodes.slice().reverse().some(($node) => {
-      const {
-        top, height, left, width,
-      } = $node.getBoundingClientRect();
-      let offset = 0;
-      let size = 0;
-      if (this.elementType === 'note') {
-        offset = top;
-        size = height;
-      } else {
-        offset = left;
-        size = width;
-      }
+      const { offset, size } = this.getOffsetFromRectByType($node.getBoundingClientRect());
       if (offset < position && offset + size / 2 > position) {
         this.sticker.attachBefore($node);
         this.sticker.isChanged = true;
@@ -199,13 +192,7 @@ export default class EventController {
     // 커서가 노트들 위에 있으면 첫노트 이전에 스티커를 삽입한다.
     if (!hasProperNode) {
       const $firstNode = $nodes[0];
-      const { y: noteY, x: noteX } = $firstNode.getBoundingClientRect();
-      let offset = 0;
-      if (this.elementType === 'note') {
-        offset = noteY;
-      } else {
-        offset = noteX;
-      }
+      const { offset } = this.getOffsetFromRect($firstNode.getBoundingClientRect());
       if (offset > position) {
         this.sticker.attachBefore($firstNode);
         this.sticker.isChanged = true;
