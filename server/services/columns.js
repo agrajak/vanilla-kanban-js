@@ -49,22 +49,22 @@ async function updateColumnTitle(column, conn = pool) {
   await conn.query(queries.UPDATE_COLUMN_TITLE, [title, id]);
 }
 
-async function moveColumn(column, conn = pool) {
-  // 컬럼 A를 포지션 B로 옮길 때, 포지션 B에 있던 컬럼과 A의 포지션을 각자 교환(swap)한다.
-  // TODO -> 커넥션 하나에서 다 처리하기
-  const { id, position } = column;
-  const { position: oldPosition, ownerId } = await findColumnById(id, conn);
-  const oldColumn = await findColumnByPosition(ownerId, position, conn);
-  await conn.query(queries.UPDATE_COLUMN_POSITION, [oldPosition, oldColumn.id]);
-  await conn.query(queries.UPDATE_COLUMN_POSITION, [position, id]);
-}
-
 async function decreaseColumnPos(ownerId, position, conn = pool) {
   await conn.query(queries.DECREASE_COLUMN_POSITION, [ownerId, position]);
 }
 
 async function increaseColumnPos(ownerId, position, conn = pool) {
   await conn.query(queries.INCREASE_COLUMN_POSITION, [ownerId, position]);
+}
+
+async function moveColumn(column, conn = pool) {
+  // 컬럼 A를 포지션 B로 옮길 때, 포지션 B에 있던 컬럼과 A의 포지션을 각자 교환(swap)한다.
+  // TODO -> 커넥션 하나에서 다 처리하기
+  const { id, position } = column;
+  const { position: oldPosition, ownerId } = await findColumnById(id, conn);
+  await decreaseColumnPos(ownerId, oldPosition, conn);
+  await increaseColumnPos(ownerId, position, conn);
+  await conn.query(queries.UPDATE_COLUMN_POSITION, [position, id]);
 }
 
 async function deleteColumnById(id, conn = pool) {

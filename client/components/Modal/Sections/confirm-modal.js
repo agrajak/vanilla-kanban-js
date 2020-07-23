@@ -1,6 +1,5 @@
 import { Component } from 'Components';
 import '../modal.css';
-import { deleteColumn } from '@/api';
 
 export default class ConfirmModal extends Component {
   constructor(parent, props) {
@@ -11,24 +10,26 @@ export default class ConfirmModal extends Component {
 
     this.$cancelBtn.addEventListener('click', this.close.bind(this));
     this.$confirmBtn.addEventListener('click', this.delColumn.bind(this));
+    this.callback = null;
     this.close();
-
-    this.$attach = null;
   }
 
   mount(element) {
     super.mount(element);
   }
 
-  attach(value) {
-    this.$attach = value;
-    return this;
+  open(callback) {
+    super.open();
+    this.callback = callback;
+  }
+
+  resolve(values) {
+    this.callback(values);
+    this.close();
   }
 
   async delColumn() {
-    await deleteColumn(this.$attach.props.id);
-    this.parent.$.removeChild(this.$attach.$);
-    this.close();
+    this.resolve();
   }
 
   render() {

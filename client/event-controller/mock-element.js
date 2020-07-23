@@ -4,6 +4,7 @@ export default class MockElement {
     this.$ = null;
     this.cid = null;
     this.className = className;
+    this.isChanged = false;
   }
 
   isEmpty() {
@@ -58,7 +59,7 @@ export default class MockElement {
 
   position() {
     return Array.from(this.$.parentElement.children)
-      .filter((node) => node.classList.contains('note'))
+      .filter((node) => node.classList.contains('note') || node.classList.contains('col'))
       .filter((node) => !node.classList.contains('hidden')).indexOf(this.$);
   }
 
