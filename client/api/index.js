@@ -26,6 +26,18 @@ export async function findNotesByColumnId(columnId) {
   throw new Error(message);
 }
 
+export async function findLogsByUserId(userId = 'agrajak') {
+  const response = await fetch(`/api/logs?id=${userId}`, {
+    method: 'GET',
+  });
+  const { success, message, payload } = await response.json();
+  if (success) {
+    const { logs } = payload;
+    return logs;
+  }
+  throw new Error(message);
+}
+
 export async function createNote(columnId, text) {
   const body = JSON.stringify({
     columnId, text, writerId: 'agrajak',
@@ -137,6 +149,24 @@ export async function createColumn(title, ownerId, writerId) {
   if (success) {
     const { column } = payload;
     return column;
+  }
+  throw new Error(message);
+}
+
+export async function createLog(ownerId, writerId, type, action, target, source) {
+  const response = await fetch('/api/logs', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      ownerId, writerId, type, action, target, source,
+    }),
+  });
+  const { success, message, payload } = await response.json();
+  if (success) {
+    const { log } = payload;
+    return log;
   }
   throw new Error(message);
 }

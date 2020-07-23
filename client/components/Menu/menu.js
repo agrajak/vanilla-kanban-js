@@ -1,9 +1,13 @@
-import { Component } from 'Components';
+/* eslint-disable no-restricted-syntax */
+import { Component, Log } from 'Components';
 import './menu.css';
+import { findLogsByUserId } from '@/api';
 
 export default class Menu extends Component {
   constructor(parent) {
     super(parent, null, 'menu');
+
+    this.$logList = this.$.querySelector('.log-list');
 
     this.closeMenu();
     this.menuCloseBtn = this.$.querySelector('.menu-close-btn');
@@ -14,24 +18,27 @@ export default class Menu extends Component {
     this.$.classList.add('close');
   }
 
+  async mount(element) {
+    const logs = await findLogsByUserId('agrajak');
+    for (const {
+      id, ownerId, writerId, type, action, target, source, createdAt,
+    } of logs) {
+      const log = new Log(this, {
+        id, ownerId, writerId, type, action, target, source, createdAt,
+      });
+      log.mount(this.$logList);
+    }
+    super.mount(element);
+  }
+
   render() {
     return `
     <div class="menu-header">
-      <div class="menu-title">제목</div>
+      <div class="menu-title">&#9776; Menu</div>
       <button class="menu-close-btn">X</button>
     </div>
-    <div class="activity">Activiy</div>
-    <ul class="log-list">
-      <li class="log">
-        <div class="avatar">
-          <img/>
-        </div>
-        <div class="log-body">
-          <div class="log-content"></div>
-          <div class="log-footer"></div>
-        </div>
-      </li>
-    </ul>
+    <div class="activity">Activtiy</div>
+    <div class="log-list"></div>
         `;
   }
 }
