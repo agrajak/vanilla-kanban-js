@@ -10,7 +10,8 @@ export default class Header extends Component {
   }
 
   openMenu() {
-    this.parent.querySelector('.menu').classList.replace('close', 'open');
+    this.parent.querySelector('.menu-bg').classList.remove('hidden');
+    this.parent.querySelector('.menu-container').classList.replace('close', 'open');
   }
 
   render() {

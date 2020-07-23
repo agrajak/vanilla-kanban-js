@@ -8,14 +8,18 @@ export default class Menu extends Component {
     super(parent, null, 'menu');
 
     this.$logList = this.$.querySelector('.log-list');
+    this.$menuContainer = this.$.querySelector('.menu-container');
+    this.$menuCloseBtn = this.$.querySelector('.menu-close-btn');
+    this.$menuBG = this.$.querySelector('.menu-bg');
+    this.$menuCloseBtn.addEventListener('click', this.closeMenu.bind(this));
+    this.$menuBG.addEventListener('click', this.closeMenu.bind(this));
 
     this.closeMenu();
-    this.menuCloseBtn = this.$.querySelector('.menu-close-btn');
-    this.menuCloseBtn.addEventListener('click', this.closeMenu.bind(this));
   }
 
   closeMenu() {
-    this.$.classList.add('close');
+    this.$menuBG.classList.add('hidden');
+    this.$menuContainer.classList.add('close');
   }
 
   async mount(element) {
@@ -33,12 +37,15 @@ export default class Menu extends Component {
 
   render() {
     return `
-    <div class="menu-header">
-      <div class="menu-title">&#9776; Menu</div>
-      <button class="menu-close-btn">X</button>
+    <div class="menu-container">
+      <div class="menu-header">
+        <div class="menu-title">&#9776; Menu</div>
+        <button class="menu-close-btn">X</button>
+      </div>
+      <div class="activity">Activtiy</div>
+      <div class="log-list"></div>
     </div>
-    <div class="activity">Activtiy</div>
-    <div class="log-list"></div>
+    <div class="menu-bg"></div>
         `;
   }
 }
