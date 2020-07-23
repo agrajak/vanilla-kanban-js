@@ -1,4 +1,4 @@
-import { moveNote } from '@/api';
+import { moveNote, moveColumn } from '@/api';
 import MockElement from './mock-element';
 
 function selectDraggableNode(target) {
@@ -108,7 +108,6 @@ export default class EventController {
     }
     if (!nodeContainer) return this;
     this.sticker.show();
-    // const $colBody = $column.querySelector('.col-body');
     this.moveSticker(nodeContainer, offset);
     return this;
   }
@@ -124,10 +123,10 @@ export default class EventController {
       this.sticker.dettach();
       return this;
     }
+    const nodeId = getCID(this.element);
     const position = this.sticker.position();
 
     if (this.elementType === 'note') {
-      const nodeId = getCID(this.element);
       const columnId = this.sticker.getSelectedColumnID();
       const oldColumn = this.getNodeColumn();
 
@@ -142,13 +141,16 @@ export default class EventController {
           this.sticker.dettach();
         });
     } else {
-      const beforeSticker = this.sticker.$.previousSibling;
-      const pastNode = this.element;
-      this.unselectNode();
-      this.ghost.dettach();
-      this.sticker.dettach();
-      // swap two columns;
-      pastNode.parentElement.insertBefore(pastNode, beforeSticker.nextSibling);
+      moveColumn(nodeId, position)
+        .then(() => {
+          const beforeSticker = this.sticker.$.previousSibling;
+          const pastNode = this.element;
+          this.unselectNode();
+          this.ghost.dettach();
+          this.sticker.dettach();
+          // swap two columns;
+          pastNode.parentElement.insertBefore(pastNode, beforeSticker.nextSibling);
+        });
     }
 
     return this;

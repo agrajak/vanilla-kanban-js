@@ -90,12 +90,27 @@ export async function deleteColumn(columnId) {
   throw new Error(message);
 }
 
-export async function updateColumnTitle(columnId, title) {
+export async function moveColumn(id, position) {
+  const response = await fetch('/api/columns/position', {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      id, position,
+    }),
+  });
+  const { success, message } = await response.json();
+  if (success) {
+    return;
+  }
+  throw new Error(message);
+}
+
+export async function updateColumnTitle(id, title) {
   const response = await fetch('/api/columns/title', {
     method: 'PUT',
     headers,
     body: JSON.stringify({
-      id: columnId,
+      id,
       title,
     }),
   });
