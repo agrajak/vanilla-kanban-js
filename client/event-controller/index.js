@@ -50,16 +50,13 @@ export default class EventController {
     this.element.classList.add('hidden');
   }
 
-  getNodeColumn() {
-    const cid = getCID(this.element.closest('.col'));
-    return this.parent.findColumnById(cid);
-  }
-
   onDragStart(event) {
-    const { target } = event;
-    const { element = null, type } = selectDraggableNode(target);
+    if (this.element) return this;
+    const { target, clientX, clientY } = event;
+    const { element = null, type } = selectDraggableNode(target); // 노트가 컬럼이 반환된다.
     if (element == null) return this;
-    this.ghost.disguise(element).attach(this.$).hide();
+    const { x, y } = element.getBoundingClientRect();
+    this.ghost.disguise(element).attach(this.$).setOffset(clientX - x, clientY - y).hide();
     this.sticker.disguise(element);
     this.selectNode(element, type);
 
@@ -87,8 +84,7 @@ export default class EventController {
     this.$.removeEventListener('mousemove', this.onMouseMove);
     this.$.removeEventListener('mouseup', this.onMouseUp);
     this.$.removeEventListener('mouseleave', this.onMouseUp);
-
-    if (!this.sticker.isChanged) {
+    if (!this.sticker.hasAttached()) {
       this.unselectNode();
       this.ghost.dettach();
       this.sticker.dettach();
@@ -147,9 +143,10 @@ export default class EventController {
     };
   }
 
-  getOffsetFromRectByType({
-    left, top, height, width,
-  }) {
+  getOffsetFromRectByType(element) {
+    const {
+      left, top, height, width,
+    } = element.getBoundingClientRect();
     if (this.elementType === 'note') {
       return {
         offset: top, size: height,
@@ -160,10 +157,15 @@ export default class EventController {
     };
   }
 
+  isSwappable(node) {
+    const { classList } = node;
+    if (classList.contains('hidden') || classList.contains('ghost')) return false;
+    if (classList.contains(this.elementType)) return true;
+    return false;
+  }
+
   moveSticker(element, position) {
-    const $nodes = Array.from(element.children)
-      .filter((node) => node.classList.contains(this.elementType))
-      .filter((node) => !node.classList.contains('hidden'));
+    const $nodes = Array.from(element.children).filter(this.isSwappable.bind(this));
     if ($nodes.length === 0) {
       this.sticker.attach(element);
       this.sticker.isChanged = true;
@@ -171,19 +173,17 @@ export default class EventController {
     }
     // 각 노트를 아래서부터 해당 노트에 스티커가 붙을 수 있나 확인
     const hasProperNode = $nodes.slice().reverse().some(($node) => {
-      const { offset, size } = this.getOffsetFromRectByType($node.getBoundingClientRect());
+      if ($node.classList.contains('sticker')) return false;
+      const { offset, size } = this.getOffsetFromRectByType($node);
       if (offset < position && offset + size / 2 > position) {
         this.sticker.attachBefore($node);
-        this.sticker.isChanged = true;
         return true;
       }
       if (offset + size / 2 < position) {
         if ($node.nextSibling) {
           this.sticker.attachBefore($node.nextSibling);
-          this.sticker.isChanged = true;
         } else {
           this.sticker.attach(element);
-          this.sticker.isChanged = true;
         }
         return true;
       }
@@ -192,13 +192,17 @@ export default class EventController {
     // 커서가 노트들 위에 있으면 첫노트 이전에 스티커를 삽입한다.
     if (!hasProperNode) {
       const $firstNode = $nodes[0];
-      const { offset } = this.getOffsetFromRect($firstNode.getBoundingClientRect());
+      const { offset } = this.getOffsetFromRectByType($firstNode);
       if (offset > position) {
         this.sticker.attachBefore($firstNode);
-        this.sticker.isChanged = true;
         return this;
       }
     }
     return this;
+  }
+
+  getNodeColumn() {
+    const cid = getCID(this.element.closest('.col'));
+    return this.parent.findColumnById(cid);
   }
 }
