@@ -50,6 +50,11 @@
 .activity {
   border-bottom: 1px solid black;
 }
+
+.log-list {
+  overflow-y: auto;
+}
+
 .log {
   border-bottom: 1px solid black;
 }
