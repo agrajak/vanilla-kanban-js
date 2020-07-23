@@ -53,6 +53,9 @@ export default class Log extends Component {
 
   setSource(value) {
     this.source = value;
+    if (!this.source) {
+      return this;
+    }
     const { target } = this.props;
     if (!target) {
       this.$source.innerText = value;
