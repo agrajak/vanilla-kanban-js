@@ -106,7 +106,12 @@ exports.updateNotePosition = async (req, res) => {
 exports.deleteNote = async (req, res) => {
   const { id } = req.query;
   try {
+    const { columnId, text } = await NoteService.findNoteById(id);
+    const { ownerId } = await ColumnService.findColumnById(columnId);
     await NoteService.deleteNoteById(id);
+    await LogService.createLog(new Log({
+      ownerId, writerId: 'agrajak', type: 'Note', action: 'delete', source: text,
+    }));
     return res.send({
       success: true,
     });
