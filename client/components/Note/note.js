@@ -51,7 +51,9 @@ export default class Note extends Component {
   }
 
   onNoteDeleteBtnClick() {
-    this.parent.removeNote(this);
+    this.getRootComponent().confirmModal.open(() => {
+      this.parent.removeNote(this);
+    });
   }
 
   setTitle(value) {

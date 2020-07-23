@@ -1,6 +1,5 @@
 import { Modal } from 'Components';
 import '../modal.css';
-import { updateColumnTitle } from '@/api';
 
 export default class ColModal extends Modal {
   constructor() {

@@ -58,9 +58,12 @@ export default class Column extends Component {
   }
 
   removeCol() {
-    this.parent.confirmModal
-      .attach(this)
-      .open();
+    const { id } = this.props;
+    this.parent.confirmModal.open(() => {
+      deleteColumn(id).then(() => {
+        this.parent.$.removeChild(this.$);
+      });
+    });
   }
 
   prependNote(note) {
