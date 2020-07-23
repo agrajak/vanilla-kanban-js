@@ -1,14 +1,16 @@
 const Note = require('../models/notes');
 const NoteService = require('../services/notes');
+const pool = require('../pool');
 
 exports.createNote = async (req, res) => {
   const { writer = 'agrajak', columnId, text } = req.body;
   try {
-    await NoteService.increaseNotePos(columnId, 0);
+    const conn = await pool.getConnection();
+    await NoteService.increaseNotePos(columnId, 0, conn);
     const note = await NoteService.createNote(new Note({
       position: 0, text, writerId: writer, columnId,
-    }));
-
+    }), conn);
+    await conn.release();
     return res.send({
       success: true,
       payload: {
@@ -59,9 +61,11 @@ exports.updateNoteText = async (req, res) => {
 exports.updateNotePosition = async (req, res) => {
   const { id, columnId, position } = req.body;
   try {
+    const conn = await pool.getConnection();
     await NoteService.moveNote(new Note({
       id, columnId, position,
-    }));
+    }), conn);
+    await conn.release();
     return res.send({
       success: true,
     });

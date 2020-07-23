@@ -1,14 +1,17 @@
 const Column = require('../models/columns');
 const ColumnService = require('../services/columns');
 const { success, fail } = require('./helper');
+const pool = require('../pool');
 
 exports.createColumn = async (req, res) => {
   const { title, ownerId, writerId } = req.body;
   try {
-    const position = await ColumnService.getLastPosition(ownerId);
+    const conn = await pool.getConnection();
+    const position = await ColumnService.getLastPosition(ownerId, conn);
     const column = await ColumnService.createColumn(new Column({
       title, ownerId, writerId, position: position + 1,
-    }));
+    }), conn);
+    await conn.release();
     return res.send(success({
       column,
     }));
