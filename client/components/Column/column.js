@@ -1,6 +1,8 @@
 import { Component, NoteForm, Note } from 'Components';
 import './column.css';
-import { deleteNote, createNote } from '@/api';
+import {
+  deleteNote, createNote, updateColumnTitle, deleteColumn,
+} from '@/api';
 
 export default class Column extends Component {
   /**
@@ -32,9 +34,9 @@ export default class Column extends Component {
   }
 
   onNoteFormAddBtnClick() {
+    const { id } = this.props;
     this.noteForm.open((values) => {
       const { text } = values;
-      const { id } = this.props;
       createNote(id, text)
         .then((noteObj) => {
           this.prependNote(new Note(this, noteObj));
@@ -80,9 +82,13 @@ export default class Column extends Component {
   }
 
   onColEditBtnClick() {
-    this.parent.columnModal
-      .attach(this)
-      .open();
+    const { title } = this;
+    this.parent.columnModal.open({ title }, ({ value }) => {
+      const { id } = this.props;
+      updateColumnTitle(id, value).then(() => {
+        this.setTitle(value);
+      });
+    });
   }
 
   findNoteById(id) {

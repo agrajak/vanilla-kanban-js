@@ -1,7 +1,5 @@
 import { Modal } from 'Components';
 import '../modal.css';
-import { parseNoteText } from '@/utils';
-import { editNote } from '@/api';
 
 export default class NoteModal extends Modal {
   constructor() {
@@ -30,20 +28,15 @@ export default class NoteModal extends Modal {
     return this;
   }
 
-  open() {
-    super.open();
-    const { title, content } = this.$attach;
+  open({ title, content }, callback) {
+    super.open(callback);
     this.setNewNote(`${title}\n${content}`);
     return this;
   }
 
   async submit() {
     const text = this.$newNote.value;
-    await editNote(this.$attach.props.id, text);
-    const { title, content } = parseNoteText(text);
-    this.$attach
-      .setTitle(title)
-      .setContent(content);
+    this.resolve({ text });
     this
       .setNewNote('')
       .close();
