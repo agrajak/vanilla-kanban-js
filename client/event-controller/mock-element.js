@@ -4,6 +4,7 @@ export default class MockElement {
     this.$ = null;
     this.cid = null;
     this.className = className;
+    this.isChanged = false;
   }
 
   isEmpty() {

@@ -80,24 +80,27 @@ export default class EventController {
     this.$.removeEventListener('mouseup', this.onMouseUp);
     this.$.removeEventListener('mouseleave', this.onMouseUp);
 
+    const noteId = getCID(this.element);
     const oldColumn = this.getNodeColumn();
-    const cid = getCID(this.element);
-    this.unselectNode();
-    this.ghost.dettach();
-    this.sticker.dettach();
-
-    if (cid === this.sticker.cid) {
+    if (!this.sticker.isChanged) {
+      this.unselectNode();
+      this.ghost.dettach();
+      this.sticker.dettach();
       return this;
     }
-    const noteId = getCID(this.element);
+
     const columnId = this.sticker.getSelectedColumnID();
     const position = this.sticker.position();
+
     moveNote(noteId, columnId, position)
       .then(() => {
         const oldNote = oldColumn.findNoteById(noteId);
         oldColumn.removeNote(oldNote, true);
         const newColumn = this.parent.findColumnById(columnId);
         newColumn.insertNote(oldNote, position);
+        this.unselectNode();
+        this.ghost.dettach();
+        this.sticker.dettach();
       });
 
     return this;
@@ -109,6 +112,7 @@ export default class EventController {
       .filter((node) => !node.classList.contains('hidden'));
     if ($notes.length === 0) {
       this.sticker.attach(element);
+      this.sticker.isChanged = true;
       return this;
     }
     // 각 노트를 아래서부터 해당 노트에 스티커가 붙을 수 있나 확인
@@ -116,13 +120,16 @@ export default class EventController {
       const { top, height } = $note.getBoundingClientRect();
       if (top < position && top + height / 2 > position) {
         this.sticker.attachBefore($note);
+        this.sticker.isChanged = true;
         return true;
       }
       if (top + height / 2 < position) {
         if ($note.nextSibling) {
           this.sticker.attachBefore($note.nextSibling);
+          this.sticker.isChanged = true;
         } else {
           this.sticker.attach(element);
+          this.sticker.isChanged = true;
         }
         return true;
       }
@@ -134,6 +141,7 @@ export default class EventController {
       const { y: noteY } = $firstNote.getBoundingClientRect();
       if (noteY > position) {
         this.sticker.attachBefore($firstNote);
+        this.sticker.isChanged = true;
         return this;
       }
     }
