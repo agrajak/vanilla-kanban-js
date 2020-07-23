@@ -11,7 +11,7 @@ export default class ColumnAddBtn extends Component {
       const ownerId = 'agrajak';
       const writerId = 'agrajak';
       const column = await createColumn(title, ownerId, writerId);
-      this.parent.addColumn(new Column(this.parent, { title: column.title }));
+      this.parent.addColumn(new Column(this.parent, column));
     });
   }
 

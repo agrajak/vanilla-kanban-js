@@ -13,7 +13,7 @@ async function increaseNotePos(columnId, position) {
 }
 
 async function decraseNotePos(columnId, position) {
-  await pool.query(queries.INCREASE_NOTE_POSITION, [columnId, position]);
+  await pool.query(queries.DECREASE_NOTE_POSITION, [columnId, position]);
 }
 
 async function createNote(note) {
@@ -46,12 +46,11 @@ async function findNoteByPosition(columnId, position) {
   return new Note(row[0]);
 }
 
-// 체크
 async function moveNote(note) {
   const { id, columnId, position } = note;
-  const { columnId: oldColumn, position: oldPosition, writer } = await findNoteById(id);
-  const oldNote = await findNoteByPosition(columnId, position, writer);
-  await pool.query(queries.UPDATE_NOTE_POSITION, [oldColumn, oldPosition, oldNote.id]);
+  const { columnId: oldColumnId, position: oldPosition } = await findNoteById(id);
+  await decraseNotePos(oldColumnId, oldPosition);
+  await increaseNotePos(columnId, position);
   await pool.query(queries.UPDATE_NOTE_POSITION, [columnId, position, id]);
 }
 

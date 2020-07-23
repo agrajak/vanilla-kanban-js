@@ -35,8 +35,9 @@ async function getLastPosition(ownerId) {
 
 async function createColumn(column) {
   const {
-    title, ownerId, writerId, position,
+    title, ownerId, writerId,
   } = column;
+  const position = await getLastPosition(ownerId);
   await pool.query(queries.CREATE_COLUMN, [title, ownerId, writerId, position]);
   const [row] = await pool.query(queries.GET_LAST_INSERTED_COLUMN);
   // 트랜젝션이 롤백된 경우에도 auto_increment의 값은 올라가서 제대로 된 id값을 못 찾을 수도 있다.
@@ -58,10 +59,27 @@ async function moveColumn(column) {
   await pool.query(queries.UPDATE_COLUMN_POSITION, [position, id]);
 }
 
+async function decreaseColumnPos(ownerId, position) {
+  await pool.query(queries.DECREASE_COLUMN_POSITION, [ownerId, position]);
+}
+
+async function increaseColumnPos(ownerId, position) {
+  await pool.query(queries.INCREASE_COLUMN_POSITION, [ownerId, position]);
+}
+
 async function deleteColumnById(id) {
+  const { position, ownerId } = await findColumnById(id);
   await pool.query(queries.DELETE_COLUMN, [id]);
+  await decreaseColumnPos(ownerId, position);
 }
 
 module.exports = {
-  findColumnsByUserId, findColumnById, findColumnInfo, createColumn, updateColumnTitle, moveColumn, deleteColumnById, getLastPosition,
+  findColumnsByUserId,
+  findColumnById,
+  findColumnInfo,
+  createColumn,
+  updateColumnTitle,
+  moveColumn,
+  deleteColumnById,
+  getLastPosition,
 };
