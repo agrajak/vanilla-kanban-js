@@ -1,3 +1,4 @@
+const ColumnService = require('./columns');
 const Note = require('../models/notes');
 const pool = require('../pool');
 const queries = require('../queries');
@@ -20,8 +21,9 @@ async function createNote(note) {
   const {
     position, text, writerId, columnId,
   } = note;
+  const { ownerId } = await ColumnService.findColumnById(columnId);
   await pool.query(queries.CREATE_NOTE, [position, text, writerId, columnId]);
-  const [row] = await pool.query(queries.GET_LAST_INSERTED_NOTE);
+  const [row] = await pool.query(queries.GET_LAST_INSERTED_NOTE, [ownerId]);
   return new Note(row[0]);
 }
 

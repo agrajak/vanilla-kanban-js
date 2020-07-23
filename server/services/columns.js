@@ -39,7 +39,7 @@ async function createColumn(column) {
   } = column;
   const position = await getLastPosition(ownerId);
   await pool.query(queries.CREATE_COLUMN, [title, ownerId, writerId, position]);
-  const [row] = await pool.query(queries.GET_LAST_INSERTED_COLUMN);
+  const [row] = await pool.query(queries.GET_LAST_INSERTED_COLUMN, [ownerId]);
   // 트랜젝션이 롤백된 경우에도 auto_increment의 값은 올라가서 제대로 된 id값을 못 찾을 수도 있다.
   return new Column(row[0]);
 }
