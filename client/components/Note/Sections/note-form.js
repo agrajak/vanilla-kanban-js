@@ -8,8 +8,12 @@ export default class NoteForm extends Component {
   constructor(parent) {
     super(parent, null, 'note-form');
     this.$noteAddBtn = this.$.querySelector('.add-btn');
+    this.$noteCancelBtn = this.$.querySelector('.cancel-btn');
     this.$noteText = this.$.querySelector('.note-text');
     this.$noteAddBtn.addEventListener('click', this.onNoteAddBtnClick.bind(this));
+    this.$noteCancelBtn.addEventListener('click', this.onNoteCancelBtnClick.bind(this));
+    this.$noteText.addEventListener('input', this.inputText.bind(this));
+    this.$noteAddBtn.disabled = true;
   }
 
   onNoteAddBtnClick() {
@@ -22,8 +26,21 @@ export default class NoteForm extends Component {
       });
   }
 
+  onNoteCancelBtnClick() {
+    this.close();
+  }
+
   resetFormContents() {
     this.$noteText.value = '';
+  }
+
+  inputText(event) {
+    if (event.target.value !== '') {
+      this.$noteAddBtn.disabled = false;
+    }
+    if (event.target.value === '') {
+      this.$noteAddBtn.disabled = true;
+    }
   }
 
   mount(element) {
