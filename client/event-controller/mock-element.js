@@ -59,7 +59,7 @@ export default class MockElement {
 
   position() {
     return Array.from(this.$.parentElement.children)
-      .filter((node) => node.classList.contains('note'))
+      .filter((node) => node.classList.contains('note') || node.classList.contains('col'))
       .filter((node) => !node.classList.contains('hidden')).indexOf(this.$);
   }
 
