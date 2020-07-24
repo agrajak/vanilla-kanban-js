@@ -29,14 +29,15 @@
     opacity: 0.6;
 }
   
-  
 .ghost {
     position: absolute;
     z-index: 2;
-    opacity: 0.9;
     background-color: white;
-    width: 330px;
+    opacity: 0.7;
     transform: rotate(-2deg);
     border: 3px solid lightblue;
     box-shadow: 0 0px 0px 0 grey inset, 0 7px 7px 0 grey;
+}  
+.ghost.note {
+    width: 340px;
 }
