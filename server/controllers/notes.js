@@ -74,13 +74,18 @@ exports.updateNoteText = async (req, res) => {
 exports.updateNotePosition = async (req, res) => {
   const { id, columnId, position } = req.body;
   try {
-    const { text, columnId: oldColumn } = await NoteService.findNoteById(id);
+    const { text, columnId: oldColumn, position: oldPosition } = await NoteService.findNoteById(id);
     const { ownerId, title } = await ColumnService.findColumnById(columnId);
     const conn = await pool.getConnection();
     await NoteService.moveNote(new Note({
       id, columnId, position,
     }), conn);
     await conn.release();
+    if (position === oldPosition) {
+      return res.send({
+        success: true,
+      });
+    }
     if (columnId === oldColumn) {
       await LogService.createLog(new Log({
         ownerId, writerId: 'agrajak', type: 'Note', action: 'move', source: text,
