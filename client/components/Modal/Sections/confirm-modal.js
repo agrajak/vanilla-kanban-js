@@ -35,8 +35,8 @@ export default class ConfirmModal extends Component {
   render() {
     return `
     <div class="modal-container">
-        <div class="modal-content">정말 삭제하시겠습니까?</div>
-        <div class="modal-footer">
+        <div class="confirm-content">정말 삭제하시겠습니까?</div>
+        <div class="confirm-footer">
             <button class="cancel-btn">취소</button>
             <button class="confirm-btn">확인</button>
         </div>
