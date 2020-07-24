@@ -4,15 +4,18 @@ export default class MockElement {
     this.$ = null;
     this.cid = null;
     this.className = className;
-    this.isChanged = false;
+    this.offsetX = null;
+    this.offsetY = null;
   }
 
-  isEmpty() {
-    return this.$ === null;
+  hasAttached() {
+    return this.$.parentElement !== null;
   }
 
-  isEqual($) {
-    return this.$.innerHTML === $;
+  setOffset(x, y) {
+    this.offsetX = x;
+    this.offsetY = y;
+    return this;
   }
 
   disguise($) {
@@ -52,8 +55,7 @@ export default class MockElement {
   }
 
   move(x, y) {
-    const rect = this.parent.$.getBoundingClientRect();
-    this.$.setAttribute('style', `left: ${x - rect.x}; top: ${y - rect.y};`);
+    this.$.setAttribute('style', `left: ${x - this.offsetX}; top: ${y - this.offsetY};`);
     return this;
   }
 

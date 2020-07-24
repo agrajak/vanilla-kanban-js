@@ -1,5 +1,25 @@
 import { Component } from 'Components';
 
+function parseTimeStamp(time) {
+  const past = +new Date(time);
+  const now = +new Date();
+  let diff = parseInt((now - past) / 1000, 10) - 9 * 60 * 60; // UTC timezone
+
+  if (diff < 60) {
+    return `${diff} seconds ago`;
+  }
+  diff = parseInt(diff / 60, 10);
+  if (diff < 60) {
+    return `${diff} minutes ago`;
+  }
+  diff = parseInt(diff / 60, 10);
+  if (diff < 24) {
+    return `${diff} hours ago`;
+  }
+  diff = parseInt(diff / 24, 10);
+  return `${diff} days ago`;
+}
+
 export default class Log extends Component {
   constructor(parent, props) {
     super(parent, props, 'log');
@@ -67,7 +87,7 @@ export default class Log extends Component {
 
   setCreatedAt(value) {
     this.createdAt = value;
-    this.$createdAt.innerText = value;
+    this.$createdAt.innerText = parseTimeStamp(value);
     return this;
   }
 

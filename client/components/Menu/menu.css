@@ -52,7 +52,9 @@
 .log-writer, .log-from, .log-to {
   font-weight: 800;
 }
-
+.log-created-at {
+  font-size: 1rem;
+}
 .none {
   font-weight: 400;
 }
