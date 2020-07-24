@@ -61,6 +61,10 @@ exports.updateColumnPosition = async (req, res) => {
     await ColumnService.moveColumn(new Column({
       id, position,
     }));
+    const { ownerId, title } = await ColumnService.findColumnById(id);
+    await LogService.createLog(new Log({
+      ownerId, writerId: 'agrajak', type: 'Column', action: 'move', source: title,
+    }));
     return res.send(success());
   } catch ({ message }) {
     return res.status(500).json(fail(message));
