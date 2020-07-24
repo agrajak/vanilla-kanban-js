@@ -38,8 +38,10 @@ export default class NoteForm extends Component {
     const { value } = event.target;
     if (value.length > 0 && value.length < 500) {
       this.$noteAddBtn.disabled = false;
+      this.$noteAddBtn.classList.add('active');
       return;
     }
+    this.$noteAddBtn.classList.remove('active');
     this.$noteAddBtn.disabled = true;
   }
 

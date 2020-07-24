@@ -98,11 +98,11 @@ export default class Log extends Component {
       </div>
       <div class="log-body">
         <div class="log-content">
-          <span class="log-writer"></span>
+          <span class="log-writer highlight"></span>
           <span class="log-action"></span>
           <span class="log-type"></span>
-          <span class="log-from"></span>
-          <span class="log-to"></span>
+          <span class="log-from highlight"></span>
+          <span class="log-to highlight"></span>
         </div>
         <div class="log-footer">
           <span class="log-created-at"></span>
