@@ -59,14 +59,16 @@
   border-bottom: 1px solid black;
 }
 
-.log-writer, .log-from, .log-to {
-  font-weight: 800;
-}
 .log-created-at {
   font-size: 1rem;
 }
+
+.highlight {
+  color: rgb(62, 145, 247);
+}
+
 .none {
-  font-weight: 400;
+  color: black;
 }
 
 .menu-bg {
@@ -75,6 +77,6 @@
   left:0;
   width:100%;
   height:100%;
-  background:rgba(0, 0, 0, 0.5);
+  background:rgba(0, 0, 0, 0);
   z-index:1;
 }

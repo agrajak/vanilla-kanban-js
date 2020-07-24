@@ -26,3 +26,17 @@ a {
 .hidden {
   display: none
 }
+
+.active {
+  background-color: rgb(62, 145, 247);
+  border: 2px solid rgb(62, 145, 247);
+  color: #ffffff;
+  border-radius: 2px;
+}
+
+.cancel-btn {
+  background-color: #ffffff;
+  border: 2px solid #ff4d4f;
+  color: #ff4d4f;
+  border-radius: 2px;
+}

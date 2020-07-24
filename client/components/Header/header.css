@@ -2,8 +2,8 @@
   position: fixed;
   display: flex;
   width: 100%;
-  background-color: black;
-  color : #fff;
+  background-color: rgb(62, 145, 247); 
+  color : #ffffff;
   font-size: 1.6rem;
   padding: 1rem;
 }
