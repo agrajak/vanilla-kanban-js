@@ -56,9 +56,10 @@ export default class EventController {
     const { element = null, type } = selectDraggableNode(target); // 노트가 컬럼이 반환된다.
     if (element == null) return this;
     const { x, y } = element.getBoundingClientRect();
-    this.ghost.disguise(element).attach(this.$).setOffset(clientX - x, clientY - y).hide();
-    this.sticker.disguise(element);
     this.selectNode(element, type);
+    this.hideNode();
+    this.ghost.disguise(element).attach(this.$).setOffset(clientX - x, clientY - y).hide();
+    this.sticker.disguise(element).attachBefore(element);
 
     this.onMouseUp = this.onDrop.bind(this);
     this.onMouseMove = this.onDragOver.bind(this);
@@ -70,7 +71,6 @@ export default class EventController {
   }
 
   onDragOver(event) {
-    this.hideNode();
     const { target, clientX: x, clientY: y } = event;
     this.ghost.move(x, y).show();
     const { nodeContainer, offset } = this.getNodeContainerByType(target, x, y);
