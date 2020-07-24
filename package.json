@@ -11,8 +11,10 @@
     "cookie-parser": "~1.4.4",
     "core-js": "^3.6.5",
     "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "mysql2": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",
@@ -21,6 +23,7 @@
     "@babel/preset-env": "^7.10.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.0",

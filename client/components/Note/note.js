@@ -1,4 +1,6 @@
-import Component from 'Components/component';
+import { Component } from 'Components';
+import { parseNoteText } from '@/utils';
+import { editNote } from '@/api';
 import './note.css';
 
 export default class Note extends Component {
@@ -18,51 +20,40 @@ export default class Note extends Component {
     this.noteModal = this.getRootComponent().noteModal;
 
     this.$.addEventListener('dblclick', this.onDblClick.bind(this));
-    this.$.addEventListener('mouseover', this.onMouseOver.bind(this));
-    this.$.addEventListener('mouseout', this.onMouseOut.bind(this));
     this.$noteDeleteBtn.addEventListener('click', this.onNoteDeleteBtnClick.bind(this));
 
+    const { text } = this.props;
+    if (text) {
+      const result = parseNoteText(text);
+      this.props.title = result.title;
+      this.props.content = result.content;
+    }
     const {
-      title, content, writer,
+      title, content, writerId,
     } = this.props;
 
     this
       .setTitle(title)
       .setContent(content)
-      .setWriter(writer);
+      .setWriter(writerId);
   }
 
   onDblClick() {
-    this.noteModal
-      .attach(this)
-      .open();
-  }
-
-  onMouseOver() {
-    if (this.getRootComponent().isNoteDragging) {
-      const { fakeNote, selectedNote } = this.getRootComponent();
-
-      selectedNote.close();
-      if (fakeNote.isVisible() && this.isHigherThan(fakeNote)) {
-        this.parent.$colBody.insertBefore(fakeNote.$, this.$.nextSibling);
-      } else {
-        this.parent.$colBody.insertBefore(fakeNote.$, this.$);
-      }
-      fakeNote.open();
-    } else {
-      this.getRootComponent().selectedNote = this;
-      this.$.classList.add('selected');
-    }
-  }
-
-  onMouseOut() {
-    this.$.classList.remove('selected');
-    if (this.getRootComponent().isNoteDragging) return;
-    this.getRootComponent().selectedNote = null;
+    const { id } = this.props;
+    this.noteModal.open({ title: this.title, content: this.content }, ({ text }) => {
+      editNote(id, text).then(() => {
+        const { title, content } = parseNoteText(text);
+        this
+          .setTitle(title)
+          .setContent(content);
+      });
+    });
   }
 
   onNoteDeleteBtnClick() {
-    this.parent.removeNote(this);
+    this.getRootComponent().confirmModal.open(() => {
+      this.parent.removeNote(this);
+    });
   }
 
   setTitle(value) {
@@ -78,7 +69,7 @@ export default class Note extends Component {
   }
 
   setWriter(value) {
-    this.writer = value;
+    this.writerId = value;
     this.$noteWriter.innerText = value;
     return this;
   }
@@ -97,15 +88,15 @@ export default class Note extends Component {
 
   render() {
     return `
-            <div class="note-header">
-                <div class="note-icon"><img/></div>
-                <div class="note-title">제목</div>
-                    <button class="note-delete-btn">X</button>
-                </div>
-                <div class="note-body">
-                    <div class="note-content">내용</div>
-                <div class="note-footer">Added by <span class="note-writer"></span></div>  
-            </div>
-        `;
+      <div class="note-header">
+          <div class="note-icon"><img/></div>
+          <div class="note-title">제목</div>
+              <button class="note-delete-btn">X</button>
+          </div>
+          <div class="note-body">
+              <div class="note-content">내용</div>
+          <div class="note-footer">Added by <span class="note-writer"></span></div>  
+      </div>
+    `;
   }
 }

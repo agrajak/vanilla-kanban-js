@@ -1,23 +1,26 @@
-import Todo from 'Components/Todo/todo';
-import Column from 'Components/Column/column';
+/* eslint-disable no-restricted-syntax */
+import {
+  Header, Todo, Column, Note, Menu,
+} from 'Components';
+import { findColumnsByUserId, findNotesByColumnId } from '@/api';
 import '@/global.css';
-import Note from 'Components/Note/note';
 
-const body = document.querySelector('body');
+const root = document.getElementById('root');
+const header = new Header(root);
 const todo = new Todo();
-todo.mount(body);
+const menu = new Menu();
+header.mount(root);
+todo.mount(root);
+menu.mount(root);
 
-const helloColumn = new Column(todo, { title: 'hello' });
-helloColumn.addNote(new Note(helloColumn, { title: '하하', contents: '히히', writer: '호호' }));
-helloColumn.addNote(new Note(helloColumn, { title: '하하2', contents: '히히2', writer: '호호2' }));
-helloColumn.addNote(new Note(helloColumn, { title: '하하ㅊ', contents: '히히ㅊ', writer: '호호ㅊ' }));
-
-const helloColumn2 = new Column(todo, { title: 'hello2' });
-helloColumn2.addNote(new Note(helloColumn, { title: '하하3', contents: '히히3', writer: '호호3' }));
-helloColumn2.addNote(new Note(helloColumn, { title: '하하4', contents: '히히4', writer: '호호4' }));
-helloColumn2.addNote(new Note(helloColumn, { title: '하하4', contents: '히히4', writer: '호호4' }));
-helloColumn2.addNote(new Note(helloColumn, { title: '하하4', contents: '히히4', writer: '호호4' }));
-helloColumn2.addNote(new Note(helloColumn, { title: '하하4', contents: '히히4', writer: '호호4' }));
-
-todo.addColumn(helloColumn);
-todo.addColumn(helloColumn2);
+(async function loadTodos() {
+  const columns = await findColumnsByUserId('agrajak');
+  for (const { id, title, position } of columns) {
+    const column = new Column(todo, { id, title, position });
+    const notes = await findNotesByColumnId(id);
+    for (const note of notes) {
+      column.addNote(new Note(column, note));
+    }
+    todo.addColumn(column);
+  }
+}());

@@ -1,5 +1,5 @@
-import Modal from 'Components/Modal/modal';
-import 'Components/Modal/modal.css';
+import { Modal } from 'Components';
+import '../modal.css';
 
 export default class ColModal extends Modal {
   constructor() {
@@ -17,15 +17,17 @@ export default class ColModal extends Modal {
       .setBtnName('Update column');
 
     this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
-    this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
     this.$newTitle = this.$.querySelector('.new-title');
+
+    this.$newTitle.addEventListener('input', this.onInput.bind(this));
+    this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
   }
 
-  open() {
-    super.open();
+  open({ title }, callback) {
+    super.open(callback);
     this
-      .setNewTitle(this.$attach.title)
-      .setTitle(`Edit ${this.$attach.title}`);
+      .setNewTitle(title)
+      .setTitle(`Edit ${title}`);
     return this;
   }
 
@@ -34,9 +36,20 @@ export default class ColModal extends Modal {
     return this;
   }
 
-  submit() {
-    this
-      .$attach.setTitle(this.$newTitle.value);
+  onInput(event) {
+    const { value } = event.target;
+    if (value.length > 0 && value.length < 500) {
+      this.$modalSubmitBtn.disabled = false;
+      this.$modalSubmitBtn.classList.add('active');
+      return;
+    }
+    this.$modalSubmitBtn.classList.remove('active');
+    this.$modalSubmitBtn.disabled = true;
+  }
+
+  async submit() {
+    const { value } = this.$newTitle;
+    this.resolve({ value });
     this
       .close()
       .setNewTitle('');

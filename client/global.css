@@ -8,9 +8,15 @@
 html {
   height: 100%;
 }
+
 body {
   font: 19px "Lucida Grande", Helvetica, Arial, sans-serif;
   min-height: 100;
+}
+
+#root {
+  width: 100%;
+  height: auto;
 }
 
 a {
@@ -21,17 +27,16 @@ a {
   display: none
 }
 
-header {
-  background-color: black;
-  padding: 14px;
-  font-size: 1.3rem;
+.active {
+  background-color: rgb(62, 145, 247);
+  border: 2px solid rgb(62, 145, 247);
+  color: #ffffff;
+  border-radius: 2px;
 }
 
-header > div {
-  color: white;
-  display: inline;
-}
-
-header > div.menu-btn {
-  float:right;
+.cancel-btn {
+  background-color: #ffffff;
+  border: 2px solid #ff4d4f;
+  color: #ff4d4f;
+  border-radius: 2px;
 }

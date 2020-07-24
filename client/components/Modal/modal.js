@@ -1,4 +1,4 @@
-import Component from 'Components/component';
+import { Component } from 'Components';
 import './modal.css';
 
 export default class Modal extends Component {
@@ -13,7 +13,7 @@ export default class Modal extends Component {
     this.$modalCloseBtn.addEventListener('click', this.close.bind(this));
     this.close();
 
-    this.$attach = null;
+    this.callback = null;
   }
 
   mount(element) {
@@ -23,6 +23,15 @@ export default class Modal extends Component {
   setTitle(value) {
     this.$modalTitle.innerText = value;
     return this;
+  }
+
+  open(callback) {
+    super.open();
+    this.callback = callback;
+  }
+
+  resolve(values) {
+    this.callback(values);
   }
 
   setContent(value) {
@@ -35,11 +44,6 @@ export default class Modal extends Component {
     return this;
   }
 
-  attach(value) {
-    this.$attach = value;
-    return this;
-  }
-
   render() {
     return `
     <div class="modal-container">
@@ -49,7 +53,7 @@ export default class Modal extends Component {
         </div>
         <div class="modal-content"></div>
         <div class="modal-footer">
-            <button class="modal-submit-btn"></button>
+            <button class="modal-submit-btn active"></button>
         </div>
     </div>
     <div class="modal-bg"></div>

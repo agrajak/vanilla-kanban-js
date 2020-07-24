@@ -1,7 +1,17 @@
 .main-container {
     display: flex;
-    justify-content: flex-start;
-    flex-direction: row;
-    position: relative;
-    height: 80vh;
+    float: left;
+    height: calc(100vh - 7rem);
+    margin-top: 5rem;
+}
+
+.ghost {
+    position: absolute;
+    opacity: 0.5;
+    border: 2px solid lightskyblue;
+    pointer-events: none;
+}
+
+.sticker {
+    opacity: 0.5;
 }

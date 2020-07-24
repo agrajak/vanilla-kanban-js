@@ -1,6 +1,5 @@
-import Modal from 'Components/Modal/modal';
-import 'Components/Modal/modal.css';
-import { parseNoteText } from '@/utils';
+import { Modal } from 'Components';
+import '../modal.css';
 
 export default class NoteModal extends Modal {
   constructor() {
@@ -20,6 +19,7 @@ export default class NoteModal extends Modal {
 
     this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
     this.$newNote = this.$.querySelector('.new-note');
+    this.$newNote.addEventListener('input', this.onInput.bind(this));
 
     this.$modalSubmitBtn.addEventListener('click', this.submit.bind(this));
   }
@@ -29,18 +29,26 @@ export default class NoteModal extends Modal {
     return this;
   }
 
-  open() {
-    super.open();
-    const { title, content } = this.$attach;
+  open({ title, content }, callback) {
+    super.open(callback);
     this.setNewNote(`${title}\n${content}`);
     return this;
   }
 
-  submit() {
-    const { title, content } = parseNoteText(this.$newNote.value);
-    this.$attach
-      .setTitle(title)
-      .setContent(content);
+  onInput(event) {
+    const { value } = event.target;
+    if (value.length > 0 && value.length < 500) {
+      this.$modalSubmitBtn.disabled = false;
+      this.$modalSubmitBtn.classList.add('active');
+      return;
+    }
+    this.$modalSubmitBtn.classList.remove('active');
+    this.$modalSubmitBtn.disabled = true;
+  }
+
+  async submit() {
+    const text = this.$newNote.value;
+    this.resolve({ text });
     this
       .setNewNote('')
       .close();
