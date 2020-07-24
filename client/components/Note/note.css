@@ -1,3 +1,6 @@
+.note, .col {
+    cursor: move;
+}
 .note {
     border: 1px solid darkgray;
     border-radius: 0.6rem;
@@ -14,8 +17,8 @@
     display: flex;
 }
 .note-footer {
-    margin: 2px 0px;
-    font-size: 1rem;
+    margin: 0.6rem 0 0 0;
+    font-size: 0.9rem;
 }
 .note-delete-btn {
     border: none;
@@ -23,6 +26,7 @@
     margin-left: auto;
     outline: none;
     background-color: white;
+    cursor: pointer;
 }
 .selected:not(:hover){
     border: 1px solid darkgray;

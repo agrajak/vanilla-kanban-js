@@ -7,6 +7,7 @@
     overflow: scroll;
     padding: 1.5rem;
     margin: 1rem;
+    border-radius: 0.4rem;
 }
 
 .add-column-btn {
@@ -19,14 +20,22 @@
 .add-column-btn p {
     margin: 0.3rem;
 }
+
 .add-column-btn:hover {
     border: 1px solid black;
     transition: 1s;
+}
+.add-column-btn, .add-column-btn *{
+    cursor: pointer;
 }
 
 .col-header {
     display: flex;
     padding: 10px 0px;
+}
+
+.col-header * {
+    cursor: pointer;
 }
 
 .col-body { 
@@ -46,14 +55,15 @@
 }
 
 .note-counter {
-    margin: 0px .5rem;
+    margin: 0 .5rem;
+    padding: 2px 0 0 0;
     border-radius: 50%;
+    font-size: 0.9rem;
     width: 1.4rem;
     height: 1.4rem;
     text-align: center;
     vertical-align: center;
-    border: 1px solid grey;
-    background-color: grey;
+    background-color: rgb(62, 145, 247, 0.6);
     color: white;
 }
 

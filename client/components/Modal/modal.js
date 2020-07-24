@@ -53,7 +53,7 @@ export default class Modal extends Component {
         </div>
         <div class="modal-content"></div>
         <div class="modal-footer">
-            <button class="modal-submit-btn"></button>
+            <button class="modal-submit-btn active"></button>
         </div>
     </div>
     <div class="modal-bg"></div>

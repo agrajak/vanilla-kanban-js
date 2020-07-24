@@ -52,14 +52,15 @@ export default class EventController {
 
   onDragStart(event) {
     if (this.element) return this;
-    const { target, clientX, clientY } = event;
+    const {
+      target, clientX, clientY, pageX,
+    } = event;
     const { element = null, type } = selectDraggableNode(target); // 노트가 컬럼이 반환된다.
     if (element == null) return this;
     const { x, y } = element.getBoundingClientRect();
     this.selectNode(element, type);
-    this.hideNode();
-    this.ghost.disguise(element).attach(this.$).setOffset(clientX - x, clientY - y).hide();
-    this.sticker.disguise(element).attachBefore(element);
+    this.ghost.disguise(element).attach(this.$).setOffset(clientX - x + clientX - pageX, clientY - y).hide();
+    this.sticker.disguise(element);
 
     this.onMouseUp = this.onDrop.bind(this);
     this.onMouseMove = this.onDragOver.bind(this);
@@ -71,10 +72,14 @@ export default class EventController {
   }
 
   onDragOver(event) {
+    this.hideNode();
     const { target, clientX: x, clientY: y } = event;
     this.ghost.move(x, y).show();
     const { nodeContainer, offset } = this.getNodeContainerByType(target, x, y);
     if (!nodeContainer) return this;
+    if (!this.sticker.hasAttached()) {
+      this.sticker.attachBefore(this.element);
+    }
     this.sticker.show();
     this.moveSticker(nodeContainer, offset);
     return this;

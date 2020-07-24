@@ -5,10 +5,11 @@
   background-color: rgb(62, 145, 247); 
   color : #ffffff;
   font-size: 1.6rem;
-  padding: 1rem;
+  padding: 1rem 2rem ;
 }
 
 .menu-btn {
   margin-left: auto;
+  cursor: pointer;
 }
 
