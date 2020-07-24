@@ -2,6 +2,10 @@
   padding: 1rem;
 }
 
+.menu-header {
+  background-color: #eaeaea;
+}
+
 .menu {
   display: block;
   z-index:100;
@@ -13,21 +17,24 @@
   top:0;
   right:0;
   z-index: 5;
+  font-size: 16px;
   box-sizing: border-box;
   height: 100%;
   background-color: #ffffff;
   transition: 0.3s;
+  transition-timing-function: ease-out;
   display: flex;
   flex-direction: column;
   border-left: 1px solid black;
 }
 
 .open {
+  right: 0;
   width: 400px;
 }
 
 .close {
-  width: 0;
+  transform: translateX(2000px);
 }
 
 .menu-header {
@@ -45,6 +52,7 @@
   border: none;
   font-size: 1.2rem;
   outline: none;
+  cursor: pointer;
 }
 
 .activity {
@@ -59,8 +67,9 @@
   border-bottom: 1px solid black;
 }
 
-.log-created-at {
-  font-size: 1rem;
+.log-footer {
+  margin-top: 8px;
+  font-size: 0.8rem;
 }
 
 .highlight {
