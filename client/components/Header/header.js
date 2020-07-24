@@ -1,5 +1,7 @@
-import { Component } from 'Components';
+/* eslint-disable no-restricted-syntax */
+import { Component, Log } from 'Components';
 import './header.css';
+import { findLogsByUserId } from '@/api';
 
 export default class Header extends Component {
   constructor(parent) {
@@ -9,8 +11,21 @@ export default class Header extends Component {
     this.menuBtn.addEventListener('click', this.openMenu.bind(this));
   }
 
-  openMenu() {
-    this.parent.querySelector('.menu').classList.replace('close', 'open');
+  async openMenu() {
+    const logs = await findLogsByUserId('agrajak');
+    const $logList = this.parent.querySelector('.log-list');
+    $logList.innerHTML = '';
+    for (const {
+      id, ownerId, writerId, type, action, target, source, createdAt,
+    } of logs) {
+      const log = new Log(this, {
+        id, ownerId, writerId, type, action, target, source, createdAt,
+      });
+      log.mount($logList);
+    }
+
+    this.parent.querySelector('.menu-bg').classList.remove('hidden');
+    this.parent.querySelector('.menu-container').classList.replace('close', 'open');
   }
 
   render() {
