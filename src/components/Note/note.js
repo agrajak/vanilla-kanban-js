@@ -1,7 +1,6 @@
-import { Component } from 'Components';
-import { parseNoteText } from '@/utils';
-import { editNote } from '@/api';
-import './note.css';
+import { Component } from "Components";
+import { parseNoteText } from "@/utils";
+import "./note.css";
 
 export default class Note extends Component {
   /**
@@ -10,17 +9,20 @@ export default class Note extends Component {
    * @param {{title: string, content: string, writer: string} props
    */
   constructor(parent, props = {}) {
-    super(parent, props, 'note');
+    super(parent, props, "note");
 
-    this.$noteTitle = this.$.querySelector('.note-title');
-    this.$noteContent = this.$.querySelector('.note-content');
-    this.$noteWriter = this.$.querySelector('.note-writer');
-    this.$noteDeleteBtn = this.$.querySelector('.note-delete-btn');
+    this.$noteTitle = this.$.querySelector(".note-title");
+    this.$noteContent = this.$.querySelector(".note-content");
+    this.$noteWriter = this.$.querySelector(".note-writer");
+    this.$noteDeleteBtn = this.$.querySelector(".note-delete-btn");
 
     this.noteModal = this.getRootComponent().noteModal;
 
-    this.$.addEventListener('dblclick', this.onDblClick.bind(this));
-    this.$noteDeleteBtn.addEventListener('click', this.onNoteDeleteBtnClick.bind(this));
+    this.$.addEventListener("dblclick", this.onDblClick.bind(this));
+    this.$noteDeleteBtn.addEventListener(
+      "click",
+      this.onNoteDeleteBtnClick.bind(this)
+    );
 
     const { text } = this.props;
     if (text) {
@@ -28,26 +30,20 @@ export default class Note extends Component {
       this.props.title = result.title;
       this.props.content = result.content;
     }
-    const {
-      title, content, writerId,
-    } = this.props;
+    const { title, content, writerId } = this.props;
 
-    this
-      .setTitle(title)
-      .setContent(content)
-      .setWriter(writerId);
+    this.setTitle(title).setContent(content).setWriter(writerId);
   }
 
   onDblClick() {
     const { id } = this.props;
-    this.noteModal.open({ title: this.title, content: this.content }, ({ text }) => {
-      editNote(id, text).then(() => {
+    this.noteModal.open(
+      { title: this.title, content: this.content },
+      ({ text }) => {
         const { title, content } = parseNoteText(text);
-        this
-          .setTitle(title)
-          .setContent(content);
-      });
-    });
+        this.setTitle(title).setContent(content);
+      }
+    );
   }
 
   onNoteDeleteBtnClick() {
@@ -79,7 +75,7 @@ export default class Note extends Component {
   }
 
   isVisible() {
-    return !this.$.classList.contains('hidden');
+    return !this.$.classList.contains("hidden");
   }
 
   mount(element) {

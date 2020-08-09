@@ -1,8 +1,5 @@
-import { Component, NoteForm, Note } from 'Components';
-import './column.css';
-import {
-  deleteNote, createNote, updateColumnTitle, deleteColumn,
-} from '@/api';
+import { Component, NoteForm, Note } from "Components";
+import "./column.css";
 
 export default class Column extends Component {
   /**
@@ -10,23 +7,29 @@ export default class Column extends Component {
    * @param {{title: string}} props
    */
   constructor(parent, props) {
-    super(parent, props, 'col');
+    super(parent, props, "col");
 
     const { title } = this.props;
 
-    this.$colTitle = this.$.querySelector('.col-title');
-    this.$colBody = this.$.querySelector('.col-body');
-    this.$noteFormBtn = this.$.querySelector('.note-plus-btn');
-    this.$removeBtn = this.$.querySelector('.col-delete-btn');
-    this.$counter = this.$.querySelector('.note-counter');
+    this.$colTitle = this.$.querySelector(".col-title");
+    this.$colBody = this.$.querySelector(".col-body");
+    this.$noteFormBtn = this.$.querySelector(".note-plus-btn");
+    this.$removeBtn = this.$.querySelector(".col-delete-btn");
+    this.$counter = this.$.querySelector(".note-counter");
     this.notes = [];
 
     this.setTitle(title);
     this.noteForm = new NoteForm(this);
 
-    this.$removeBtn.addEventListener('click', this.removeCol.bind(this));
-    this.$noteFormBtn.addEventListener('click', this.onNoteFormAddBtnClick.bind(this));
-    this.$colTitle.addEventListener('dblclick', this.onColEditBtnClick.bind(this));
+    this.$removeBtn.addEventListener("click", this.removeCol.bind(this));
+    this.$noteFormBtn.addEventListener(
+      "click",
+      this.onNoteFormAddBtnClick.bind(this)
+    );
+    this.$colTitle.addEventListener(
+      "dblclick",
+      this.onColEditBtnClick.bind(this)
+    );
   }
 
   updateCounter() {
@@ -37,10 +40,7 @@ export default class Column extends Component {
     const { id } = this.props;
     this.noteForm.open((values) => {
       const { text } = values;
-      createNote(id, text)
-        .then((noteObj) => {
-          this.prependNote(new Note(this, noteObj));
-        });
+      this.prependNote(new Note(this, { id: +new Date(), text }));
     });
   }
 
@@ -58,11 +58,8 @@ export default class Column extends Component {
   }
 
   removeCol() {
-    const { id } = this.props;
     this.parent.confirmModal.open(() => {
-      deleteColumn(id).then(() => {
-        this.parent.$.removeChild(this.$);
-      });
+      this.parent.$.removeChild(this.$);
     });
   }
 
@@ -87,10 +84,7 @@ export default class Column extends Component {
   onColEditBtnClick() {
     const { title } = this;
     this.parent.columnModal.open({ title }, ({ value }) => {
-      const { id } = this.props;
-      updateColumnTitle(id, value).then(() => {
-        this.setTitle(value);
-      });
+      this.setTitle(value);
     });
   }
 
@@ -98,10 +92,7 @@ export default class Column extends Component {
     return this.notes.find((x) => x.props.id === id);
   }
 
-  async removeNote(note, onlyDOM = false) {
-    if (!onlyDOM) {
-      await deleteNote(note.props.id);
-    }
+  removeNote(note) {
     const { $ } = note;
     this.notes = this.notes.filter((x) => x !== note);
     this.$colBody.removeChild($);
