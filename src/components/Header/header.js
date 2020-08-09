@@ -12,9 +12,6 @@ export default class Header extends Component {
             <div class="title">
                 TODO 서비스
             </div>
-            <div class="menu-btn">
-              &#9776; Menu
-            </div>
         `;
   }
 }

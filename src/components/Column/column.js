@@ -40,7 +40,13 @@ export default class Column extends Component {
     const { id } = this.props;
     this.noteForm.open((values) => {
       const { text } = values;
-      this.prependNote(new Note(this, { id: +new Date(), text }));
+      this.prependNote(
+        new Note(this, {
+          id: +new Date(),
+          text,
+          writerId: "agrajak",
+        })
+      );
     });
   }
 

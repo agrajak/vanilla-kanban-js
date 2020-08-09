@@ -1,16 +1,16 @@
-import { Component } from 'Components';
-import './modal.css';
+import { Component } from "Components";
+import "./modal.css";
 
 export default class Modal extends Component {
   constructor(parent, props) {
-    super(parent, props, 'modal');
+    super(parent, props, "modal");
 
-    this.$modalTitle = this.$.querySelector('.modal-title');
-    this.$modalContent = this.$.querySelector('.modal-content');
-    this.$modalSubmitBtn = this.$.querySelector('.modal-submit-btn');
+    this.$modalTitle = this.$.querySelector(".modal-title");
+    this.$modalContent = this.$.querySelector(".modal-content");
+    this.$modalSubmitBtn = this.$.querySelector(".modal-submit-btn");
 
-    this.$modalCloseBtn = this.$.querySelector('.modal-closer');
-    this.$modalCloseBtn.addEventListener('click', this.close.bind(this));
+    this.$modalCloseBtn = this.$.querySelector(".modal-closer");
+    this.$modalCloseBtn.addEventListener("click", this.close.bind(this));
     this.close();
 
     this.callback = null;
