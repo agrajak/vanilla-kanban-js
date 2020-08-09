@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-user-select: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  font: 19px "Lucida Grande", Helvetica, Arial, sans-serif;
+  min-height: 100;
+}
+
+#root {
+  width: 100%;
+  height: auto;
+}
+
+a {
+  color: #00b7ff;
+}
+
+.hidden {
+  display: none;
+}
+
+.active {
+  background-color: rgb(62, 145, 247);
+  border: 2px solid rgb(62, 145, 247);
+  color: #ffffff;
+  border-radius: 2px;
+}
+
+.cancel-btn {
+  background-color: #ffffff;
+  border: 2px solid #ff4d4f;
+  color: #ff4d4f;
+  border-radius: 2px;
+}
