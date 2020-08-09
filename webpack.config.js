@@ -9,6 +9,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "src/public"),
     filename: "bundle.js",
+    publicPath: ".",
   },
   resolve: {
     alias: {
